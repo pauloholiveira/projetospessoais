@@ -1,0 +1,49 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:a4j="http://richfaces.org/a4j">
+	<h:head>
+		<h:title><ui:insert name="title"> Template </ui:insert> - Controle Loja | Powered by PHO</h:title>
+	</h:head>
+	<h:body>
+		<f:view>
+				<h:panelGroup layout="block" id="main_container">	
+					<h:panelGroup layout="block">
+				    	<h:panelGroup layout="block">
+				    		<h:outputLink value="#"><h:graphicImage library="images" name="logo.png"/></h:outputLink>
+				    	</h:panelGroup>			    
+				    	<h:form>
+					    	<h:panelGroup layout="block"><h:outputText value="Welcome, #{LogOutMB.getLogged()}"/>
+					    		<h:commandLink id="logout" action="#{LogOutMB.logout}" rendered="true"><h:outputText value="Logout"/></h:commandLink>
+					    	</h:panelGroup>
+				    	</h:form>
+				    	<h:panelGroup layout="block" id="clock_a"><ui:insert name="clock"></ui:insert></h:panelGroup>
+				    </h:panelGroup>
+				    <h:panelGroup layout="block">
+	                    <h:panelGroup layout="block">
+	                    	<ui:insert name="menu"></ui:insert>                    	
+	                    </h:panelGroup>
+	                    <h:panelGroup layout="block">
+				    		<ui:insert name="conteudo_titulo">
+								TITULO DO CONTEUD
+							</ui:insert>
+					  	</h:panelGroup>
+				    	<h:panelGroup layout="block">
+				    		<ui:insert name="conteudo_central">
+								CORPO DA PAGINA
+							</ui:insert>
+					  	</h:panelGroup>   <!--end of center content -->			                    
+				  		<h:panelGroup layout="block"></h:panelGroup>
+				    </h:panelGroup> <!--end of main content-->
+				    <h:panelGroup layout="block" >
+				    	<h:panelGroup layout="block">VET ATENDE ADMIN | Powered by <h:outputLink value="http://www.google.com.br"> PHO </h:outputLink></h:panelGroup>
+				    	<h:panelGroup layout="block"></h:panelGroup>
+				    </h:panelGroup>
+				</h:panelGroup>
+		</f:view>
+	</h:body>
+</html>

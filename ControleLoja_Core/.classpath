@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
+	<classpathentry kind="con" path="org.eclipse.jst.server.core.container/org.jboss.ide.eclipse.as.core.server.runtime.runtimeTarget/JBoss 7.1 Runtime"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/ControleLoja_Persistence"/>
+	<classpathentry kind="lib" path="/ControleLoja_Persistence/lib/commons-logging-1.1.1.jar"/>
+	<classpathentry kind="lib" path="/ControleLoja_Persistence/lib/spring-aop-4.0.6.RELEASE.jar"/>
+	<classpathentry kind="lib" path="/ControleLoja_Persistence/lib/spring-beans-4.0.6.RELEASE.jar"/>
+	<classpathentry kind="lib" path="/ControleLoja_Persistence/lib/spring-context-4.0.6.RELEASE.jar"/>
+	<classpathentry kind="lib" path="/ControleLoja_Persistence/lib/spring-core-4.0.6.RELEASE.jar"/>
+	<classpathentry kind="lib" path="/ControleLoja_Persistence/lib/spring-expression-4.0.6.RELEASE.jar"/>
+	<classpathentry kind="lib" path="/ControleLoja_Persistence/lib/spring-jdbc-4.0.6.RELEASE.jar"/>
+	<classpathentry kind="lib" path="/ControleLoja_Persistence/lib/spring-jms-4.0.6.RELEASE.jar"/>
+	<classpathentry kind="lib" path="/ControleLoja_Persistence/lib/spring-orm-4.0.6.RELEASE.jar"/>
+	<classpathentry kind="lib" path="/ControleLoja_Persistence/lib/spring-oxm-4.0.6.RELEASE.jar"/>
+	<classpathentry kind="lib" path="/ControleLoja_Persistence/lib/spring-tx-4.0.6.RELEASE.jar"/>
+	<classpathentry kind="lib" path="/ControleLoja_Persistence/lib/spring-web-4.0.6.RELEASE.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/ControleLoja_Models"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

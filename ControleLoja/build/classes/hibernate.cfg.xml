@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd" >
+<hibernate-configuration>
+ <session-factory>
+  <mapping class="br.com.oliveira.controleloja.datamodels.Cidade"/>
+  <mapping class="br.com.oliveira.controleloja.datamodels.Cliente"/>
+  <mapping class="br.com.oliveira.controleloja.datamodels.ClienteStatus"/>
+  <mapping class="br.com.oliveira.controleloja.datamodels.Compra"/>
+  <mapping class="br.com.oliveira.controleloja.datamodels.CompraStatus"/>
+  <mapping class="br.com.oliveira.controleloja.datamodels.Documento"/>
+  <mapping class="br.com.oliveira.controleloja.datamodels.Estado"/>
+  <mapping class="br.com.oliveira.controleloja.datamodels.EstoqueFluxo"/>
+  <mapping class="br.com.oliveira.controleloja.datamodels.EstoqueOperacao"/>
+  <mapping class="br.com.oliveira.controleloja.datamodels.FormasPagamento"/>
+  <mapping class="br.com.oliveira.controleloja.datamodels.Fornecedor"/>
+  <mapping class="br.com.oliveira.controleloja.datamodels.FornecedorStatus"/>
+  <mapping class="br.com.oliveira.controleloja.datamodels.Pais"/>
+  <mapping class="br.com.oliveira.controleloja.datamodels.Produto"/>
+  <mapping class="br.com.oliveira.controleloja.datamodels.ProdutosCategoria"/>
+  <mapping class="br.com.oliveira.controleloja.datamodels.ProdutosSubcategoria"/>
+  <mapping class="br.com.oliveira.controleloja.datamodels.ProdutoStatus"/>
+  <mapping class="br.com.oliveira.controleloja.datamodels.RolesUser"/>
+  <mapping class="br.com.oliveira.controleloja.datamodels.RolesUserPK"/>
+  <mapping class="br.com.oliveira.controleloja.datamodels.User"/>
+  <mapping class="br.com.oliveira.controleloja.datamodels.Venda"/>
+  <mapping class="br.com.oliveira.controleloja.datamodels.VendaStatus"/>
+ </session-factory>
+</hibernate-configuration>

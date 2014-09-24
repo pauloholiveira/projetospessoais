@@ -1,0 +1,63 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+      
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      template="/WEB-INF/templates/default-with-menu.xhtml">
+	<ui:define name="title"> HOME </ui:define>
+	<ui:define name="conteudo_titulo">
+		<h1><h:outputText value="Seja Bem-Vindo ao Controle Loja"/></h1>
+	</ui:define>
+	<ui:define name="conteudo_central">
+		<h:panelGroup layout="block">
+			<p><h:outputText value="O Vet-Atende é uma completa solução para a gestão de sua clínica veterinária e foi concebido para permitir um controle completo das operações diárias de sua clínica de forma rápida, fácil e robusta. Através de seus diferentes módulos (Controle de Atendimentos e Cirurgias, Vendas, Estoque, Agendamentos de Consultas e Financeiro, o Vet-Atende oferece uma gestão completa de sua clínica em um único lugar, tudo do seu navegador." styleClass="description_text" /></p>
+			<p><h:outputText value="Esteja sempre perto de seus clientes com o envio automático de e-mail de confirmação de agendamento, de disponibilidade de produtos e medicamentos e lembretes consultas e retornos." styleClass="description_text" /></p>
+		</h:panelGroup>
+	</ui:define>
+</ui:composition>
+<!-- <html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:a4j="http://richfaces.org/a4j">
+	<h:head>
+		<h:title>Template - Controle Loja | Powered by PHO</h:title>
+	</h:head>
+	<h:body>
+		<f:view>
+				<h:panelGroup layout="block" id="main_container">	
+					<h:panelGroup layout="block">
+				    	<h:panelGroup layout="block">
+				    		<h:outputLink value="#"><h:graphicImage library="images" name="logo.png"/></h:outputLink>
+				    	</h:panelGroup>			    
+				    	<h:form>
+					    	<h:panelGroup layout="block"><h:outputText value="Welcome, #{LogOutMB.getLogged()}"/>
+					    		<h:commandLink id="logout" action="#{LogOutMB.logout}" rendered="true"><h:outputText value="Logout"/></h:commandLink>
+					    	</h:panelGroup>
+				    	</h:form>
+				    	<h:panelGroup layout="block" id="clock_a">Clock</h:panelGroup>
+				    </h:panelGroup>
+				    <h:panelGroup layout="block">
+	                    <h:panelGroup layout="block">
+	                    	<ui:include src="menu.xhtml"/>                    	
+	                    </h:panelGroup>
+	                    
+		                <a4j:outputPanel id="teste">
+		                   <ui:include src="#{MenuMB.caminho}"></ui:include>
+						</a4j:outputPanel>
+						
+				  		<h:panelGroup layout="block"></h:panelGroup>
+				    </h:panelGroup>
+				    <h:panelGroup layout="block" >
+				    	<h:panelGroup layout="block">CONTROLE LOJA ADMIN | Powered by <h:outputLink value="http://www.google.com.br"> PHO </h:outputLink></h:panelGroup>
+				    	<h:panelGroup layout="block"></h:panelGroup>
+				    </h:panelGroup>
+				</h:panelGroup>
+		</f:view>
+	</h:body>
+</html> -->

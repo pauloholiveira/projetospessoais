@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:a4j="http://richfaces.org/a4j"
+                template="/WEB-INF/templates/default-with-menu.xhtml">
+	<ui:define name="title"> Cadastro Clientes </ui:define>
+	<ui:define name="conteudo_titulo">
+		<h1><h:outputText value="Cadastro Clientes" styleClass="title_text"/></h1>
+	</ui:define>
+	<ui:define name="conteudo_central">
+		<h:panelGroup layout="block" id="container_form">
+			<h:form prependId="false">
+				<h:outputScript library="js" name="jquery.maskedinput-1.2.1.js" target="head"/>
+				<h:panelGrid columns="4">
+					<h:outputLabel for="txt_nome_completo">Nome Completo: </h:outputLabel>
+					<h:inputText id="txt_nome_completo" value="#{CadastroClienteMB.cliente.nome}" requiredMessage="Nome é Obrigatório">
+						<f:validateRequired />
+						<f:validateLength minimum="3" maximum="500" />
+	                    <rich:validator />
+					</h:inputText>
+					<rich:message for="txt_nome_completo"/>
+					<h:outputText/>
+					
+					<h:outputLabel for="txt_apelido">Apelido: </h:outputLabel>
+					<h:inputText id="txt_apelido" value="#{CadastroClienteMB.cliente.apelido}"></h:inputText>
+					<rich:message for="txt_apelido"/>
+					<h:outputText/>
+					
+					<h:outputLabel for="sel_tipo_cliente">Tipo Cliente:</h:outputLabel>
+					<h:selectOneRadio id="sel_tipo_cliente" value="#{CadastroClienteMB.tipo}" valueChangeListener="#{CadastroClienteMB.mudarTipoCliente}">
+						<f:selectItem itemValue="CPF:" itemLabel="Pessoa Fisica"></f:selectItem>
+						<f:selectItem itemValue="CNPJ:" itemLabel="Empresa"> </f:selectItem>
+						<f:ajax event="valueChange" render="container_documentos"/>
+					</h:selectOneRadio>
+					<rich:message for="sel_tipo_cliente"/>
+					<h:outputText/>
+					
+					<h:panelGroup layout="block" id="container_documentos">
+						<h:panelGroup layout="block" id="container_cpf" rendered="#{CadastroClienteMB.renderCPF}">
+							<h:outputLabel id="label_cpf" for="txt_cpf" value="CPF:"/>
+							<h:inputText id="txt_cpf" value="#{CadastroClienteMB.cpf}" requiredMessage="CPF é Obrigatório">
+								<f:validateRequired for="txt_cpf"/>
+								<f:validateLength minimum="14" maximum="14"/>
+								<rich:validator />
+							</h:inputText>
+							<rich:message for="txt_cpf"/>
+							<rich:jQuery selector="#txt_cpf" query="mask('999.999.999-99')" timing="domready" />
+						</h:panelGroup>
+						
+						<h:panelGroup layout="block" id="container_cnpj" rendered="#{CadastroClienteMB.renderCNPJ}">
+							<h:outputLabel id="label_cnpj" for="txt_cnpj" value="CNPJ:"/>
+							<h:inputText id="txt_cnpj" value="#{CadastroClienteMB.cnpj}" requiredMessage="CNPJ é Obrigatório">
+								<f:validateRequired for="txt_cnpj"/>
+								<f:validateLength minimum="18" maximum="18"/>
+								<rich:validator />
+							</h:inputText>
+							<rich:message for="txt_cnpj"/>
+							<rich:jQuery selector="#txt_cnpj" query="mask('99.999.999/9999-99')" timing="domready" />
+						</h:panelGroup>
+					</h:panelGroup>
+					
+					<h:outputLabel for="txt_rg">RG: </h:outputLabel>
+					<h:inputText id="txt_rg" value="#{CadastroClienteMB.cliente.rg}"></h:inputText>
+					<rich:message for="txt_rg"/>
+					<rich:jQuery selector="#txt_rg" query="mask('99.999.999-9')" timing="domready" />
+					
+					<h:outputLabel for="txt_logradouro">Logradouro: </h:outputLabel>
+					<h:inputText id="txt_logradouro" value="#{CadastroClienteMB.cliente.logradouro}"></h:inputText>
+					<rich:message for="txt_logradouro"/>
+					<h:outputText/>
+					
+					<h:outputLabel for="txt_bairro">Bairro: </h:outputLabel>
+					<h:inputText id="txt_bairro" value="#{CadastroClienteMB.cliente.bairro}"></h:inputText>
+					<rich:message for="txt_bairro"/>
+					<h:outputText/>
+					
+					<h:outputLabel for="list_estado">Estado: </h:outputLabel>
+					<h:selectOneListbox id="list_estado" size="1" valueChangeListener="#{CadastroClienteMB.prencherLista_cidades}" value="#{CadastroClienteMB.selectedestado}" converter="simpleIndexConverter" required="true" requiredMessage="Selecione um Estado">
+						<f:selectItem itemLabel="" noSelectionOption="true" />
+						<f:selectItems value="#{CadastroClienteMB.lista_estados}" var="estados" itemValue="#{estados}" itemLabel="#{estados.descricao}"/>
+						<f:ajax event="change" render="list_cidade"/>
+					</h:selectOneListbox>
+					<a4j:status errorText="Erro ao tentar obter cidades" startText="Aguarde..." startStyle="color:red;"/>
+					<h:outputText/>
+					
+					<h:outputLabel for="list_cidade">Cidade: </h:outputLabel>
+					<rich:select enableManualInput="true" id="list_cidade" size="1" value="#{CadastroClienteMB.cliente.cidade}" converter="simpleIndexConverter">
+						<f:selectItems value="#{CadastroClienteMB.lista_cidades}" var="cidades" itemValue="#{cidades}" itemLabel="#{cidades.descricao}"/>
+					</rich:select>
+					<rich:message for="list_estado"/>
+					<h:outputText/>
+					
+					<h:outputLabel for="txt_tel_fixo">Telefone Fixo: </h:outputLabel>
+					<h:inputText id="txt_tel_fixo" value="#{CadastroClienteMB.cliente.telefoneFixo}">
+					</h:inputText>
+					<rich:message for="txt_tel_fixo"/>
+					<rich:jQuery selector="#txt_tel_fixo" query="mask('(99) 9999-9999')" timing="domready" />
+					
+					<h:outputLabel for="txt_tel_celular">Telefone Celular: </h:outputLabel>
+					<h:inputText id="txt_tel_celular" value="#{CadastroClienteMB.cliente.telefoneCelular}" converterMessage="Este campo só aceita Números.">
+						<f:convertNumber integerOnly="true"/>						
+						<rich:validator />	
+					</h:inputText>
+					<rich:message for="txt_tel_celular"/>
+					<rich:jQuery selector="#txt_tel_celular" query="mask('(99) 9999-9999')" timing="domready" />
+					
+					<h:outputLabel for="txt_tel_comercial">Telefone Comercial: </h:outputLabel>
+					<h:inputText id="txt_tel_comercial" value="#{CadastroClienteMB.cliente.telefoneComercial}" converterMessage="Este campo só aceita Números.">
+						<f:convertNumber integerOnly="true" />						
+						<rich:validator />
+					</h:inputText>
+					<rich:message for="txt_tel_comercial"/>
+					<rich:jQuery selector="#txt_tel_comercial" query="mask('(99) 9999-9999')" timing="domready" />
+					
+					<h:outputLabel for="date_data_nascimento">Data Nascimento: </h:outputLabel>
+					<rich:calendar id="date_data_nascimento"  currentDate="01/01/1984" datePattern="dd/MM/yyyy" enableManualInput="true" value="#{CadastroClienteMB.cliente.dataNascimento}"></rich:calendar>
+					<rich:message for="date_data_nascimento"/>
+					<rich:jQuery selector="#date_data_nascimentoInputDate" query="mask('99/99/9999')" timing="domready" />
+					
+					<h:commandButton action="#{CadastroClienteMB.clear}" value="Limpar"/>
+					<h:commandButton action="#{CadastroClienteMB.gravar}" value="Enviar"/>
+				</h:panelGrid>
+			</h:form>
+		</h:panelGroup>
+	</ui:define>
+</ui:composition>

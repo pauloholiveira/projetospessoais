@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:rich="http://richfaces.org/rich">
+    
+	<h:form>
+		<rich:toolbar height="26px">
+		<h:commandButton value="Home" id="command_home" action="/index.jsf"/>
+		<!-- submitMode="ajax"	render="teste" -->
+		<rich:dropDownMenu	label="Cadastros"		id="list_cadastros">
+    		<rich:menuItem		label="Clientes"		id="sub_cad_clientes"			action="#{MenuMB.doAction}">
+    			<f:param name="teste1" value="Cadastro_Clientes"></f:param>
+     		</rich:menuItem>
+     		<rich:menuItem	  label="Produtos"		id="sub_cad_prods" 				action="#{MenuMB.doAction}">
+    			<f:param name="teste1" value="Cadastro_Produtos"></f:param>
+    		</rich:menuItem>
+    		<rich:menuItem	 	label="Funcionários"	id="sub_cad_funcs" 				action="#{MenuMB.doAction}">
+    			<f:param name="teste1" value="Cadastro_Funcionarios"></f:param>
+    		</rich:menuItem>
+    		<rich:menuItem	 	label="Fornecedores"	id="sub_cad_fornecs"			action="#{MenuMB.doAction}">
+    			<f:param name="teste1" value="Cadastro_Forncedores"></f:param>
+    		</rich:menuItem>
+    	</rich:dropDownMenu>
+    	 
+    	<rich:dropDownMenu 	label="Transacoes"		id="list_transacoes">
+    		<rich:menuItem 	 	label="Nova Venda"		id="sub_nova_venda" 			action="#{MenuMB.doAction}">
+    			<f:param name="teste1" value="Nova_Venda"></f:param>
+    		</rich:menuItem>
+    		<rich:menuItem 	 	label="Nova Compra"		id="sub_nova_compra" 			action="#{MenuMB.doAction}">
+    			<f:param name="teste1" value="Nova_Compra"></f:param>
+    		</rich:menuItem>
+    	</rich:dropDownMenu>
+    	
+    	<rich:dropDownMenu 	label="Consultas"		id="list_consultas">
+    		<rich:menuItem 	 	label="Vendas"			id="sub_consulta_venda" 		action="#{MenuMB.doAction}">
+    			<f:param name="teste1" value="Consultas_Vendas"></f:param>
+    		</rich:menuItem>
+    		<rich:menuItem 	 	label="Compras"			id="sub_consulta_compra" 		action="#{MenuMB.doAction}">
+    			<f:param name="teste1" value="Consulta_Compras"></f:param>
+    		</rich:menuItem>
+    		<rich:menuItem 	 	label="Estoque"			id="sub_consulta_estoque" 		action="#{MenuMB.doAction}">
+    			<f:param name="teste1" value="Consultas_Estoque"></f:param>
+    		</rich:menuItem>
+    		<rich:menuItem 	 	label="Financeiro"		id="sub_consulta_financeiro" 	action="#{MenuMB.doAction}">
+    			<f:param name="teste1" value="Consultas_Financeiro"></f:param>
+    		</rich:menuItem>
+    	</rich:dropDownMenu>
+    	
+    	<rich:dropDownMenu 		label="Relatórios" 		id="list_relatorios">
+    		<rich:menuItem 		label="Financeiros" 	id="sub_relat_financeiro" 		action="#{MenuMB.doAction}">
+    			<f:param name="teste1" value="Relatorios_Financeiros"></f:param>
+    		</rich:menuItem>
+    		<rich:menuItem 		label="Estoques" 		id="sub_relat_estoques" 		action="#{MenuMB.doAction}">
+    			<f:param name="teste1" value="Relatorios_Estoques"></f:param>
+    		</rich:menuItem>
+    		<rich:menuItem 		label="Vendas/Compras"	id="sub_relat_vendas_compras" 	action="#{MenuMB.doAction}">
+    			<f:param name="teste1" value="Relatorios_Vendas_Compras"></f:param>
+    		</rich:menuItem>
+    	</rich:dropDownMenu>
+    	
+    	<rich:dropDownMenu 		label="Configurações" 	id="list_config">
+			<rich:menuItem  	label="Usuarios" 		id="sub_config_users" 			action="#{MenuMB.doAction}">
+				<f:param name="teste1" value="Configuracoes_Usuarios"></f:param>
+			</rich:menuItem>
+			<rich:menuItem 		label="Preferências" 	id="sub_config_prefers" 		action="#{MenuMB.doAction}">
+				<f:param name="teste1" value="Configuracoes_Preferencias"></f:param>
+			</rich:menuItem>
+		</rich:dropDownMenu>
+		
+		<h:commandButton value="Ajuda" id="command_help" action="/Help.jsf"/>
+	</rich:toolbar>
+	</h:form>
+</ui:composition>

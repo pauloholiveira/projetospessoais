@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xmlns:jee="http://www.springframework.org/schema/jee"
+	xmlns:lang="http://www.springframework.org/schema/lang"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+		http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-4.0.xsd
+		http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-4.0.xsd
+		http://www.springframework.org/schema/lang http://www.springframework.org/schema/lang/spring-lang-4.0.xsd
+		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-4.0.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.0.xsd">
+
+	<!-- Inicializa os beans com anotacoes: @Component, @Service e @Controller -->
+    <context:component-scan base-package="br.com.oliveira.controleloja" />
+
+    <!-- Processa as anotacoes: @Scope, @Autowired, @Required e @PersistenceContext-->
+    <context:annotation-config />
+    
+    <tx:annotation-driven transaction-manager="txManager" /> 
+    
+	<!-- Carrega propriedades do arquivo 'database.properties' -->
+    <context:property-placeholder location="/WEB-INF/database.properties" />
+    
+	<bean id="txManager"
+		class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+
+	<!-- Gerenciador de transacoes Spring baseado em Hibernate -->
+	<bean id="HibernateCidadeDAO"
+		class="br.com.oliveira.controleloja.DAO.impl.HibernateCidadeDAO">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+    
+    <bean id="HibernateClienteDAO"
+		class="br.com.oliveira.controleloja.DAO.impl.HibernateClienteDAO">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+    
+    <bean id="HibernateClienteStatusDAO"
+		class="br.com.oliveira.controleloja.DAO.impl.HibernateClienteStatusDAO">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+    
+    <bean id="HibernateCompraDAO"
+		class="br.com.oliveira.controleloja.DAO.impl.HibernateCompraDAO">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+    
+    <bean id="HibernateCompraStatusDAO"
+		class="br.com.oliveira.controleloja.DAO.impl.HibernateCompraStatusDAO">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+    
+    <bean id="HibernateDocumentoDAO"
+		class="br.com.oliveira.controleloja.DAO.impl.HibernateDocumentoDAO">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+    
+    <bean id="HibernateEstadoDAO"
+		class="br.com.oliveira.controleloja.DAO.impl.HibernateEstadoDAO">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+    
+    <bean id="HibernateEstoqueFluxoDAO"
+		class="br.com.oliveira.controleloja.DAO.impl.HibernateEstoqueFluxoDAO">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+    
+    <bean id="HibernateEstoqueOperacaoDAO"
+		class="br.com.oliveira.controleloja.DAO.impl.HibernateEstoqueOperacaoDAO">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+    
+    <bean id="HibernateFormasPagamentoDAO"
+		class="br.com.oliveira.controleloja.DAO.impl.HibernateFormasPagamentoDAO">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+    
+    <bean id="HibernateFornecedorDAO"
+		class="br.com.oliveira.controleloja.DAO.impl.HibernateFornecedorDAO">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+    
+    <bean id="HibernateFornecedorStatusDAO"
+		class="br.com.oliveira.controleloja.DAO.impl.HibernateFornecedorStatusDAO">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+    
+    <bean id="HibernatePaisDAO"
+		class="br.com.oliveira.controleloja.DAO.impl.HibernatePaisDAO">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+    
+    <bean id="HibernateProdutoDAO"
+		class="br.com.oliveira.controleloja.DAO.impl.HibernateProdutoDAO">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+    
+    <bean id="HibernateProdutosCategoriaDAO"
+		class="br.com.oliveira.controleloja.DAO.impl.HibernateProdutosCategoriaDAO">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+    
+    <bean id="HibernateProdutosSubcategoriaDAO"
+		class="br.com.oliveira.controleloja.DAO.impl.HibernateProdutosSubcategoriaDAO">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>    
+    
+    <bean id="HibernateProdutoStatusDAO"
+		class="br.com.oliveira.controleloja.DAO.impl.HibernateProdutoStatusDAO">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+    
+    <bean id="HibernateRolesUserDAO"
+		class="br.com.oliveira.controleloja.DAO.impl.HibernateRolesUserDAO">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+    
+    <bean id="HibernateUserDAO"
+		class="br.com.oliveira.controleloja.DAO.impl.HibernateUserDAO">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+    
+    <bean id="HibernateVendaDAO"
+		class="br.com.oliveira.controleloja.DAO.impl.HibernateVendaDAO">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+    
+    <bean id="HibernateVendaStatusDAO"
+		class="br.com.oliveira.controleloja.DAO.impl.HibernateVendaStatusDAO">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+    
+	<!-- Fabrica de sessoes Hibernate -->
+    <bean id="sessionFactory"
+          class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+        <property name="dataSource" ref="ControleLojaDS" />
+        <!-- <property name="configurationClass" value="org.hibernate.cfg.AnnotationConfiguration" /> -->
+        <property name="configLocation" value="classpath:hibernate.cfg.xml" />
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.dialect">${hibernate.dialect}</prop>
+                <prop key="hibernate.show_sql">${hibernate.show.sql}</prop>
+                <prop key="hibernate.generate_statistics">${hibernate.generate.statistics}</prop>
+                <prop key="hibernate.validator.autoregister_listeners">${hibernate.validator.autoregister_listeners}</prop>
+                <prop key="hibernate.search.autoregister_listeners">${hibernate.search.autoregister_listeners}</prop>
+                <prop key="hibernate.validator.apply_to_ddl">${hibernate.validator.apply_to_ddl}</prop>
+            </props>
+        </property>
+    </bean>
+    
+    <!-- Datasource JDBC para o banco de dados -->
+    <bean id="ControleLojaDS"
+          class="org.apache.commons.dbcp.BasicDataSource"
+          destroy-method="close">
+        <property name="driverClassName" value="${db.driverClassName}" />
+        <property name="url" value="${db.url}" />
+        <property name="username" value="${db.username}" />
+        <property name="password" value="${db.password}" />
+    </bean>
+    
+     <!-- View scope -->
+    <bean class="org.springframework.beans.factory.config.CustomScopeConfigurer">
+        <property name="scopes">
+            <map>
+                <entry key="view">
+                    <bean class="br.com.oliveira.controleloja.customscopes.ViewScope"/>
+                </entry>
+            </map>
+        </property>
+    </bean>
+</beans>
