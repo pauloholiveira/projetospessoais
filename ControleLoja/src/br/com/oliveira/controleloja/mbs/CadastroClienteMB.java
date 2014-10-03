@@ -109,11 +109,13 @@ public class CadastroClienteMB {
 		
 		cliente.setDataCadastro(data_cadastro);
 		ClienteStatus status = new ClienteStatus();
-		status.setId(1);
+		status.setId(1); //Gerar arquivo de constantes
 		cliente.setClienteStatus(status);
 		
 		Documento documento= new Documento();
-		documento.setTipo(tipo.replace(":", ""));
+		this.setTipo(tipo.replace(":", ""));
+		
+		documento.setTipo(tipo);
 		
 		if(tipo.equals("CPF")){
 			documento.setValor(this.cpf);		

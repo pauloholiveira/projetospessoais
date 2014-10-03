@@ -54,7 +54,8 @@ public class Cliente implements Serializable {
 	private Cidade cidade;
 
 	//bi-directional many-to-one association to Documento
-	@ManyToOne
+	//@ManyToOne
+	@OneToOne(cascade = CascadeType.ALL)
 	private Documento documento;
 
 	//bi-directional many-to-one association to ClienteStatus

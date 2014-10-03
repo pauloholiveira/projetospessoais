@@ -92,8 +92,8 @@ public class CadastroClientesCNTE {
 	}
 	
 	public void inserirCliente(Cliente cl){
-		Documento doc = cl.getDocumento();
-		documentoDAO.store(doc);
+		/*Documento doc = cl.getDocumento();
+		documentoDAO.store(doc);*/
 		
 		clienteDAO.store(cl);
 	}

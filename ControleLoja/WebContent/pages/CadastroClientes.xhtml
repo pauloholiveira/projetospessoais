@@ -42,30 +42,30 @@
 						<h:panelGroup layout="block" id="container_cpf" rendered="#{CadastroClienteMB.renderCPF}">
 							<h:outputLabel id="label_cpf" for="txt_cpf" value="CPF:"/>
 							<h:inputText id="txt_cpf" value="#{CadastroClienteMB.cpf}" requiredMessage="CPF é Obrigatório">
-								<f:validateRequired for="txt_cpf"/>
-								<f:validateLength minimum="14" maximum="14"/>
-								<rich:validator />
+								<!-- <f:validateRequired for="txt_cpf"/>
+								<f:validateLength minimum="14" maximum="14"/> 
+								<rich:validator />-->
 							</h:inputText>
 							<rich:message for="txt_cpf"/>
-							<rich:jQuery selector="#txt_cpf" query="mask('999.999.999-99')" timing="domready" />
+							<!-- <rich:jQuery selector="#txt_cpf" query="mask('999.999.999-99')" timing="domready" /> -->
 						</h:panelGroup>
 						
 						<h:panelGroup layout="block" id="container_cnpj" rendered="#{CadastroClienteMB.renderCNPJ}">
 							<h:outputLabel id="label_cnpj" for="txt_cnpj" value="CNPJ:"/>
 							<h:inputText id="txt_cnpj" value="#{CadastroClienteMB.cnpj}" requiredMessage="CNPJ é Obrigatório">
-								<f:validateRequired for="txt_cnpj"/>
+								<!-- <f:validateRequired for="txt_cnpj"/>
 								<f:validateLength minimum="18" maximum="18"/>
-								<rich:validator />
+								<rich:validator /> -->
 							</h:inputText>
 							<rich:message for="txt_cnpj"/>
-							<rich:jQuery selector="#txt_cnpj" query="mask('99.999.999/9999-99')" timing="domready" />
+							<!-- <rich:jQuery selector="#txt_cnpj" query="mask('99.999.999/9999-99')" timing="domready" /> -->
 						</h:panelGroup>
 					</h:panelGroup>
 					
 					<h:outputLabel for="txt_rg">RG: </h:outputLabel>
 					<h:inputText id="txt_rg" value="#{CadastroClienteMB.cliente.rg}"></h:inputText>
 					<rich:message for="txt_rg"/>
-					<rich:jQuery selector="#txt_rg" query="mask('99.999.999-9')" timing="domready" />
+					<!-- <rich:jQuery selector="#txt_rg" query="mask('99.999.999-9')" timing="domready" /> -->
 					
 					<h:outputLabel for="txt_logradouro">Logradouro: </h:outputLabel>
 					<h:inputText id="txt_logradouro" value="#{CadastroClienteMB.cliente.logradouro}"></h:inputText>
@@ -97,23 +97,23 @@
 					<h:inputText id="txt_tel_fixo" value="#{CadastroClienteMB.cliente.telefoneFixo}">
 					</h:inputText>
 					<rich:message for="txt_tel_fixo"/>
-					<rich:jQuery selector="#txt_tel_fixo" query="mask('(99) 9999-9999')" timing="domready" />
+					<!-- <rich:jQuery selector="#txt_tel_fixo" query="mask('(99) 9999-9999')" timing="domready" /> -->
 					
 					<h:outputLabel for="txt_tel_celular">Telefone Celular: </h:outputLabel>
 					<h:inputText id="txt_tel_celular" value="#{CadastroClienteMB.cliente.telefoneCelular}" converterMessage="Este campo só aceita Números.">
-						<f:convertNumber integerOnly="true"/>						
-						<rich:validator />	
+						<f:convertNumber  integerOnly="true"/>						
+						<!-- <rich:validator /> -->	
 					</h:inputText>
 					<rich:message for="txt_tel_celular"/>
-					<rich:jQuery selector="#txt_tel_celular" query="mask('(99) 9999-9999')" timing="domready" />
+					<!-- <rich:jQuery selector="#txt_tel_celular" query="mask('(99) 9999-9999')" timing="domready" /> -->
 					
 					<h:outputLabel for="txt_tel_comercial">Telefone Comercial: </h:outputLabel>
 					<h:inputText id="txt_tel_comercial" value="#{CadastroClienteMB.cliente.telefoneComercial}" converterMessage="Este campo só aceita Números.">
 						<f:convertNumber integerOnly="true" />						
-						<rich:validator />
+						<!-- <rich:validator /> -->
 					</h:inputText>
 					<rich:message for="txt_tel_comercial"/>
-					<rich:jQuery selector="#txt_tel_comercial" query="mask('(99) 9999-9999')" timing="domready" />
+					<!-- <rich:jQuery selector="#txt_tel_comercial" query="mask('(99) 9999-9999')" timing="domready" /> -->
 					
 					<h:outputLabel for="date_data_nascimento">Data Nascimento: </h:outputLabel>
 					<rich:calendar id="date_data_nascimento"  currentDate="01/01/1984" datePattern="dd/MM/yyyy" enableManualInput="true" value="#{CadastroClienteMB.cliente.dataNascimento}"></rich:calendar>
