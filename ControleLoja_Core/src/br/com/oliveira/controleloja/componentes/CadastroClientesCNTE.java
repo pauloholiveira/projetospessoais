@@ -13,7 +13,6 @@ import br.com.oliveira.controleloja.DAO.DocumentoDAO;
 import br.com.oliveira.controleloja.DAO.EstadoDAO;
 import br.com.oliveira.controleloja.datamodels.Cidade;
 import br.com.oliveira.controleloja.datamodels.Cliente;
-import br.com.oliveira.controleloja.datamodels.Documento;
 import br.com.oliveira.controleloja.datamodels.Estado;
 
 

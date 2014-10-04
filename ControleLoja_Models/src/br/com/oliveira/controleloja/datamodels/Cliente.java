@@ -66,7 +66,11 @@ public class Cliente implements Serializable {
 	//bi-directional many-to-one association to Venda
 	@OneToMany(mappedBy="cliente")
 	private List<Venda> vendas;
-
+	
+	private String email;
+	
+	private String cep;
+	
 	public Cliente() {
 	}
 
@@ -202,6 +206,22 @@ public class Cliente implements Serializable {
 		venda.setCliente(null);
 
 		return venda;
+	}
+	
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getCep() {
+		return cep;
+	}
+
+	public void setCep(String cep) {
+		this.cep = cep;
 	}
 
 }
