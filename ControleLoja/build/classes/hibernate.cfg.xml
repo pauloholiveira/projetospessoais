@@ -14,6 +14,8 @@
   <mapping class="br.com.oliveira.controleloja.datamodels.FormasPagamento"/>
   <mapping class="br.com.oliveira.controleloja.datamodels.Fornecedor"/>
   <mapping class="br.com.oliveira.controleloja.datamodels.FornecedorStatus"/>
+  <mapping class="br.com.oliveira.controleloja.datamodels.ItemCompras"/>
+  <mapping class="br.com.oliveira.controleloja.datamodels.ItemVendas"/>
   <mapping class="br.com.oliveira.controleloja.datamodels.Pais"/>
   <mapping class="br.com.oliveira.controleloja.datamodels.Produto"/>
   <mapping class="br.com.oliveira.controleloja.datamodels.ProdutosCategoria"/>
@@ -22,7 +24,7 @@
   <mapping class="br.com.oliveira.controleloja.datamodels.RolesUser"/>
   <mapping class="br.com.oliveira.controleloja.datamodels.RolesUserPK"/>
   <mapping class="br.com.oliveira.controleloja.datamodels.User"/>
-  <mapping class="br.com.oliveira.controleloja.datamodels.Venda"/>
+  <mapping class="br.com.oliveira.controleloja.datamodels.Vendas"/>
   <mapping class="br.com.oliveira.controleloja.datamodels.VendaStatus"/>
  </session-factory>
 </hibernate-configuration>

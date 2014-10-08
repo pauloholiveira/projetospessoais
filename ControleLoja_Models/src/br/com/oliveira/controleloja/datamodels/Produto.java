@@ -36,7 +36,7 @@ public class Produto implements Serializable {
 
 	private BigDecimal preco;
 
-	//bi-directional many-to-many association to Compra
+	/*//bi-directional many-to-many association to Compra
 	@ManyToMany
 	@JoinTable(
 		name="compra_produtos"
@@ -47,7 +47,7 @@ public class Produto implements Serializable {
 			@JoinColumn(name="id_compra")
 			}
 		)
-	private List<Compra> compras;
+	private List<Compra> compras;*/
 
 	//bi-directional many-to-one association to EstoqueOperacao
 	@OneToMany(mappedBy="produto")
@@ -68,9 +68,9 @@ public class Produto implements Serializable {
 	@JoinColumn(name="id_subcategoria")
 	private ProdutosSubcategoria produtosSubcategoria;
 
-	//bi-directional many-to-many association to Venda
+/*	//bi-directional many-to-many association to Venda
 	@ManyToMany(mappedBy="produtos")
-	private List<Venda> vendas;
+	private List<Venda> vendas;*/
 
 	public Produto() {
 	}
@@ -123,13 +123,13 @@ public class Produto implements Serializable {
 		this.preco = preco;
 	}
 
-	public List<Compra> getCompras() {
+	/*public List<Compra> getCompras() {
 		return this.compras;
 	}
 
 	public void setCompras(List<Compra> compras) {
 		this.compras = compras;
-	}
+	}*/
 
 	public List<EstoqueOperacao> getEstoqueOperacaos() {
 		return this.estoqueOperacaos;
@@ -177,12 +177,12 @@ public class Produto implements Serializable {
 		this.produtosSubcategoria = produtosSubcategoria;
 	}
 
-	public List<Venda> getVendas() {
+	/*public List<Venda> getVendas() {
 		return this.vendas;
 	}
 
 	public void setVendas(List<Venda> vendas) {
 		this.vendas = vendas;
-	}
+	}*/
 
 }

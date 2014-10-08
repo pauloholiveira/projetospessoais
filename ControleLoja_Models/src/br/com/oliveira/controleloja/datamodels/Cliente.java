@@ -65,7 +65,7 @@ public class Cliente implements Serializable {
 
 	//bi-directional many-to-one association to Venda
 	@OneToMany(mappedBy="cliente")
-	private List<Venda> vendas;
+	private List<Vendas> vendas;
 	
 	private String email;
 	
@@ -186,22 +186,22 @@ public class Cliente implements Serializable {
 		this.clienteStatus = clienteStatus;
 	}
 
-	public List<Venda> getVendas() {
+	public List<Vendas> getVendas() {
 		return this.vendas;
 	}
 
-	public void setVendas(List<Venda> vendas) {
+	public void setVendas(List<Vendas> vendas) {
 		this.vendas = vendas;
 	}
 
-	public Venda addVenda(Venda venda) {
+	public Vendas addVenda(Vendas venda) {
 		getVendas().add(venda);
 		venda.setCliente(this);
 
 		return venda;
 	}
 
-	public Venda removeVenda(Venda venda) {
+	public Vendas removeVenda(Vendas venda) {
 		getVendas().remove(venda);
 		venda.setCliente(null);
 

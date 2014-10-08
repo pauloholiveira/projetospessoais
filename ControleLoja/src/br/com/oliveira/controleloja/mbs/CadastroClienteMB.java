@@ -5,6 +5,8 @@ import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
 
 import org.springframework.context.annotation.Scope;
@@ -35,11 +37,9 @@ public class CadastroClienteMB {
 	private String tipo;
 	private String cpf;
 	private String cnpj;
-	//private String mascaraDocumento;
 	
 	private boolean renderCPF;
 	private boolean renderCNPJ;
-	//private String renderNow;
 	
 	
 	public CadastroClienteMB() {
@@ -113,18 +113,24 @@ public class CadastroClienteMB {
 		cliente.setClienteStatus(status);
 		
 		Documento documento= new Documento();
-		this.setTipo(tipo.replace(":", ""));
 		
-		documento.setTipo(tipo);
+		documento.setTipo(tipo.replace(":", ""));
 		
-		if(tipo.equals("CPF")){
+		if(tipo.replace(":", "").equals("CPF")){
 			documento.setValor(this.cpf);		
 		} else{
 			documento.setValor(this.cnpj);
 		}
 		
 		cliente.setDocumento(documento);
-		cadastroClientesCNTE.inserirCliente(cliente);
+		try{
+			cadastroClientesCNTE.inserirCliente(cliente);
+			FacesContext ctx = FacesContext.getCurrentInstance();  
+	        ctx.addMessage("messages", new FacesMessage("Cliente cadastrado com sucesso."));
+		} catch(Exception ex){
+			FacesContext ctx = FacesContext.getCurrentInstance();  
+	        ctx.addMessage("messages", new FacesMessage("Erro ao Cadastrar Cliente.", "Cliente Já Cadastrado"));  
+		}
 	}
 	
 	

@@ -93,6 +93,7 @@ public class GenericHibernateDAO<EntityType, PKType extends Serializable>
 			this.sessionFactory.getCurrentSession().save(entity);
 		} catch (final HibernateException ex) {
 			GenericHibernateDAO.LOG.error(ex);
+			throw new HibernateException(ex.getMessage(), ex);
 		}
 	}
 

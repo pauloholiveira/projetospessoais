@@ -90,10 +90,11 @@ public class CadastroClientesCNTE {
 		this.documentoDAO = documentoDAO;
 	}
 	
-	public void inserirCliente(Cliente cl){
-		/*Documento doc = cl.getDocumento();
-		documentoDAO.store(doc);*/
-		
-		clienteDAO.store(cl);
+	public void inserirCliente(Cliente cl) throws Exception{
+		try{
+			clienteDAO.store(cl);
+		} catch(Exception ex){
+			throw new Exception(ex.getMessage(), ex);
+		}
 	}
 }
