@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import javax.persistence.*;
 
+import java.util.Date;
 import java.util.List;
 
 
@@ -29,6 +30,10 @@ public class Fornecedor implements Serializable {
 
 	private String referencia;
 
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name="data_cadastro")
+	private Date dataCadastro;
+	
 	@Column(name="telefone_celular")
 	private String telefoneCelular;
 
@@ -44,7 +49,7 @@ public class Fornecedor implements Serializable {
 	private Cidade cidade;
 
 	//bi-directional many-to-one association to Documento
-	@ManyToOne
+	@OneToOne(cascade = CascadeType.ALL)
 	private Documento documento;
 
 	//bi-directional many-to-one association to FornecedorStatus
@@ -52,6 +57,11 @@ public class Fornecedor implements Serializable {
 	@JoinColumn(name="status_id")
 	private FornecedorStatus fornecedorStatus;
 
+	private String email;
+	
+	private String cep;
+	
+	
 	public Fornecedor() {
 	}
 
@@ -63,6 +73,14 @@ public class Fornecedor implements Serializable {
 		this.id = id;
 	}
 
+	public Date getDataCadastro() {
+		return this.dataCadastro;
+	}
+
+	public void setDataCadastro(Date dataCadastro) {
+		this.dataCadastro = dataCadastro;
+	}
+	
 	public String getBairro() {
 		return this.bairro;
 	}
@@ -157,4 +175,19 @@ public class Fornecedor implements Serializable {
 		this.fornecedorStatus = fornecedorStatus;
 	}
 
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getCep() {
+		return cep;
+	}
+
+	public void setCep(String cep) {
+		this.cep = cep;
+	}
 }

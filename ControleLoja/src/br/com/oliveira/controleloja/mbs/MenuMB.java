@@ -38,13 +38,13 @@ public class MenuMB {
 		if(id_menuItem.equals("Cadastro_Clientes")){
 			caminho = "/pages/CadastroClientes.xhtml";
 			
-		}/*else if(id_menuItem.equals("Cadastro_Produtos")){
+		}else if(id_menuItem.equals("Cadastro_Produtos")){
 			caminho = "/pages/CadastroProdutos.xhtml";
 			
 		}else if(id_menuItem.equals("Cadastro_Funcionarios")){
 			caminho = "/pages/CadastroFuncionarios.xhtml";
 			
-		}else if(id_menuItem.equals("Cadastro_Forncedores")){
+		}else if(id_menuItem.equals("Cadastro_Fornecedores")){
 			caminho = "/pages/CadastroFornecedores.xhtml";
 			
 		}else if(id_menuItem.equals("Nova_Venda")){
@@ -79,7 +79,7 @@ public class MenuMB {
 			
 		}else if(id_menuItem.equals("Configuracoes_Preferencias")){
 			caminho = "/pages/ConfiguracoesPreferencias.xhtml";
-		}*/else {
+		}else {
 			caminho = "index.xhtml";
 			return "index.xhtml";
 		}

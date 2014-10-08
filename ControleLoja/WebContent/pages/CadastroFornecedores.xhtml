@@ -1,21 +1,141 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-
-<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:rich="http://richfaces.org/rich"
-                xmlns:a4j="http://richfaces.org/a4j">
-                <!-- template="/WEB-INF/templates/default-with-menu.xhtml" -->
-	<!-- <ui:define name="title"> Cadastro Fornecedores </ui:define>
+                xmlns:a4j="http://richfaces.org/a4j"
+                template="/WEB-INF/templates/default-with-menu.xhtml">
+	<ui:define name="title"> Cadastro Fornecedores </ui:define>
 	<ui:define name="conteudo_titulo">
 		<h1><h:outputText value="Cadastro Fornecedores" styleClass="title_text"/></h1>
 	</ui:define>
-	<ui:define name="conteudo_central">	
-		
-	</ui:define> -->
-	<h1><h:outputText value="Cadastro Fornecedores" styleClass="title_text"/></h1>
+	<ui:define name="conteudo_central">
+		<h:panelGroup layout="block" id="container_form">
+			<h:form prependId="false">
+				<h:outputScript library="js" name="jquery.maskedinput-1.2.1.js" target="head"/>
+				<rich:panel header="Panel with default Look-n-feel">
+					<rich:focus />
+					<h:panelGrid columns="2">
+						<h:outputLabel for="txt_nome">Nome: </h:outputLabel>
+						<h:panelGroup layout="block">
+							<h:inputText id="txt_nome" value="#{CadastroFornecedorMB.fornecedor.nome}" requiredMessage="Nome é Obrigatório">
+								<f:validateRequired for="txt_nome" />
+			                    <rich:validator />
+							</h:inputText>
+							<rich:message for="txt_nome"/>
+						</h:panelGroup>
+						
+						<h:outputLabel for="txt_referencia">Referência: </h:outputLabel>
+							<h:panelGroup layout="block">
+							<h:inputText id="txt_referencia" value="#{CadastroFornecedorMB.fornecedor.referencia}"></h:inputText>
+						</h:panelGroup>
+						
+						<h:outputLabel for="txt_email">E-mail: </h:outputLabel>
+						<h:panelGroup layout="block">
+							<h:inputText id="txt_email" value="#{CadastroFornecedorMB.fornecedor.email}">
+								<f:validateRegex pattern="^(([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5}){1,25})+([;.](([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5}){1,25})+)*$"/>
+		                    	<rich:validator />
+		                    </h:inputText>
+							<rich:message for="txt_email"/>
+						</h:panelGroup>
+												
+						<h:outputLabel for="sel_tipo_cliente">Tipo Cliente:</h:outputLabel>
+						<h:panelGroup layout="block">
+							<h:selectOneRadio id="sel_tipo_cliente" value="#{CadastroFornecedorMB.tipo}" valueChangeListener="#{CadastroFornecedorMB.mudarTipoFornecedor}">
+								<f:selectItem itemValue="CPF:" itemLabel="Pessoa Fisica"></f:selectItem>
+								<f:selectItem itemValue="CNPJ:" itemLabel="Empresa"> </f:selectItem>
+								<f:ajax event="valueChange" render="container_documentos"/>
+							</h:selectOneRadio>
+						</h:panelGroup>
+						
+						<h:panelGroup layout="block" id="container_documentos">
+							<h:panelGroup layout="block" id="container_cpf" rendered="#{CadastroFornecedorMB.renderCPF}">
+								<h:outputLabel id="label_cpf" for="txt_cpf" >CPF:</h:outputLabel>
+								<h:panelGroup layout="block">
+									<h:inputText id="txt_cpf" value="#{CadastroFornecedorMB.cpf}" requiredMessage="CPF é Obrigatório">
+										<f:validateRequired for="txt_cpf"/> 
+										<rich:validator />
+									</h:inputText>
+									<rich:message for="txt_cpf"/>
+									<rich:jQuery selector="#txt_cpf" query="mask('999.999.999-99')" timing="domready" />
+								</h:panelGroup>
+							</h:panelGroup>
+							
+							<h:panelGroup layout="block" id="container_cnpj" rendered="#{CadastroFornecedorMB.renderCNPJ}">
+								<h:outputLabel id="label_cnpj" for="txt_cnpj" value="CNPJ:"/>
+								<h:panelGroup layout="block">
+									<h:inputText id="txt_cnpj" value="#{CadastroFornecedorMB.cnpj}" requiredMessage="CNPJ é Obrigatório">
+										<f:validateRequired for="txt_cnpj"/>
+										<rich:validator />
+									</h:inputText>
+									<rich:message for="txt_cnpj"/>
+									<rich:jQuery selector="#txt_cnpj" query="mask('99.999.999/9999-99')" timing="domready" />
+								</h:panelGroup>
+							</h:panelGroup>
+						</h:panelGroup>
+						<h:outputText/>
+						
+						<h:outputLabel for="txt_logradouro">Logradouro: </h:outputLabel>
+						<h:panelGroup layout="block">
+							<h:inputText id="txt_logradouro" value="#{CadastroFornecedorMB.fornecedor.logradouro}"></h:inputText>
+							<rich:message for="txt_logradouro"/>
+						</h:panelGroup>
+						
+						<h:outputLabel for="txt_cep">CEP: </h:outputLabel>
+						<h:panelGroup layout="block">
+							<h:inputText id="txt_cep" value="#{CadastroFornecedorMB.fornecedor.cep}"></h:inputText>
+							<rich:message for="txt_cep"/>
+							<rich:jQuery selector="#txt_cep" query="mask('99999-999')" timing="domready" />
+						</h:panelGroup>
+						
+						<h:outputLabel for="txt_bairro">Bairro: </h:outputLabel>
+						<h:panelGroup layout="block">
+							<h:inputText id="txt_bairro" value="#{CadastroFornecedorMB.fornecedor.bairro}"></h:inputText>
+							<rich:message for="txt_bairro"/>
+						</h:panelGroup>
+						
+						<h:outputLabel for="list_estado">Estado: </h:outputLabel>
+						<h:panelGroup layout="block">
+							<h:selectOneListbox id="list_estado" size="1" valueChangeListener="#{CadastroFornecedorMB.prencherLista_cidades}" value="#{CadastroFornecedorMB.selectedestado}" converter="simpleIndexConverter" required="true" requiredMessage="Selecione um Estado">
+								<f:selectItem itemLabel="" noSelectionOption="true" />
+								<f:selectItems value="#{CadastroFornecedorMB.lista_estados}" var="estados" itemValue="#{estados}" itemLabel="#{estados.descricao}"/>
+								<f:ajax event="change" render="list_cidade"/>
+							</h:selectOneListbox>
+						</h:panelGroup>
+						
+						<h:outputLabel for="list_cidade">Cidade: </h:outputLabel>
+						<h:panelGroup layout="block">
+							<rich:select enableManualInput="true" id="list_cidade" size="1" value="#{CadastroFornecedorMB.fornecedor.cidade}" converter="simpleIndexConverter">
+								<f:selectItems value="#{CadastroFornecedorMB.lista_cidades}" var="cidades" itemValue="#{cidades}" itemLabel="#{cidades.descricao}"/>
+							</rich:select>
+							<rich:message for="list_estado"/>
+						</h:panelGroup>
+						
+						<h:outputLabel for="txt_tel_fixo">Telefone Fixo: </h:outputLabel>
+						<h:panelGroup layout="block">
+							<h:inputText id="txt_tel_fixo" value="#{CadastroFornecedorMB.fornecedor.telefoneFixo}">
+							</h:inputText>
+							<rich:message for="txt_tel_fixo"/>
+							<rich:jQuery selector="#txt_tel_fixo" query="mask('(99)9999-9999')" timing="domready" />
+						</h:panelGroup>
+						
+						<h:outputLabel for="txt_tel_celular">Telefone Celular: </h:outputLabel>
+						<h:panelGroup layout="block">
+							<h:inputText id="txt_tel_celular" value="#{CadastroFornecedorMB.fornecedor.telefoneCelular}" converterMessage="Este campo só aceita Números.">				
+							</h:inputText>
+							<rich:message for="txt_tel_celular"/>
+							<rich:jQuery selector="#txt_tel_celular" query="mask('(99)9999-9999')" timing="domready" />
+						</h:panelGroup>						
+						
+						<h:commandButton action="#{CadastroFornecedorMB.clear}" value="Limpar"/>
+						<h:commandButton action="#{CadastroFornecedorMB.gravar}" value="Enviar"/>
+						
+						<rich:messages id="messages" />
+						
+					</h:panelGrid>
+				</rich:panel>
+			</h:form>
+		</h:panelGroup>
+	</ui:define>
 </ui:composition>
