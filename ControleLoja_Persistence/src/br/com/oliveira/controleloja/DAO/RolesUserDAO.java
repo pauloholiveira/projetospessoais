@@ -1,6 +1,6 @@
 package br.com.oliveira.controleloja.DAO;
 
-import br.com.oliveira.controleloja.datamodels.RolesUser;
+import br.com.oliveira.controleloja.datamodels.RolesUsers;
 
-public interface RolesUserDAO extends DAOService<RolesUser, Integer> {
+public interface RolesUserDAO extends DAOService<RolesUsers, Integer> {
 }

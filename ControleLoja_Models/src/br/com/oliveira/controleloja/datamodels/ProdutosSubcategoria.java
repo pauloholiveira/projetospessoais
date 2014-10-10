@@ -1,82 +1,119 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
 package br.com.oliveira.controleloja.datamodels;
 
 import java.io.Serializable;
-import javax.persistence.*;
 import java.util.List;
-
+import javax.persistence.Basic;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 /**
- * The persistent class for the produtos_subcategoria database table.
- * 
+ *
+ * @author paulo.oliveira
  */
 @Entity
-@Table(name="produtos_subcategoria")
-@NamedQuery(name="ProdutosSubcategoria.findAll", query="SELECT p FROM ProdutosSubcategoria p")
+@Table(name = "produtos_subcategoria")
+@NamedQueries({
+    @NamedQuery(name = "ProdutosSubcategoria.findAll", query = "SELECT p FROM ProdutosSubcategoria p"),
+    @NamedQuery(name = "ProdutosSubcategoria.findById", query = "SELECT p FROM ProdutosSubcategoria p WHERE p.id = :id"),
+    @NamedQuery(name = "ProdutosSubcategoria.findByDescricao", query = "SELECT p FROM ProdutosSubcategoria p WHERE p.descricao = :descricao")})
 public class ProdutosSubcategoria implements Serializable {
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "ID")
+    private Integer id;
+    @Basic(optional = false)
+    @Column(name = "descricao")
+    private String descricao;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "produtosSubcategoria")
+    private List<Produto> produtoList;
+    @JoinColumn(name = "categoria_ID", referencedColumnName = "ID")
+    @ManyToOne(optional = false)
+    private ProdutosCategorias produtosCategorias;
 
-	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	private int id;
+    public ProdutosSubcategoria() {
+    }
 
-	private String descricao;
+    public ProdutosSubcategoria(Integer id) {
+        this.id = id;
+    }
 
-	//bi-directional many-to-one association to Produto
-	@OneToMany(mappedBy="produtosSubcategoria")
-	private List<Produto> produtos;
+    public ProdutosSubcategoria(Integer id, String descricao) {
+        this.id = id;
+        this.descricao = descricao;
+    }
 
-	//bi-directional many-to-one association to ProdutosCategoria
-	@ManyToOne
-	@JoinColumn(name="categoria_ID")
-	private ProdutosCategoria produtosCategoria;
+    public Integer getId() {
+        return id;
+    }
 
-	public ProdutosSubcategoria() {
-	}
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-	public int getId() {
-		return this.id;
-	}
+    public String getDescricao() {
+        return descricao;
+    }
 
-	public void setId(int id) {
-		this.id = id;
-	}
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
 
-	public String getDescricao() {
-		return this.descricao;
-	}
+    public List<Produto> getProdutoList() {
+        return produtoList;
+    }
 
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
-	}
+    public void setProdutoList(List<Produto> produtoList) {
+        this.produtoList = produtoList;
+    }
 
-	public List<Produto> getProdutos() {
-		return this.produtos;
-	}
+    public ProdutosCategorias getProdutosCategorias() {
+        return produtosCategorias;
+    }
 
-	public void setProdutos(List<Produto> produtos) {
-		this.produtos = produtos;
-	}
+    public void setProdutosCategorias(ProdutosCategorias produtosCategorias) {
+        this.produtosCategorias = produtosCategorias;
+    }
 
-	public Produto addProduto(Produto produto) {
-		getProdutos().add(produto);
-		produto.setProdutosSubcategoria(this);
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (id != null ? id.hashCode() : 0);
+        return hash;
+    }
 
-		return produto;
-	}
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof ProdutosSubcategoria)) {
+            return false;
+        }
+        ProdutosSubcategoria other = (ProdutosSubcategoria) object;
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+            return false;
+        }
+        return true;
+    }
 
-	public Produto removeProduto(Produto produto) {
-		getProdutos().remove(produto);
-		produto.setProdutosSubcategoria(null);
-
-		return produto;
-	}
-
-	public ProdutosCategoria getProdutosCategoria() {
-		return this.produtosCategoria;
-	}
-
-	public void setProdutosCategoria(ProdutosCategoria produtosCategoria) {
-		this.produtosCategoria = produtosCategoria;
-	}
+    @Override
+    public String toString() {
+        return "br.com.oliveira.controleloja.datamodels.ProdutosSubcategoria[id=" + id + "]";
+    }
 
 }

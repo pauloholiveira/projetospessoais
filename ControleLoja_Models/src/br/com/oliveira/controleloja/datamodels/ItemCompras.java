@@ -1,7 +1,11 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
 package br.com.oliveira.controleloja.datamodels;
 
 import java.io.Serializable;
-import java.math.BigInteger;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -32,13 +36,13 @@ public class ItemCompras implements Serializable {
     @Column(name = "qtd_produto")
     private Integer qtdProduto;
     @Column(name = "total_item")
-    private BigInteger totalItem;
-    @JoinColumn(name = "id_produto", referencedColumnName = "id")
-    @ManyToOne(optional = false)
-    private Produto produto;
+    private Long totalItem;
     @JoinColumn(name = "id_compra", referencedColumnName = "ID")
     @ManyToOne(optional = false)
     private Compra compra;
+    @JoinColumn(name = "id_produto", referencedColumnName = "id")
+    @ManyToOne(optional = false)
+    private Produto produto;
 
     public ItemCompras() {
     }
@@ -63,20 +67,12 @@ public class ItemCompras implements Serializable {
         this.qtdProduto = qtdProduto;
     }
 
-    public BigInteger getTotalItem() {
+    public Long getTotalItem() {
         return totalItem;
     }
 
-    public void setTotalItem(BigInteger totalItem) {
+    public void setTotalItem(Long totalItem) {
         this.totalItem = totalItem;
-    }
-
-    public Produto getProduto() {
-        return produto;
-    }
-
-    public void setProduto(Produto produto) {
-        this.produto = produto;
     }
 
     public Compra getCompra() {
@@ -85,6 +81,14 @@ public class ItemCompras implements Serializable {
 
     public void setCompra(Compra compra) {
         this.compra = compra;
+    }
+
+    public Produto getProduto() {
+        return produto;
+    }
+
+    public void setProduto(Produto produto) {
+        this.produto = produto;
     }
 
     @Override
@@ -109,7 +113,7 @@ public class ItemCompras implements Serializable {
 
     @Override
     public String toString() {
-        return "teste.ItemCompras[id=" + id + "]";
+        return "br.com.oliveira.controleloja.datamodels.ItemCompras[id=" + id + "]";
     }
 
 }

@@ -1,69 +1,106 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
 package br.com.oliveira.controleloja.datamodels;
 
 import java.io.Serializable;
-import javax.persistence.*;
 import java.util.List;
-
+import javax.persistence.Basic;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 /**
- * The persistent class for the estoque_fluxo database table.
- * 
+ *
+ * @author paulo.oliveira
  */
 @Entity
-@Table(name="estoque_fluxo")
-@NamedQuery(name="EstoqueFluxo.findAll", query="SELECT e FROM EstoqueFluxo e")
+@Table(name = "estoque_fluxo")
+@NamedQueries({
+    @NamedQuery(name = "EstoqueFluxo.findAll", query = "SELECT e FROM EstoqueFluxo e"),
+    @NamedQuery(name = "EstoqueFluxo.findById", query = "SELECT e FROM EstoqueFluxo e WHERE e.id = :id"),
+    @NamedQuery(name = "EstoqueFluxo.findByDescricao", query = "SELECT e FROM EstoqueFluxo e WHERE e.descricao = :descricao")})
 public class EstoqueFluxo implements Serializable {
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "ID")
+    private Integer id;
+    @Basic(optional = false)
+    @Column(name = "descricao")
+    private String descricao;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "estoqueFluxo")
+    private List<EstoqueOperacao> estoqueOperacaoList;
 
-	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	private int id;
+    public EstoqueFluxo() {
+    }
 
-	private String descricao;
+    public EstoqueFluxo(Integer id) {
+        this.id = id;
+    }
 
-	//bi-directional many-to-one association to EstoqueOperacao
-	@OneToMany(mappedBy="estoqueFluxo")
-	private List<EstoqueOperacao> estoqueOperacaos;
+    public EstoqueFluxo(Integer id, String descricao) {
+        this.id = id;
+        this.descricao = descricao;
+    }
 
-	public EstoqueFluxo() {
-	}
+    public Integer getId() {
+        return id;
+    }
 
-	public int getId() {
-		return this.id;
-	}
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-	public void setId(int id) {
-		this.id = id;
-	}
+    public String getDescricao() {
+        return descricao;
+    }
 
-	public String getDescricao() {
-		return this.descricao;
-	}
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
 
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
-	}
+    public List<EstoqueOperacao> getEstoqueOperacaoList() {
+        return estoqueOperacaoList;
+    }
 
-	public List<EstoqueOperacao> getEstoqueOperacaos() {
-		return this.estoqueOperacaos;
-	}
+    public void setEstoqueOperacaoList(List<EstoqueOperacao> estoqueOperacaoList) {
+        this.estoqueOperacaoList = estoqueOperacaoList;
+    }
 
-	public void setEstoqueOperacaos(List<EstoqueOperacao> estoqueOperacaos) {
-		this.estoqueOperacaos = estoqueOperacaos;
-	}
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (id != null ? id.hashCode() : 0);
+        return hash;
+    }
 
-	public EstoqueOperacao addEstoqueOperacao(EstoqueOperacao estoqueOperacao) {
-		getEstoqueOperacaos().add(estoqueOperacao);
-		estoqueOperacao.setEstoqueFluxo(this);
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof EstoqueFluxo)) {
+            return false;
+        }
+        EstoqueFluxo other = (EstoqueFluxo) object;
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+            return false;
+        }
+        return true;
+    }
 
-		return estoqueOperacao;
-	}
-
-	public EstoqueOperacao removeEstoqueOperacao(EstoqueOperacao estoqueOperacao) {
-		getEstoqueOperacaos().remove(estoqueOperacao);
-		estoqueOperacao.setEstoqueFluxo(null);
-
-		return estoqueOperacao;
-	}
+    @Override
+    public String toString() {
+        return "br.com.oliveira.controleloja.datamodels.EstoqueFluxo[id=" + id + "]";
+    }
 
 }

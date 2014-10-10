@@ -1,122 +1,120 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
 package br.com.oliveira.controleloja.datamodels;
 
 import java.io.Serializable;
-
-import javax.persistence.*;
-
 import java.util.List;
 
+import javax.persistence.Basic;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 /**
- * The persistent class for the estado database table.
- * 
+ *
+ * @author paulo.oliveira
  */
 @Entity
-@Table(name="estado")
-@NamedQuery(name="Estado.findAll", query="SELECT e FROM Estado e")
+@Table(name = "estado")
+@NamedQueries({
+    @NamedQuery(name = "Estado.findAll", query = "SELECT e FROM Estado e"),
+    @NamedQuery(name = "Estado.findById", query = "SELECT e FROM Estado e WHERE e.id = :id"),
+    @NamedQuery(name = "Estado.findByDescricao", query = "SELECT e FROM Estado e WHERE e.descricao = :descricao")})
 public class Estado implements Serializable, EntityGenerica {
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "ID")
+    private Integer id;
+    @Basic(optional = false)
+    @Column(name = "descricao")
+    private String descricao;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "estado")
+    private List<Cidade> cidadeList;
+    @JoinColumn(name = "pais_id", referencedColumnName = "ID")
+    @ManyToOne(optional = false)
+    private Pais pais;
 
-	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	private int id;
+    public Estado() {
+    }
 
-	private String descricao;
+    public Estado(Integer id) {
+        this.id = id;
+    }
 
-	//bi-directional many-to-one association to Cidade
-	@OneToMany(mappedBy="estado")
-	private List<Cidade> cidades;
+    public Estado(Integer id, String descricao) {
+        this.id = id;
+        this.descricao = descricao;
+    }
 
-	//bi-directional many-to-one association to Pai
-	@ManyToOne
-	@JoinColumn(name="pais_id")
-	private Pais pais;
+    public Integer getId() {
+        return id;
+    }
 
-	public Estado() {
-	}
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-	public int getId() {
-		return this.id;
-	}
+    public String getDescricao() {
+        return descricao;
+    }
 
-	public void setId(int id) {
-		this.id = id;
-	}
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
 
-	public String getDescricao() {
-		return this.descricao;
-	}
+    public List<Cidade> getCidadeList() {
+        return cidadeList;
+    }
 
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
-	}
+    public void setCidadeList(List<Cidade> cidadeList) {
+        this.cidadeList = cidadeList;
+    }
 
-	public List<Cidade> getCidades() {
-		return this.cidades;
-	}
+    public Pais getPais() {
+        return pais;
+    }
 
-	public void setCidades(List<Cidade> cidades) {
-		this.cidades = cidades;
-	}
+    public void setPais(Pais pais) {
+        this.pais = pais;
+    }
 
-	public Cidade addCidade(Cidade cidade) {
-		getCidades().add(cidade);
-		cidade.setEstado(this);
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (id != null ? id.hashCode() : 0);
+        return hash;
+    }
 
-		return cidade;
-	}
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Estado)) {
+            return false;
+        }
+        Estado other = (Estado) object;
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+            return false;
+        }
+        return true;
+    }
 
-	public Cidade removeCidade(Cidade cidade) {
-		getCidades().remove(cidade);
-		cidade.setEstado(null);
+    @Override
+    public String toString() {
+        return "br.com.oliveira.controleloja.datamodels.Estado[id=" + id + "]";
+    }
 
-		return cidade;
-	}
-
-	public Pais getPais() {
-		return this.pais;
-	}
-
-	public void setPais(Pais pais) {
-		this.pais = pais;
-	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result
-				+ ((descricao == null) ? 0 : descricao.hashCode());
-		result = prime * result + id;
-		result = prime * result + ((pais == null) ? 0 : pais.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Estado other = (Estado) obj;
-		if (descricao == null) {
-			if (other.descricao != null)
-				return false;
-		} else if (!descricao.equals(other.descricao))
-			return false;
-		if (id != other.id)
-			return false;
-		if (pais == null) {
-			if (other.pais != null)
-				return false;
-		} else if (!pais.equals(other.pais))
-			return false;
-		return true;
-	}
-
-	
-	
-	
 }

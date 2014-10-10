@@ -1,3 +1,8 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
 package br.com.oliveira.controleloja.datamodels;
 
 import java.io.Serializable;
@@ -28,7 +33,9 @@ import javax.persistence.TemporalType;
 @NamedQueries({
     @NamedQuery(name = "Vendas.findAll", query = "SELECT v FROM Vendas v"),
     @NamedQuery(name = "Vendas.findById", query = "SELECT v FROM Vendas v WHERE v.id = :id"),
-    @NamedQuery(name = "Vendas.findByDataVenda", query = "SELECT v FROM Vendas v WHERE v.dataVenda = :dataVenda")})
+    @NamedQuery(name = "Vendas.findByDataVenda", query = "SELECT v FROM Vendas v WHERE v.dataVenda = :dataVenda"),
+    @NamedQuery(name = "Vendas.findByValor", query = "SELECT v FROM Vendas v WHERE v.valor = :valor"),
+    @NamedQuery(name = "Vendas.findByQtdParcelas", query = "SELECT v FROM Vendas v WHERE v.qtdParcelas = :qtdParcelas")})
 public class Vendas implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -40,14 +47,25 @@ public class Vendas implements Serializable {
     @Column(name = "data\u001f_venda")
     @Temporal(TemporalType.TIMESTAMP)
     private Date dataVenda;
+    @Basic(optional = false)
+    @Column(name = "valor")
+    private long valor;
+    @Basic(optional = false)
+    @Column(name = "qtd_parcelas")
+    private int qtdParcelas;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "vendas")
-    private List<ItemVendas> itemVendasList;
+    private List<Parcelas> parcelasList;
     @JoinColumn(name = "status_id", referencedColumnName = "ID")
     @ManyToOne(optional = false)
     private VendaStatus vendaStatus;
     @JoinColumn(name = "cliente_id", referencedColumnName = "ID")
     @ManyToOne(optional = false)
     private Cliente cliente;
+    @JoinColumn(name = "forma_id", referencedColumnName = "ID")
+    @ManyToOne(optional = false)
+    private FormasPagamento formasPagamento;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "vendas")
+    private List<ItemVendas> itemVendasList;
 
     public Vendas() {
     }
@@ -56,9 +74,11 @@ public class Vendas implements Serializable {
         this.id = id;
     }
 
-    public Vendas(Integer id, Date dataVenda) {
+    public Vendas(Integer id, Date dataVenda, long valor, int qtdParcelas) {
         this.id = id;
         this.dataVenda = dataVenda;
+        this.valor = valor;
+        this.qtdParcelas = qtdParcelas;
     }
 
     public Integer getId() {
@@ -77,12 +97,28 @@ public class Vendas implements Serializable {
         this.dataVenda = dataVenda;
     }
 
-    public List<ItemVendas> getItemVendasList() {
-        return itemVendasList;
+    public long getValor() {
+        return valor;
     }
 
-    public void setItemVendasList(List<ItemVendas> itemVendasList) {
-        this.itemVendasList = itemVendasList;
+    public void setValor(long valor) {
+        this.valor = valor;
+    }
+
+    public int getQtdParcelas() {
+        return qtdParcelas;
+    }
+
+    public void setQtdParcelas(int qtdParcelas) {
+        this.qtdParcelas = qtdParcelas;
+    }
+
+    public List<Parcelas> getParcelasList() {
+        return parcelasList;
+    }
+
+    public void setParcelasList(List<Parcelas> parcelasList) {
+        this.parcelasList = parcelasList;
     }
 
     public VendaStatus getVendaStatus() {
@@ -99,6 +135,22 @@ public class Vendas implements Serializable {
 
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
+    }
+
+    public FormasPagamento getFormasPagamento() {
+        return formasPagamento;
+    }
+
+    public void setFormasPagamento(FormasPagamento formasPagamento) {
+        this.formasPagamento = formasPagamento;
+    }
+
+    public List<ItemVendas> getItemVendasList() {
+        return itemVendasList;
+    }
+
+    public void setItemVendasList(List<ItemVendas> itemVendasList) {
+        this.itemVendasList = itemVendasList;
     }
 
     @Override
@@ -123,7 +175,7 @@ public class Vendas implements Serializable {
 
     @Override
     public String toString() {
-        return "teste.Vendas[id=" + id + "]";
+        return "br.com.oliveira.controleloja.datamodels.Vendas[id=" + id + "]";
     }
 
 }

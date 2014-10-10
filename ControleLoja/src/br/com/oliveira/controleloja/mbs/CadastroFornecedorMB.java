@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 
 import br.com.oliveira.controleloja.componentes.CadastroFornecedoresCNTE;
 import br.com.oliveira.controleloja.datamodels.Cidade;
-import br.com.oliveira.controleloja.datamodels.Documento;
+import br.com.oliveira.controleloja.datamodels.Documentos;
 import br.com.oliveira.controleloja.datamodels.Estado;
 import br.com.oliveira.controleloja.datamodels.Fornecedor;
 import br.com.oliveira.controleloja.datamodels.FornecedorStatus;
@@ -112,7 +112,7 @@ public class CadastroFornecedorMB {
 		status.setId(1); //Gerar arquivo de constantes
 		fornecedor.setFornecedorStatus(status);
 		
-		Documento documento= new Documento();
+		Documentos documento= new Documentos();
 		
 		documento.setTipo(tipo.replace(":", ""));
 		
@@ -122,7 +122,7 @@ public class CadastroFornecedorMB {
 			documento.setValor(this.cnpj);
 		}
 		
-		fornecedor.setDocumento(documento);
+		fornecedor.setDocumentos(documento);
 		try{
 			cadastroFornecedoresCNTE.inserirFornecedor(fornecedor);
 			FacesContext ctx = FacesContext.getCurrentInstance();  

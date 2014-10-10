@@ -1,227 +1,272 @@
 package br.com.oliveira.controleloja.datamodels;
 
 import java.io.Serializable;
-
-import javax.persistence.*;
-
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.Basic;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
- * The persistent class for the cliente database table.
- * 
+ *
+ * @author paulo.oliveira
  */
 @Entity
-@Table(name="cliente")
-@NamedQuery(name="Cliente.findAll", query="SELECT c FROM Cliente c")
+@Table(name = "cliente")
+@NamedQueries({
+    @NamedQuery(name = "Cliente.findAll", query = "SELECT c FROM Cliente c"),
+    @NamedQuery(name = "Cliente.findById", query = "SELECT c FROM Cliente c WHERE c.id = :id"),
+    @NamedQuery(name = "Cliente.findByDataCadastro", query = "SELECT c FROM Cliente c WHERE c.dataCadastro = :dataCadastro"),
+    @NamedQuery(name = "Cliente.findByNome", query = "SELECT c FROM Cliente c WHERE c.nome = :nome"),
+    @NamedQuery(name = "Cliente.findByApelido", query = "SELECT c FROM Cliente c WHERE c.apelido = :apelido"),
+    @NamedQuery(name = "Cliente.findByEmail", query = "SELECT c FROM Cliente c WHERE c.email = :email"),
+    @NamedQuery(name = "Cliente.findByLogradouro", query = "SELECT c FROM Cliente c WHERE c.logradouro = :logradouro"),
+    @NamedQuery(name = "Cliente.findByCep", query = "SELECT c FROM Cliente c WHERE c.cep = :cep"),
+    @NamedQuery(name = "Cliente.findByBairro", query = "SELECT c FROM Cliente c WHERE c.bairro = :bairro"),
+    @NamedQuery(name = "Cliente.findByTelefoneFixo", query = "SELECT c FROM Cliente c WHERE c.telefoneFixo = :telefoneFixo"),
+    @NamedQuery(name = "Cliente.findByTelefoneCelular", query = "SELECT c FROM Cliente c WHERE c.telefoneCelular = :telefoneCelular"),
+    @NamedQuery(name = "Cliente.findByTelefoneComercial", query = "SELECT c FROM Cliente c WHERE c.telefoneComercial = :telefoneComercial"),
+    @NamedQuery(name = "Cliente.findByRg", query = "SELECT c FROM Cliente c WHERE c.rg = :rg"),
+    @NamedQuery(name = "Cliente.findByDataNascimento", query = "SELECT c FROM Cliente c WHERE c.dataNascimento = :dataNascimento")})
 public class Cliente implements Serializable {
-	private static final long serialVersionUID = 1L;
-
-	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	private int id;
-
-	private String apelido;
-
-	private String bairro;
-
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name="data_cadastro")
-	private Date dataCadastro;
-
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name="data_nascimento")
-	private Date dataNascimento;
-
-	private String logradouro;
-
-	private String nome;
-
-	private String rg;
-
-	@Column(name="telefone_celular")
-	private String telefoneCelular;
-
-	@Column(name="telefone_comercial")
-	private String telefoneComercial;
-
-	@Column(name="telefone_fixo")
-	private String telefoneFixo;
-
-	//bi-directional many-to-one association to Cidade
-	@ManyToOne
-	private Cidade cidade;
-
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "ID")
+    private Integer id;
+    @Column(name = "data_cadastro")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date dataCadastro;
+    @Basic(optional = false)
+    @Column(name = "nome")
+    private String nome;
+    @Column(name = "apelido")
+    private String apelido;
+    @Column(name = "email")
+    private String email;
+    @Basic(optional = false)
+    @Column(name = "logradouro")
+    private String logradouro;
+    @Column(name = "cep")
+    private String cep;
+    @Basic(optional = false)
+    @Column(name = "bairro")
+    private String bairro;
+    @Column(name = "telefone_fixo")
+    private String telefoneFixo;
+    @Column(name = "telefone_celular")
+    private String telefoneCelular;
+    @Column(name = "telefone_comercial")
+    private String telefoneComercial;
+    @Basic(optional = false)
+    @Column(name = "rg")
+    private String rg;
+    @Basic(optional = false)
+    @Column(name = "data_nascimento")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date dataNascimento;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cliente")
+    private List<Vendas> vendasList;
+    @JoinColumn(name = "status_id", referencedColumnName = "ID")
+    @ManyToOne(optional = false)
+    private ClienteStatus clienteStatus;
 	//bi-directional many-to-one association to Documento
-	//@ManyToOne
 	@OneToOne(cascade = CascadeType.ALL)
-	private Documento documento;
+	private Documentos documento;
+    @JoinColumn(name = "cidade_id", referencedColumnName = "ID")
+    @ManyToOne(optional = false)
+    private Cidade cidade;
 
-	//bi-directional many-to-one association to ClienteStatus
-	@ManyToOne
-	@JoinColumn(name="status_id")
-	private ClienteStatus clienteStatus;
+    public Cliente() {
+    }
 
-	//bi-directional many-to-one association to Venda
-	@OneToMany(mappedBy="cliente")
-	private List<Vendas> vendas;
-	
-	private String email;
-	
-	private String cep;
-	
-	public Cliente() {
-	}
+    public Cliente(Integer id) {
+        this.id = id;
+    }
 
-	public int getId() {
-		return this.id;
-	}
+    public Cliente(Integer id, String nome, String logradouro, String bairro, String rg, Date dataNascimento) {
+        this.id = id;
+        this.nome = nome;
+        this.logradouro = logradouro;
+        this.bairro = bairro;
+        this.rg = rg;
+        this.dataNascimento = dataNascimento;
+    }
 
-	public void setId(int id) {
-		this.id = id;
-	}
+    public Integer getId() {
+        return id;
+    }
 
-	public String getApelido() {
-		return this.apelido;
-	}
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-	public void setApelido(String apelido) {
-		this.apelido = apelido;
-	}
+    public Date getDataCadastro() {
+        return dataCadastro;
+    }
 
-	public String getBairro() {
-		return this.bairro;
-	}
+    public void setDataCadastro(Date dataCadastro) {
+        this.dataCadastro = dataCadastro;
+    }
 
-	public void setBairro(String bairro) {
-		this.bairro = bairro;
-	}
+    public String getNome() {
+        return nome;
+    }
 
-	public Date getDataCadastro() {
-		return this.dataCadastro;
-	}
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
 
-	public void setDataCadastro(Date dataCadastro) {
-		this.dataCadastro = dataCadastro;
-	}
+    public String getApelido() {
+        return apelido;
+    }
 
-	public Date getDataNascimento() {
-		return this.dataNascimento;
-	}
+    public void setApelido(String apelido) {
+        this.apelido = apelido;
+    }
 
-	public void setDataNascimento(Date dataNascimento) {
-		this.dataNascimento = dataNascimento;
-	}
+    public String getEmail() {
+        return email;
+    }
 
-	public String getLogradouro() {
-		return this.logradouro;
-	}
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-	public void setLogradouro(String logradouro) {
-		this.logradouro = logradouro;
-	}
+    public String getLogradouro() {
+        return logradouro;
+    }
 
-	public String getNome() {
-		return this.nome;
-	}
+    public void setLogradouro(String logradouro) {
+        this.logradouro = logradouro;
+    }
 
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
+    public String getCep() {
+        return cep;
+    }
 
-	public String getRg() {
-		return this.rg;
-	}
+    public void setCep(String cep) {
+        this.cep = cep;
+    }
 
-	public void setRg(String rg) {
-		this.rg = rg;
-	}
+    public String getBairro() {
+        return bairro;
+    }
 
-	public String getTelefoneCelular() {
-		return this.telefoneCelular;
-	}
+    public void setBairro(String bairro) {
+        this.bairro = bairro;
+    }
 
-	public void setTelefoneCelular(String telefoneCelular) {
-		this.telefoneCelular = telefoneCelular;
-	}
+    public String getTelefoneFixo() {
+        return telefoneFixo;
+    }
 
-	public String getTelefoneComercial() {
-		return this.telefoneComercial;
-	}
+    public void setTelefoneFixo(String telefoneFixo) {
+        this.telefoneFixo = telefoneFixo;
+    }
 
-	public void setTelefoneComercial(String telefoneComercial) {
-		this.telefoneComercial = telefoneComercial;
-	}
+    public String getTelefoneCelular() {
+        return telefoneCelular;
+    }
 
-	public String getTelefoneFixo() {
-		return this.telefoneFixo;
-	}
+    public void setTelefoneCelular(String telefoneCelular) {
+        this.telefoneCelular = telefoneCelular;
+    }
 
-	public void setTelefoneFixo(String telefoneFixo) {
-		this.telefoneFixo = telefoneFixo;
-	}
+    public String getTelefoneComercial() {
+        return telefoneComercial;
+    }
 
-	public Cidade getCidade() {
-		return this.cidade;
-	}
+    public void setTelefoneComercial(String telefoneComercial) {
+        this.telefoneComercial = telefoneComercial;
+    }
 
-	public void setCidade(Cidade cidade) {
-		this.cidade = cidade;
-	}
+    public String getRg() {
+        return rg;
+    }
 
-	public Documento getDocumento() {
-		return this.documento;
-	}
+    public void setRg(String rg) {
+        this.rg = rg;
+    }
 
-	public void setDocumento(Documento documento) {
-		this.documento = documento;
-	}
+    public Date getDataNascimento() {
+        return dataNascimento;
+    }
 
-	public ClienteStatus getClienteStatus() {
-		return this.clienteStatus;
-	}
+    public void setDataNascimento(Date dataNascimento) {
+        this.dataNascimento = dataNascimento;
+    }
 
-	public void setClienteStatus(ClienteStatus clienteStatus) {
-		this.clienteStatus = clienteStatus;
-	}
+    public List<Vendas> getVendasList() {
+        return vendasList;
+    }
 
-	public List<Vendas> getVendas() {
-		return this.vendas;
-	}
+    public void setVendasList(List<Vendas> vendasList) {
+        this.vendasList = vendasList;
+    }
 
-	public void setVendas(List<Vendas> vendas) {
-		this.vendas = vendas;
-	}
+    public ClienteStatus getClienteStatus() {
+        return clienteStatus;
+    }
 
-	public Vendas addVenda(Vendas venda) {
-		getVendas().add(venda);
-		venda.setCliente(this);
+    public void setClienteStatus(ClienteStatus clienteStatus) {
+        this.clienteStatus = clienteStatus;
+    }
 
-		return venda;
-	}
+    public Documentos getDocumentos() {
+        return this.documento;
+    }
 
-	public Vendas removeVenda(Vendas venda) {
-		getVendas().remove(venda);
-		venda.setCliente(null);
+    public void setDocumentos(Documentos documentos) {
+        this.documento = documentos;
+    }
 
-		return venda;
-	}
-	
-	public String getEmail() {
-		return email;
-	}
+    public Cidade getCidade() {
+        return cidade;
+    }
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+    public void setCidade(Cidade cidade) {
+        this.cidade = cidade;
+    }
 
-	public String getCep() {
-		return cep;
-	}
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (id != null ? id.hashCode() : 0);
+        return hash;
+    }
 
-	public void setCep(String cep) {
-		this.cep = cep;
-	}
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Cliente)) {
+            return false;
+        }
+        Cliente other = (Cliente) object;
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "br.com.oliveira.controleloja.datamodels.Cliente[id=" + id + "]";
+    }
 
 }

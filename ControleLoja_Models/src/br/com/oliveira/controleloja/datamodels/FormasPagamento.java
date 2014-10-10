@@ -1,69 +1,127 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
 package br.com.oliveira.controleloja.datamodels;
 
 import java.io.Serializable;
-import javax.persistence.*;
 import java.util.List;
-
+import javax.persistence.Basic;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 /**
- * The persistent class for the formas_pagamento database table.
- * 
+ *
+ * @author paulo.oliveira
  */
 @Entity
-@Table(name="formas_pagamento")
-@NamedQuery(name="FormasPagamento.findAll", query="SELECT f FROM FormasPagamento f")
+@Table(name = "formas_pagamento")
+@NamedQueries({
+    @NamedQuery(name = "FormasPagamento.findAll", query = "SELECT f FROM FormasPagamento f"),
+    @NamedQuery(name = "FormasPagamento.findById", query = "SELECT f FROM FormasPagamento f WHERE f.id = :id"),
+    @NamedQuery(name = "FormasPagamento.findByDescricao", query = "SELECT f FROM FormasPagamento f WHERE f.descricao = :descricao")})
 public class FormasPagamento implements Serializable {
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "ID")
+    private Integer id;
+    @Basic(optional = false)
+    @Column(name = "descricao")
+    private String descricao;
+    @ManyToMany(mappedBy = "formasPagamentoList")
+    private List<Produto> produtoList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "formasPagamento")
+    private List<Vendas> vendasList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "formasPagamento")
+    private List<Compra> compraList;
 
-	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	private int id;
+    public FormasPagamento() {
+    }
 
-	private String descricao;
+    public FormasPagamento(Integer id) {
+        this.id = id;
+    }
 
-	//bi-directional many-to-one association to Compra
-	@OneToMany(mappedBy="formasPagamento")
-	private List<Compra> compras;
+    public FormasPagamento(Integer id, String descricao) {
+        this.id = id;
+        this.descricao = descricao;
+    }
 
-	public FormasPagamento() {
-	}
+    public Integer getId() {
+        return id;
+    }
 
-	public int getId() {
-		return this.id;
-	}
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-	public void setId(int id) {
-		this.id = id;
-	}
+    public String getDescricao() {
+        return descricao;
+    }
 
-	public String getDescricao() {
-		return this.descricao;
-	}
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
 
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
-	}
+    public List<Produto> getProdutoList() {
+        return produtoList;
+    }
 
-	public List<Compra> getCompras() {
-		return this.compras;
-	}
+    public void setProdutoList(List<Produto> produtoList) {
+        this.produtoList = produtoList;
+    }
 
-	public void setCompras(List<Compra> compras) {
-		this.compras = compras;
-	}
+    public List<Vendas> getVendasList() {
+        return vendasList;
+    }
 
-	public Compra addCompra(Compra compra) {
-		getCompras().add(compra);
-		compra.setFormasPagamento(this);
+    public void setVendasList(List<Vendas> vendasList) {
+        this.vendasList = vendasList;
+    }
 
-		return compra;
-	}
+    public List<Compra> getCompraList() {
+        return compraList;
+    }
 
-	public Compra removeCompra(Compra compra) {
-		getCompras().remove(compra);
-		compra.setFormasPagamento(null);
+    public void setCompraList(List<Compra> compraList) {
+        this.compraList = compraList;
+    }
 
-		return compra;
-	}
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (id != null ? id.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof FormasPagamento)) {
+            return false;
+        }
+        FormasPagamento other = (FormasPagamento) object;
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "br.com.oliveira.controleloja.datamodels.FormasPagamento[id=" + id + "]";
+    }
 
 }

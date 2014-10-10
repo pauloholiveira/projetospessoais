@@ -1,6 +1,6 @@
 package br.com.oliveira.controleloja.DAO;
 
-import br.com.oliveira.controleloja.datamodels.Documento;
+import br.com.oliveira.controleloja.datamodels.Documentos;
 
-public interface DocumentoDAO extends DAOService<Documento, Integer> {
+public interface DocumentoDAO extends DAOService<Documentos, Integer> {
 }

@@ -1,3 +1,8 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
 package br.com.oliveira.controleloja.datamodels;
 
 import java.io.Serializable;
@@ -95,7 +100,7 @@ public class VendaStatus implements Serializable {
 
     @Override
     public String toString() {
-        return "teste.VendaStatus[id=" + id + "]";
+        return "br.com.oliveira.controleloja.datamodels.VendaStatus[id=" + id + "]";
     }
 
 }

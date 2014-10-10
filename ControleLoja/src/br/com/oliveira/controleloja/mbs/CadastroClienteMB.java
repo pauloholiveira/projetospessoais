@@ -16,7 +16,7 @@ import br.com.oliveira.controleloja.componentes.CadastroClientesCNTE;
 import br.com.oliveira.controleloja.datamodels.Cidade;
 import br.com.oliveira.controleloja.datamodels.Cliente;
 import br.com.oliveira.controleloja.datamodels.ClienteStatus;
-import br.com.oliveira.controleloja.datamodels.Documento;
+import br.com.oliveira.controleloja.datamodels.Documentos;
 import br.com.oliveira.controleloja.datamodels.Estado;
 
 @Component("CadastroClienteMB")
@@ -112,7 +112,7 @@ public class CadastroClienteMB {
 		status.setId(1); //Gerar arquivo de constantes
 		cliente.setClienteStatus(status);
 		
-		Documento documento= new Documento();
+		Documentos documento= new Documentos();
 		
 		documento.setTipo(tipo.replace(":", ""));
 		
@@ -122,7 +122,7 @@ public class CadastroClienteMB {
 			documento.setValor(this.cnpj);
 		}
 		
-		cliente.setDocumento(documento);
+		cliente.setDocumentos(documento);
 		try{
 			cadastroClientesCNTE.inserirCliente(cliente);
 			FacesContext ctx = FacesContext.getCurrentInstance();  

@@ -1,69 +1,106 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
 package br.com.oliveira.controleloja.datamodels;
 
 import java.io.Serializable;
-import javax.persistence.*;
 import java.util.List;
-
+import javax.persistence.Basic;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 /**
- * The persistent class for the cliente_status database table.
- * 
+ *
+ * @author paulo.oliveira
  */
 @Entity
-@Table(name="cliente_status")
-@NamedQuery(name="ClienteStatus.findAll", query="SELECT c FROM ClienteStatus c")
+@Table(name = "cliente_status")
+@NamedQueries({
+    @NamedQuery(name = "ClienteStatus.findAll", query = "SELECT c FROM ClienteStatus c"),
+    @NamedQuery(name = "ClienteStatus.findById", query = "SELECT c FROM ClienteStatus c WHERE c.id = :id"),
+    @NamedQuery(name = "ClienteStatus.findByDescricao", query = "SELECT c FROM ClienteStatus c WHERE c.descricao = :descricao")})
 public class ClienteStatus implements Serializable {
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "ID")
+    private Integer id;
+    @Basic(optional = false)
+    @Column(name = "descricao")
+    private String descricao;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "clienteStatus")
+    private List<Cliente> clienteList;
 
-	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	private int id;
+    public ClienteStatus() {
+    }
 
-	private String descricao;
+    public ClienteStatus(Integer id) {
+        this.id = id;
+    }
 
-	//bi-directional many-to-one association to Cliente
-	@OneToMany(mappedBy="clienteStatus")
-	private List<Cliente> clientes;
+    public ClienteStatus(Integer id, String descricao) {
+        this.id = id;
+        this.descricao = descricao;
+    }
 
-	public ClienteStatus() {
-	}
+    public Integer getId() {
+        return id;
+    }
 
-	public int getId() {
-		return this.id;
-	}
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-	public void setId(int id) {
-		this.id = id;
-	}
+    public String getDescricao() {
+        return descricao;
+    }
 
-	public String getDescricao() {
-		return this.descricao;
-	}
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
 
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
-	}
+    public List<Cliente> getClienteList() {
+        return clienteList;
+    }
 
-	public List<Cliente> getClientes() {
-		return this.clientes;
-	}
+    public void setClienteList(List<Cliente> clienteList) {
+        this.clienteList = clienteList;
+    }
 
-	public void setClientes(List<Cliente> clientes) {
-		this.clientes = clientes;
-	}
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (id != null ? id.hashCode() : 0);
+        return hash;
+    }
 
-	public Cliente addCliente(Cliente cliente) {
-		getClientes().add(cliente);
-		cliente.setClienteStatus(this);
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof ClienteStatus)) {
+            return false;
+        }
+        ClienteStatus other = (ClienteStatus) object;
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+            return false;
+        }
+        return true;
+    }
 
-		return cliente;
-	}
-
-	public Cliente removeCliente(Cliente cliente) {
-		getClientes().remove(cliente);
-		cliente.setClienteStatus(null);
-
-		return cliente;
-	}
+    @Override
+    public String toString() {
+        return "br.com.oliveira.controleloja.datamodels.ClienteStatus[id=" + id + "]";
+    }
 
 }

@@ -1,152 +1,129 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
 package br.com.oliveira.controleloja.datamodels;
 
 import java.io.Serializable;
 import java.util.List;
-
+import javax.persistence.Basic;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.NamedQuery;
 /**
- * The persistent class for the cidade database table.
- * 
+ *
+ * @author paulo.oliveira
  */
 @Entity
-@Table(name="cidade")
-@NamedQuery(name="Cidade.findAll", query="SELECT c FROM Cidade c")
-public class Cidade implements Serializable,EntityGenerica {
-	private static final long serialVersionUID = 1L;
+@Table(name = "cidade")
+@NamedQueries({
+    @NamedQuery(name = "Cidade.findAll", query = "SELECT c FROM Cidade c"),
+    @NamedQuery(name = "Cidade.findById", query = "SELECT c FROM Cidade c WHERE c.id = :id"),
+    @NamedQuery(name = "Cidade.findByDescricao", query = "SELECT c FROM Cidade c WHERE c.descricao = :descricao")})
+public class Cidade implements Serializable, EntityGenerica {
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "ID")
+    private Integer id;
+    @Basic(optional = false)
+    @Column(name = "descricao")
+    private String descricao;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cidade")
+    private List<Fornecedor> fornecedorList;
+    @JoinColumn(name = "estado_id", referencedColumnName = "ID")
+    @ManyToOne(optional = false)
+    private Estado estado;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cidade")
+    private List<Cliente> clienteList;
 
-	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	private int id;
+    public Cidade() {
+    }
 
-	private String descricao;
+    public Cidade(Integer id) {
+        this.id = id;
+    }
 
-	//bi-directional many-to-one association to Estado
-	@ManyToOne
-	private Estado estado;
+    public Cidade(Integer id, String descricao) {
+        this.id = id;
+        this.descricao = descricao;
+    }
 
-	//bi-directional many-to-one association to Cliente
-	@OneToMany(mappedBy="cidade")
-	private List<Cliente> clientes;
+    public Integer getId() {
+        return id;
+    }
 
-	//bi-directional many-to-one association to Fornecedor
-	@OneToMany(mappedBy="cidade")
-	private List<Fornecedor> fornecedors;
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-	public Cidade() {
-	}
+    public String getDescricao() {
+        return descricao;
+    }
 
-	public int getId() {
-		return this.id;
-	}
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
 
-	public void setId(int id) {
-		this.id = id;
-	}
+    public List<Fornecedor> getFornecedorList() {
+        return fornecedorList;
+    }
 
-	public String getDescricao() {
-		return this.descricao;
-	}
+    public void setFornecedorList(List<Fornecedor> fornecedorList) {
+        this.fornecedorList = fornecedorList;
+    }
 
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
-	}
+    public Estado getEstado() {
+        return estado;
+    }
 
-	public Estado getEstado() {
-		return this.estado;
-	}
+    public void setEstado(Estado estado) {
+        this.estado = estado;
+    }
 
-	public void setEstado(Estado estado) {
-		this.estado = estado;
-	}
+    public List<Cliente> getClienteList() {
+        return clienteList;
+    }
 
-	public List<Cliente> getClientes() {
-		return this.clientes;
-	}
+    public void setClienteList(List<Cliente> clienteList) {
+        this.clienteList = clienteList;
+    }
 
-	public void setClientes(List<Cliente> clientes) {
-		this.clientes = clientes;
-	}
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (id != null ? id.hashCode() : 0);
+        return hash;
+    }
 
-	public Cliente addCliente(Cliente cliente) {
-		getClientes().add(cliente);
-		cliente.setCidade(this);
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Cidade)) {
+            return false;
+        }
+        Cidade other = (Cidade) object;
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+            return false;
+        }
+        return true;
+    }
 
-		return cliente;
-	}
+    @Override
+    public String toString() {
+        return "br.com.oliveira.controleloja.datamodels.Cidade[id=" + id + "]";
+    }
 
-	public Cliente removeCliente(Cliente cliente) {
-		getClientes().remove(cliente);
-		cliente.setCidade(null);
-
-		return cliente;
-	}
-
-	public List<Fornecedor> getFornecedors() {
-		return this.fornecedors;
-	}
-
-	public void setFornecedors(List<Fornecedor> fornecedors) {
-		this.fornecedors = fornecedors;
-	}
-
-	public Fornecedor addFornecedor(Fornecedor fornecedor) {
-		getFornecedors().add(fornecedor);
-		fornecedor.setCidade(this);
-
-		return fornecedor;
-	}
-
-	public Fornecedor removeFornecedor(Fornecedor fornecedor) {
-		getFornecedors().remove(fornecedor);
-		fornecedor.setCidade(null);
-
-		return fornecedor;
-	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result
-				+ ((descricao == null) ? 0 : descricao.hashCode());
-		result = prime * result + ((estado == null) ? 0 : estado.hashCode());
-		result = prime * result + id;
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Cidade other = (Cidade) obj;
-		if (descricao == null) {
-			if (other.descricao != null)
-				return false;
-		} else if (!descricao.equals(other.descricao))
-			return false;
-		if (estado == null) {
-			if (other.estado != null)
-				return false;
-		} else if (!estado.equals(other.estado))
-			return false;
-		if (id != other.id)
-			return false;
-		return true;
-	}
-
-	
-	
-	
 }

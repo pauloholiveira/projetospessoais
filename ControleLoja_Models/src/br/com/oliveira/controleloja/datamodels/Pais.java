@@ -1,100 +1,106 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
 package br.com.oliveira.controleloja.datamodels;
 
 import java.io.Serializable;
-import javax.persistence.*;
 import java.util.List;
-
+import javax.persistence.Basic;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 /**
- * The persistent class for the pais database table.
- * 
+ *
+ * @author paulo.oliveira
  */
 @Entity
-@Table(name="pais")
-@NamedQuery(name="Pais.findAll", query="SELECT p FROM Pais p")
+@Table(name = "pais")
+@NamedQueries({
+    @NamedQuery(name = "Pais.findAll", query = "SELECT p FROM Pais p"),
+    @NamedQuery(name = "Pais.findById", query = "SELECT p FROM Pais p WHERE p.id = :id"),
+    @NamedQuery(name = "Pais.findByDescricao", query = "SELECT p FROM Pais p WHERE p.descricao = :descricao")})
 public class Pais implements Serializable {
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "ID")
+    private Integer id;
+    @Basic(optional = false)
+    @Column(name = "descricao")
+    private String descricao;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "pais")
+    private List<Estado> estadoList;
 
-	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	private int id;
+    public Pais() {
+    }
 
-	private String descricao;
+    public Pais(Integer id) {
+        this.id = id;
+    }
 
-	//bi-directional many-to-one association to Estado
-	@OneToMany(mappedBy="pais")
-	private List<Estado> estados;
+    public Pais(Integer id, String descricao) {
+        this.id = id;
+        this.descricao = descricao;
+    }
 
-	public Pais() {
-	}
+    public Integer getId() {
+        return id;
+    }
 
-	public int getId() {
-		return this.id;
-	}
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-	public void setId(int id) {
-		this.id = id;
-	}
+    public String getDescricao() {
+        return descricao;
+    }
 
-	public String getDescricao() {
-		return this.descricao;
-	}
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
 
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
-	}
+    public List<Estado> getEstadoList() {
+        return estadoList;
+    }
 
-	public List<Estado> getEstados() {
-		return this.estados;
-	}
+    public void setEstadoList(List<Estado> estadoList) {
+        this.estadoList = estadoList;
+    }
 
-	public void setEstados(List<Estado> estados) {
-		this.estados = estados;
-	}
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (id != null ? id.hashCode() : 0);
+        return hash;
+    }
 
-	public Estado addEstado(Estado estado) {
-		getEstados().add(estado);
-		estado.setPais(this);
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Pais)) {
+            return false;
+        }
+        Pais other = (Pais) object;
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+            return false;
+        }
+        return true;
+    }
 
-		return estado;
-	}
-
-	public Estado removeEstado(Estado estado) {
-		getEstados().remove(estado);
-		estado.setPais(null);
-
-		return estado;
-	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result
-				+ ((descricao == null) ? 0 : descricao.hashCode());
-		result = prime * result + id;
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Pais other = (Pais) obj;
-		if (descricao == null) {
-			if (other.descricao != null)
-				return false;
-		} else if (!descricao.equals(other.descricao))
-			return false;
-		if (id != other.id)
-			return false;
-		return true;
-	}
-	
-	
+    @Override
+    public String toString() {
+        return "br.com.oliveira.controleloja.datamodels.Pais[id=" + id + "]";
+    }
 
 }

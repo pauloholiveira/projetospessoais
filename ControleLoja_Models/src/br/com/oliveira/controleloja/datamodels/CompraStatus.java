@@ -1,69 +1,106 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
 package br.com.oliveira.controleloja.datamodels;
 
 import java.io.Serializable;
-import javax.persistence.*;
 import java.util.List;
-
+import javax.persistence.Basic;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 /**
- * The persistent class for the compra_status database table.
- * 
+ *
+ * @author paulo.oliveira
  */
 @Entity
-@Table(name="compra_status")
-@NamedQuery(name="CompraStatus.findAll", query="SELECT c FROM CompraStatus c")
+@Table(name = "compra_status")
+@NamedQueries({
+    @NamedQuery(name = "CompraStatus.findAll", query = "SELECT c FROM CompraStatus c"),
+    @NamedQuery(name = "CompraStatus.findById", query = "SELECT c FROM CompraStatus c WHERE c.id = :id"),
+    @NamedQuery(name = "CompraStatus.findByDescricao", query = "SELECT c FROM CompraStatus c WHERE c.descricao = :descricao")})
 public class CompraStatus implements Serializable {
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "ID")
+    private Integer id;
+    @Basic(optional = false)
+    @Column(name = "descricao")
+    private String descricao;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "compraStatus")
+    private List<Compra> compraList;
 
-	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	private int id;
+    public CompraStatus() {
+    }
 
-	private String descricao;
+    public CompraStatus(Integer id) {
+        this.id = id;
+    }
 
-	//bi-directional many-to-one association to Compra
-	@OneToMany(mappedBy="compraStatus")
-	private List<Compra> compras;
+    public CompraStatus(Integer id, String descricao) {
+        this.id = id;
+        this.descricao = descricao;
+    }
 
-	public CompraStatus() {
-	}
+    public Integer getId() {
+        return id;
+    }
 
-	public int getId() {
-		return this.id;
-	}
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-	public void setId(int id) {
-		this.id = id;
-	}
+    public String getDescricao() {
+        return descricao;
+    }
 
-	public String getDescricao() {
-		return this.descricao;
-	}
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
 
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
-	}
+    public List<Compra> getCompraList() {
+        return compraList;
+    }
 
-	public List<Compra> getCompras() {
-		return this.compras;
-	}
+    public void setCompraList(List<Compra> compraList) {
+        this.compraList = compraList;
+    }
 
-	public void setCompras(List<Compra> compras) {
-		this.compras = compras;
-	}
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (id != null ? id.hashCode() : 0);
+        return hash;
+    }
 
-	public Compra addCompra(Compra compra) {
-		getCompras().add(compra);
-		compra.setCompraStatus(this);
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof CompraStatus)) {
+            return false;
+        }
+        CompraStatus other = (CompraStatus) object;
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+            return false;
+        }
+        return true;
+    }
 
-		return compra;
-	}
-
-	public Compra removeCompra(Compra compra) {
-		getCompras().remove(compra);
-		compra.setCompraStatus(null);
-
-		return compra;
-	}
+    @Override
+    public String toString() {
+        return "br.com.oliveira.controleloja.datamodels.CompraStatus[id=" + id + "]";
+    }
 
 }
