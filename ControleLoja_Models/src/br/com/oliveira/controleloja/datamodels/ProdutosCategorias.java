@@ -7,6 +7,7 @@ package br.com.oliveira.controleloja.datamodels;
 
 import java.io.Serializable;
 import java.util.List;
+
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -29,7 +30,7 @@ import javax.persistence.Table;
     @NamedQuery(name = "ProdutosCategorias.findAll", query = "SELECT p FROM ProdutosCategorias p"),
     @NamedQuery(name = "ProdutosCategorias.findById", query = "SELECT p FROM ProdutosCategorias p WHERE p.id = :id"),
     @NamedQuery(name = "ProdutosCategorias.findByDescricao", query = "SELECT p FROM ProdutosCategorias p WHERE p.descricao = :descricao")})
-public class ProdutosCategorias implements Serializable {
+public class ProdutosCategorias implements Serializable, EntityGenerica {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

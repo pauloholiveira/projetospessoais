@@ -8,14 +8,103 @@
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:rich="http://richfaces.org/rich"
-                xmlns:a4j="http://richfaces.org/a4j">
-                <!-- template="/WEB-INF/templates/default-with-menu.xhtml" -->
-	<!-- <ui:define name="title"> Cadastro Produtos </ui:define>
+                xmlns:a4j="http://richfaces.org/a4j"
+                template="/WEB-INF/templates/default-with-menu.xhtml">
+	<ui:define name="title"> Cadastro Produtos </ui:define>
 	<ui:define name="conteudo_titulo">
 		<h1><h:outputText value="Cadastro Produtos" styleClass="title_text"/></h1>
 	</ui:define>
 	<ui:define name="conteudo_central">	
-		
-	</ui:define> -->
-	<h1><h:outputText value="Cadastro Produtos" styleClass="title_text"/></h1>
+		<h:panelGroup layout="block" id="container_form">
+			<h:form prependId="false">
+				<h:outputScript library="js" name="jquery.maskedinput-1.2.1.js" target="head"/>
+				<rich:panel header="Cadastro de Produtos">
+					<rich:focus />
+					<h:panelGrid columns="2">
+						<h:outputLabel for="txt_descricao">Descricao: </h:outputLabel>
+						<h:panelGroup layout="block">
+							<h:inputText id="txt_descricao" value="#{CadastroProdutosMB.produto.descricao}" requiredMessage="Descricao do Produto é Obrigatória">
+								<f:validateRequired for="txt_descricao" />
+			                    <rich:validator />
+							</h:inputText>
+							<rich:message for="txt_descricao"/>
+						</h:panelGroup>
+						
+						<h:outputLabel for="list_categoria">Categoria: </h:outputLabel>
+						<h:panelGroup layout="block">
+							<h:selectOneListbox id="list_categoria" size="1" valueChangeListener="#{CadastroProdutosMB.prencherLista_SubCategorias}" value="#{CadastroProdutosMB.selectedcategoria}" converter="simpleIndexConverter" required="true" requiredMessage="Selecione uma Categoria">
+								<f:selectItem itemLabel="" noSelectionOption="true" />
+								<f:selectItems value="#{CadastroProdutosMB.lista_categorias}" var="categoria" itemValue="#{categoria}" itemLabel="#{categoria.descricao}"/>
+								<f:ajax event="change" render="list_subcategorias"/>
+							</h:selectOneListbox>
+						</h:panelGroup>
+						
+						<h:outputLabel for="list_subcategorias">Sub-categoria: </h:outputLabel>
+						<h:panelGroup layout="block">
+							<rich:select enableManualInput="true" id="list_subcategorias" size="1" value="#{CadastroProdutosMB.produto.produtosSubcategoria}" converter="simpleIndexConverter">
+								<f:selectItems value="#{CadastroProdutosMB.lista_subcategorias}" var="subcategoria" itemValue="#{subcategoria}" itemLabel="#{subcategoria.descricao}"/>
+							</rich:select>
+							<rich:message for="list_categoria"/>
+						</h:panelGroup>
+						
+						<h:outputLabel for="txt_observacoes">Observações: </h:outputLabel>
+						<h:panelGroup layout="block">
+							<h:inputTextarea id="txt_observacoes" value="#{CadastroProdutosMB.produto.observacoes}"></h:inputTextarea>
+						</h:panelGroup>
+						
+						<h:outputLabel for="txt_codigo_barras">Código de Barras: </h:outputLabel>
+							<h:panelGroup layout="block">
+							<h:inputText id="txt_codigo_barras" value="#{CadastroProdutosMB.produto.codigoBarras}"></h:inputText>
+						</h:panelGroup>
+						
+						<h:outputLabel for="txt_preço">Preço: </h:outputLabel>
+						<h:panelGroup layout="block">
+							<h:inputText id="txt_preço" value="#{CadastroProdutosMB.produto.preco}">
+		                    </h:inputText>
+		                    <h:outputLabel value="R$"/>
+		                    <rich:jQuery selector="#txt_preço" query="mask('9,99')" timing="domready" />
+							<rich:message for="txt_preço"/>
+						</h:panelGroup>
+						
+						<h:outputLabel for="txt_desc_detalhada">Descricao Detalhada: </h:outputLabel>
+						<h:panelGroup layout="block">
+							<h:inputText id="txt_desc_detalhada" value="#{CadastroProdutosMB.produto.descricaoDetalhes}"></h:inputText>
+							<rich:message for="txt_desc_detalhada"/>
+						</h:panelGroup>
+						
+						<h:outputLabel for="sel_tipo_produto">Tipo Produto:</h:outputLabel>
+						<h:panelGroup layout="block">
+							<h:selectOneRadio id="sel_tipo_produto" value="#{CadastroProdutosMB.tipo_produto}" valueChangeListener="#{CadastroProdutosMB.mudarTipoProduto}">
+								<f:selectItem itemValue="Vestuario:" itemLabel="Vestuario"></f:selectItem>
+								<f:selectItem itemValue="Bijuteria"  itemLabel="Bijuteria"> </f:selectItem>
+								<f:ajax event="valueChange" render="container_especificacao"/>
+							</h:selectOneRadio>
+						</h:panelGroup>
+						
+						<h:panelGroup layout="block" id="container_especificacao">
+							<h:panelGroup layout="block" id="container_vestuario" rendered="#{CadastroProdutosMB.renderVestuario}">
+								<!-- Golas -->
+								<!-- Mangas -->
+								<!-- Cores --> 
+								<!-- Tecidos 1 ou mais -->
+								<!-- Tamanhos 1 ou mais --> 
+								<h:panelGroup layout="block">
+								</h:panelGroup>
+							</h:panelGroup>
+							
+							<h:panelGroup layout="block" id="container_bijuterias" rendered="#{CadastroProdutosMB.renderBijuteria}">
+							</h:panelGroup>
+						</h:panelGroup>
+						<h:outputText/>
+						
+						<h:commandButton action="#{CadastroProdutosMB.clear}" value="Limpar"/>
+						<h:commandButton action="#{CadastroProdutosMB.gravar}" value="Enviar"/>
+						
+						<rich:messages id="messages" />
+						
+					</h:panelGrid>
+				</rich:panel>
+			</h:form>
+		</h:panelGroup>
+	</ui:define>
 </ui:composition>

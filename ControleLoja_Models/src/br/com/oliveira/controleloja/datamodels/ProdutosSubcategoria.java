@@ -31,7 +31,7 @@ import javax.persistence.Table;
     @NamedQuery(name = "ProdutosSubcategoria.findAll", query = "SELECT p FROM ProdutosSubcategoria p"),
     @NamedQuery(name = "ProdutosSubcategoria.findById", query = "SELECT p FROM ProdutosSubcategoria p WHERE p.id = :id"),
     @NamedQuery(name = "ProdutosSubcategoria.findByDescricao", query = "SELECT p FROM ProdutosSubcategoria p WHERE p.descricao = :descricao")})
-public class ProdutosSubcategoria implements Serializable {
+public class ProdutosSubcategoria implements Serializable, EntityGenerica {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
