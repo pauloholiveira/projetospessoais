@@ -25,12 +25,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "contas")
 @NamedQueries({
-    @NamedQuery(name = "Contas.findAll", query = "SELECT c FROM Contas c"),
-    @NamedQuery(name = "Contas.findById", query = "SELECT c FROM Contas c WHERE c.id = :id"),
-    @NamedQuery(name = "Contas.findByNumero", query = "SELECT c FROM Contas c WHERE c.numero = :numero"),
-    @NamedQuery(name = "Contas.findByAgencia", query = "SELECT c FROM Contas c WHERE c.agencia = :agencia"),
-    @NamedQuery(name = "Contas.findByProprietario", query = "SELECT c FROM Contas c WHERE c.proprietario = :proprietario"),
-    @NamedQuery(name = "Contas.findByBanco", query = "SELECT c FROM Contas c WHERE c.banco = :banco")})
+    @NamedQuery(name = "Contas.findAll", query = "SELECT c FROM Contas c")})
 public class Contas implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -50,7 +45,7 @@ public class Contas implements Serializable {
     @Column(name = "banco")
     private String banco;
     @OneToMany(mappedBy = "contas")
-    private List<Transacao> transacaoList;
+    private List<Transacoes> transacoesList;
 
     public Contas() {
     }
@@ -106,12 +101,12 @@ public class Contas implements Serializable {
         this.banco = banco;
     }
 
-    public List<Transacao> getTransacaoList() {
-        return transacaoList;
+    public List<Transacoes> getTransacoesList() {
+        return transacoesList;
     }
 
-    public void setTransacaoList(List<Transacao> transacaoList) {
-        this.transacaoList = transacaoList;
+    public void setTransacoesList(List<Transacoes> transacoesList) {
+        this.transacoesList = transacoesList;
     }
 
     @Override

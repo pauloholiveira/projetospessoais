@@ -26,21 +26,19 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "mangas")
 @NamedQueries({
-    @NamedQuery(name = "Mangas.findAll", query = "SELECT m FROM Mangas m"),
-    @NamedQuery(name = "Mangas.findById", query = "SELECT m FROM Mangas m WHERE m.id = :id"),
-    @NamedQuery(name = "Mangas.findByDescricao", query = "SELECT m FROM Mangas m WHERE m.descricao = :descricao")})
+    @NamedQuery(name = "Mangas.findAll", query = "SELECT m FROM Mangas m")})
 public class Mangas implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "id")
+    @Column(name = "ID")
     private Integer id;
     @Basic(optional = false)
     @Column(name = "descricao")
     private String descricao;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "mangas")
-    private List<Vestuario> vestuarioList;
+    private List<ProdutoRoupasSuperiores> produtoRoupasSuperioresList;
 
     public Mangas() {
     }
@@ -70,12 +68,12 @@ public class Mangas implements Serializable {
         this.descricao = descricao;
     }
 
-    public List<Vestuario> getVestuarioList() {
-        return vestuarioList;
+    public List<ProdutoRoupasSuperiores> getProdutoRoupasSuperioresList() {
+        return produtoRoupasSuperioresList;
     }
 
-    public void setVestuarioList(List<Vestuario> vestuarioList) {
-        this.vestuarioList = vestuarioList;
+    public void setProdutoRoupasSuperioresList(List<ProdutoRoupasSuperiores> produtoRoupasSuperioresList) {
+        this.produtoRoupasSuperioresList = produtoRoupasSuperioresList;
     }
 
     @Override

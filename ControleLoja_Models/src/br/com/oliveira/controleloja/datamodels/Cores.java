@@ -13,7 +13,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -25,9 +28,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "cores")
 @NamedQueries({
-    @NamedQuery(name = "Cores.findAll", query = "SELECT c FROM Cores c"),
-    @NamedQuery(name = "Cores.findById", query = "SELECT c FROM Cores c WHERE c.id = :id"),
-    @NamedQuery(name = "Cores.findByDescricao", query = "SELECT c FROM Cores c WHERE c.descricao = :descricao")})
+    @NamedQuery(name = "Cores.findAll", query = "SELECT c FROM Cores c")})
 public class Cores implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -38,8 +39,14 @@ public class Cores implements Serializable {
     @Basic(optional = false)
     @Column(name = "descricao")
     private String descricao;
-    @ManyToMany(mappedBy = "coresList")
+    @JoinTable(name = "produtos_cores", joinColumns = {
+        @JoinColumn(name = "id_cor", referencedColumnName = "id")}, inverseJoinColumns = {
+        @JoinColumn(name = "id_produto", referencedColumnName = "id")})
+    @ManyToMany
     private List<Produto> produtoList;
+    @JoinColumn(name = "id_categoria", referencedColumnName = "ID")
+    @ManyToOne
+    private ProdutoCategorias produtoCategorias;
 
     public Cores() {
     }
@@ -75,6 +82,14 @@ public class Cores implements Serializable {
 
     public void setProdutoList(List<Produto> produtoList) {
         this.produtoList = produtoList;
+    }
+
+    public ProdutoCategorias getProdutoCategorias() {
+        return produtoCategorias;
+    }
+
+    public void setProdutoCategorias(ProdutoCategorias produtoCategorias) {
+        this.produtoCategorias = produtoCategorias;
     }
 
     @Override

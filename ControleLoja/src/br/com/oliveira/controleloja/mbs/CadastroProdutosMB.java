@@ -11,8 +11,7 @@ import org.springframework.stereotype.Component;
 
 import br.com.oliveira.controleloja.componentes.CadastroProdutosCNTE;
 import br.com.oliveira.controleloja.datamodels.Produto;
-import br.com.oliveira.controleloja.datamodels.ProdutosCategorias;
-import br.com.oliveira.controleloja.datamodels.ProdutosSubcategoria;
+import br.com.oliveira.controleloja.datamodels.ProdutoCategorias;
 
 
 @Component("CadastroProdutosMB")
@@ -24,11 +23,8 @@ public class CadastroProdutosMB {
 	
 	private Produto produto;
 
-	private List<ProdutosSubcategoria> lista_subcategorias = new ArrayList<ProdutosSubcategoria>();
-	private ProdutosSubcategoria selectedsubcategoria;
-	
-	private List<ProdutosCategorias> lista_categorias = new ArrayList<ProdutosCategorias>();
-	private ProdutosCategorias selectedcategoria;
+	private List<ProdutoCategorias> lista_categorias = new ArrayList<ProdutoCategorias>();
+	private ProdutoCategorias selectedcategoria;
 	
 	private String tipo_produto;
 
@@ -48,13 +44,6 @@ public class CadastroProdutosMB {
 
 	public void setCadastroProdutosCNTE(CadastroProdutosCNTE cadastroProdutosCNTE) {
 		this.cadastroProdutosCNTE = cadastroProdutosCNTE;
-	}
-	
-	public List<ProdutosSubcategoria> prencherLista_SubCategorias(ValueChangeEvent event) {
-		lista_subcategorias.clear();
-		ProdutosCategorias teste = (ProdutosCategorias)event.getNewValue();		
-		lista_subcategorias = cadastroProdutosCNTE.obterSubCategoriasPorCategoria(teste);
-		return lista_subcategorias;
 	}
 	
 	public String mudarTipoProduto(ValueChangeEvent event){
@@ -79,36 +68,20 @@ public class CadastroProdutosMB {
 		this.produto = produto;
 	}
 
-	public List<ProdutosSubcategoria> getLista_subcategorias() {
-		return lista_subcategorias;
-	}
-
-	public void setLista_subcategorias(List<ProdutosSubcategoria> lista_subcategorias) {
-		this.lista_subcategorias = lista_subcategorias;
-	}	
-
-	public ProdutosSubcategoria getSelectedsubcategoria() {
-		return selectedsubcategoria;
-	}
-
-	public void setSelectedsubcategoria(ProdutosSubcategoria selectedsubcategoria) {
-		this.selectedsubcategoria = selectedsubcategoria;
-	}
-
-	public List<ProdutosCategorias> getLista_categorias() {
+	public List<ProdutoCategorias> getLista_categorias() {
 		lista_categorias = cadastroProdutosCNTE.obterListaCategorias();
 		return lista_categorias;
 	}
 
-	public void setLista_categorias(List<ProdutosCategorias> lista_categorias) {
+	public void setLista_categorias(List<ProdutoCategorias> lista_categorias) {
 		this.lista_categorias = lista_categorias;
 	}
 
-	public ProdutosCategorias getSelectedcategoria() {
+	public ProdutoCategorias getSelectedcategoria() {
 		return selectedcategoria;
 	}
 
-	public void setSelectedcategoria(ProdutosCategorias selectedcategoria) {
+	public void setSelectedcategoria(ProdutoCategorias selectedcategoria) {
 		this.selectedcategoria = selectedcategoria;
 	}
 

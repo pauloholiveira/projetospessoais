@@ -8,16 +8,18 @@ package br.com.oliveira.controleloja.datamodels;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -27,9 +29,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "tamanhos")
 @NamedQueries({
-    @NamedQuery(name = "Tamanhos.findAll", query = "SELECT t FROM Tamanhos t"),
-    @NamedQuery(name = "Tamanhos.findById", query = "SELECT t FROM Tamanhos t WHERE t.id = :id"),
-    @NamedQuery(name = "Tamanhos.findByDescricao", query = "SELECT t FROM Tamanhos t WHERE t.descricao = :descricao")})
+    @NamedQuery(name = "Tamanhos.findAll", query = "SELECT t FROM Tamanhos t")})
 public class Tamanhos implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -40,11 +40,17 @@ public class Tamanhos implements Serializable {
     @Basic(optional = false)
     @Column(name = "descricao")
     private String descricao;
-    @JoinTable(name = "produtos_tamanhos", joinColumns = {
-        @JoinColumn(name = "id_tamanho", referencedColumnName = "id")}, inverseJoinColumns = {
-        @JoinColumn(name = "id_produto", referencedColumnName = "id")})
-    @ManyToMany
+    @ManyToMany(mappedBy = "tamanhosList")
     private List<Produto> produtoList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "tamanhos")
+    private List<ProdutoRoupasSuperiores> produtoRoupasSuperioresList;
+    @JoinColumn(name = "id_categoria", referencedColumnName = "ID")
+    @ManyToOne(optional = false)
+    private ProdutoCategorias produtoCategorias;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "tamanhos")
+    private List<ProdutoCalcados> produtoCalcadosList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "tamanhos")
+    private List<ProdutoRoupasInferiores> produtoRoupasInferioresList;
 
     public Tamanhos() {
     }
@@ -80,6 +86,38 @@ public class Tamanhos implements Serializable {
 
     public void setProdutoList(List<Produto> produtoList) {
         this.produtoList = produtoList;
+    }
+
+    public List<ProdutoRoupasSuperiores> getProdutoRoupasSuperioresList() {
+        return produtoRoupasSuperioresList;
+    }
+
+    public void setProdutoRoupasSuperioresList(List<ProdutoRoupasSuperiores> produtoRoupasSuperioresList) {
+        this.produtoRoupasSuperioresList = produtoRoupasSuperioresList;
+    }
+
+    public ProdutoCategorias getProdutoCategorias() {
+        return produtoCategorias;
+    }
+
+    public void setProdutoCategorias(ProdutoCategorias produtoCategorias) {
+        this.produtoCategorias = produtoCategorias;
+    }
+
+    public List<ProdutoCalcados> getProdutoCalcadosList() {
+        return produtoCalcadosList;
+    }
+
+    public void setProdutoCalcadosList(List<ProdutoCalcados> produtoCalcadosList) {
+        this.produtoCalcadosList = produtoCalcadosList;
+    }
+
+    public List<ProdutoRoupasInferiores> getProdutoRoupasInferioresList() {
+        return produtoRoupasInferioresList;
+    }
+
+    public void setProdutoRoupasInferioresList(List<ProdutoRoupasInferiores> produtoRoupasInferioresList) {
+        this.produtoRoupasInferioresList = produtoRoupasInferioresList;
     }
 
     @Override

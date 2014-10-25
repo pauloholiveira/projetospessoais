@@ -26,9 +26,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "compra_status")
 @NamedQueries({
-    @NamedQuery(name = "CompraStatus.findAll", query = "SELECT c FROM CompraStatus c"),
-    @NamedQuery(name = "CompraStatus.findById", query = "SELECT c FROM CompraStatus c WHERE c.id = :id"),
-    @NamedQuery(name = "CompraStatus.findByDescricao", query = "SELECT c FROM CompraStatus c WHERE c.descricao = :descricao")})
+    @NamedQuery(name = "CompraStatus.findAll", query = "SELECT c FROM CompraStatus c")})
 public class CompraStatus implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id

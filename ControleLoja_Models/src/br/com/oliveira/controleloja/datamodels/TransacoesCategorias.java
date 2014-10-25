@@ -25,9 +25,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "transacoes_categorias")
 @NamedQueries({
-    @NamedQuery(name = "TransacoesCategorias.findAll", query = "SELECT t FROM TransacoesCategorias t"),
-    @NamedQuery(name = "TransacoesCategorias.findById", query = "SELECT t FROM TransacoesCategorias t WHERE t.id = :id"),
-    @NamedQuery(name = "TransacoesCategorias.findByDescricao", query = "SELECT t FROM TransacoesCategorias t WHERE t.descricao = :descricao")})
+    @NamedQuery(name = "TransacoesCategorias.findAll", query = "SELECT t FROM TransacoesCategorias t")})
 public class TransacoesCategorias implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -39,7 +37,7 @@ public class TransacoesCategorias implements Serializable {
     @Column(name = "descricao")
     private String descricao;
     @OneToMany(mappedBy = "transacoesCategorias")
-    private List<Transacao> transacaoList;
+    private List<Transacoes> transacoesList;
 
     public TransacoesCategorias() {
     }
@@ -69,12 +67,12 @@ public class TransacoesCategorias implements Serializable {
         this.descricao = descricao;
     }
 
-    public List<Transacao> getTransacaoList() {
-        return transacaoList;
+    public List<Transacoes> getTransacoesList() {
+        return transacoesList;
     }
 
-    public void setTransacaoList(List<Transacao> transacaoList) {
-        this.transacaoList = transacaoList;
+    public void setTransacoesList(List<Transacoes> transacoesList) {
+        this.transacoesList = transacoesList;
     }
 
     @Override

@@ -14,6 +14,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -27,9 +29,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "formas_pagamento")
 @NamedQueries({
-    @NamedQuery(name = "FormasPagamento.findAll", query = "SELECT f FROM FormasPagamento f"),
-    @NamedQuery(name = "FormasPagamento.findById", query = "SELECT f FROM FormasPagamento f WHERE f.id = :id"),
-    @NamedQuery(name = "FormasPagamento.findByDescricao", query = "SELECT f FROM FormasPagamento f WHERE f.descricao = :descricao")})
+    @NamedQuery(name = "FormasPagamento.findAll", query = "SELECT f FROM FormasPagamento f")})
 public class FormasPagamento implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -40,7 +40,10 @@ public class FormasPagamento implements Serializable {
     @Basic(optional = false)
     @Column(name = "descricao")
     private String descricao;
-    @ManyToMany(mappedBy = "formasPagamentoList")
+    @JoinTable(name = "produtos_formas_pagamentos", joinColumns = {
+        @JoinColumn(name = "id_forma_pagamento", referencedColumnName = "ID")}, inverseJoinColumns = {
+        @JoinColumn(name = "id_produto", referencedColumnName = "id")})
+    @ManyToMany
     private List<Produto> produtoList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "formasPagamento")
     private List<Vendas> vendasList;

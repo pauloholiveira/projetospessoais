@@ -8,10 +8,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import br.com.oliveira.controleloja.DAO.ProdutoDAO;
 import br.com.oliveira.controleloja.DAO.ProdutosCategoriaDAO;
-import br.com.oliveira.controleloja.DAO.ProdutosSubcategoriaDAO;
 import br.com.oliveira.controleloja.datamodels.Produto;
-import br.com.oliveira.controleloja.datamodels.ProdutosCategorias;
-import br.com.oliveira.controleloja.datamodels.ProdutosSubcategoria;
+import br.com.oliveira.controleloja.datamodels.ProdutoCategorias;
 
 @Component("CadastroProdutosCNTE")
 @Transactional
@@ -23,21 +21,10 @@ public class CadastroProdutosCNTE {
 	@Autowired
 	private ProdutosCategoriaDAO produtosCategoriaDAO;
 	
-	@Autowired
-	private ProdutosSubcategoriaDAO produtosSubcategoriaDAO;
-	
 	public CadastroProdutosCNTE(){	
 	}
 	
-	public List<ProdutosSubcategoria> obterSubCategoriasPorCategoria(ProdutosCategorias categoria) {
-		return produtosSubcategoriaDAO.obterSubcategoriaPorCategoria(categoria);
-	}
-	
-	public List<ProdutosSubcategoria> obterListaSubcategorias() {
-		return produtosSubcategoriaDAO.loadAll();
-	}
-	
-	public List<ProdutosCategorias> obterListaCategorias() {	
+	public List<ProdutoCategorias> obterListaCategorias() {	
 		return produtosCategoriaDAO.loadAll();
 	}
 	
@@ -63,14 +50,5 @@ public class CadastroProdutosCNTE {
 
 	public void setProdutosCategoriaDAO(ProdutosCategoriaDAO produtosCategoriaDAO) {
 		this.produtosCategoriaDAO = produtosCategoriaDAO;
-	}
-
-	public ProdutosSubcategoriaDAO getProdutosSubcategoriaDAO() {
-		return produtosSubcategoriaDAO;
-	}
-
-	public void setProdutosSubcategoriaDAO(
-			ProdutosSubcategoriaDAO produtosSubcategoriaDAO) {
-		this.produtosSubcategoriaDAO = produtosSubcategoriaDAO;
 	}
 }

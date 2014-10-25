@@ -30,17 +30,7 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name = "fornecedor")
 @NamedQueries({
-    @NamedQuery(name = "Fornecedor.findAll", query = "SELECT f FROM Fornecedor f"),
-    @NamedQuery(name = "Fornecedor.findById", query = "SELECT f FROM Fornecedor f WHERE f.id = :id"),
-    @NamedQuery(name = "Fornecedor.findByDataCadastro", query = "SELECT f FROM Fornecedor f WHERE f.dataCadastro = :dataCadastro"),
-    @NamedQuery(name = "Fornecedor.findByNome", query = "SELECT f FROM Fornecedor f WHERE f.nome = :nome"),
-    @NamedQuery(name = "Fornecedor.findByReferencia", query = "SELECT f FROM Fornecedor f WHERE f.referencia = :referencia"),
-    @NamedQuery(name = "Fornecedor.findByEmail", query = "SELECT f FROM Fornecedor f WHERE f.email = :email"),
-    @NamedQuery(name = "Fornecedor.findByLogradouro", query = "SELECT f FROM Fornecedor f WHERE f.logradouro = :logradouro"),
-    @NamedQuery(name = "Fornecedor.findByCep", query = "SELECT f FROM Fornecedor f WHERE f.cep = :cep"),
-    @NamedQuery(name = "Fornecedor.findByBairro", query = "SELECT f FROM Fornecedor f WHERE f.bairro = :bairro"),
-    @NamedQuery(name = "Fornecedor.findByTelefoneFixo", query = "SELECT f FROM Fornecedor f WHERE f.telefoneFixo = :telefoneFixo"),
-    @NamedQuery(name = "Fornecedor.findByTelefoneCelular", query = "SELECT f FROM Fornecedor f WHERE f.telefoneCelular = :telefoneCelular")})
+    @NamedQuery(name = "Fornecedor.findAll", query = "SELECT f FROM Fornecedor f")})
 public class Fornecedor implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -54,6 +44,11 @@ public class Fornecedor implements Serializable {
     @Basic(optional = false)
     @Column(name = "nome")
     private String nome;
+    @Basic(optional = false)
+    @Column(name = "documento")
+    private String documento;
+    @Column(name = "tipo_documento")
+    private String tipoDocumento;
     @Column(name = "referencia")
     private String referencia;
     @Column(name = "email")
@@ -71,9 +66,6 @@ public class Fornecedor implements Serializable {
     @JoinColumn(name = "status_id", referencedColumnName = "ID")
     @ManyToOne(optional = false)
     private FornecedorStatus fornecedorStatus;
-    @JoinColumn(name = "documento_id", referencedColumnName = "ID")
-    @ManyToOne(optional = false)
-    private Documentos documentos;
     @JoinColumn(name = "cidade_id", referencedColumnName = "ID")
     @ManyToOne(optional = false)
     private Cidade cidade;
@@ -114,6 +106,22 @@ public class Fornecedor implements Serializable {
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    public String getDocumento() {
+        return documento;
+    }
+
+    public void setDocumento(String documento) {
+        this.documento = documento;
+    }
+
+    public String getTipoDocumento() {
+        return tipoDocumento;
+    }
+
+    public void setTipoDocumento(String tipoDocumento) {
+        this.tipoDocumento = tipoDocumento;
     }
 
     public String getReferencia() {
@@ -178,14 +186,6 @@ public class Fornecedor implements Serializable {
 
     public void setFornecedorStatus(FornecedorStatus fornecedorStatus) {
         this.fornecedorStatus = fornecedorStatus;
-    }
-
-    public Documentos getDocumentos() {
-        return documentos;
-    }
-
-    public void setDocumentos(Documentos documentos) {
-        this.documentos = documentos;
     }
 
     public Cidade getCidade() {

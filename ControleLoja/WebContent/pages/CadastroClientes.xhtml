@@ -53,7 +53,7 @@
 							<h:panelGroup layout="block" id="container_cpf" rendered="#{CadastroClienteMB.renderCPF}">
 								<h:outputLabel id="label_cpf" for="txt_cpf" >CPF:</h:outputLabel>
 								<h:panelGroup layout="block">
-									<h:inputText id="txt_cpf" value="#{CadastroClienteMB.cpf}" requiredMessage="CPF é Obrigatório">
+									<h:inputText id="txt_cpf" value="#{CadastroClienteMB.cliente.documento}" requiredMessage="CPF é Obrigatório">
 										<f:validateRequired for="txt_cpf"/> 
 										<rich:validator />
 									</h:inputText>
@@ -65,7 +65,7 @@
 							<h:panelGroup layout="block" id="container_cnpj" rendered="#{CadastroClienteMB.renderCNPJ}">
 								<h:outputLabel id="label_cnpj" for="txt_cnpj" value="CNPJ:"/>
 								<h:panelGroup layout="block">
-									<h:inputText id="txt_cnpj" value="#{CadastroClienteMB.cnpj}" requiredMessage="CNPJ é Obrigatório">
+									<h:inputText id="txt_cnpj" value="#{CadastroClienteMB.cliente.documento}" requiredMessage="CNPJ é Obrigatório">
 										<f:validateRequired for="txt_cnpj"/>
 										<rich:validator />
 									</h:inputText>

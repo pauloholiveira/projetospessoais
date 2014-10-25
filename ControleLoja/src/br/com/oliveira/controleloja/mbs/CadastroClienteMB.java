@@ -16,7 +16,6 @@ import br.com.oliveira.controleloja.componentes.CadastroClientesCNTE;
 import br.com.oliveira.controleloja.datamodels.Cidade;
 import br.com.oliveira.controleloja.datamodels.Cliente;
 import br.com.oliveira.controleloja.datamodels.ClienteStatus;
-import br.com.oliveira.controleloja.datamodels.Documentos;
 import br.com.oliveira.controleloja.datamodels.Estado;
 
 @Component("CadastroClienteMB")
@@ -35,8 +34,6 @@ public class CadastroClienteMB {
 	private Estado selectedestado;
 	
 	private String tipo;
-	private String cpf;
-	private String cnpj;
 	
 	private boolean renderCPF;
 	private boolean renderCNPJ;
@@ -112,17 +109,8 @@ public class CadastroClienteMB {
 		status.setId(1); //Gerar arquivo de constantes
 		cliente.setClienteStatus(status);
 		
-		Documentos documento= new Documentos();
+		cliente.setTipoDocumento(tipo.replace(":", ""));
 		
-		documento.setTipo(tipo.replace(":", ""));
-		
-		if(tipo.replace(":", "").equals("CPF")){
-			documento.setValor(this.cpf);		
-		} else{
-			documento.setValor(this.cnpj);
-		}
-		
-		cliente.setDocumentos(documento);
 		try{
 			cadastroClientesCNTE.inserirCliente(cliente);
 			FacesContext ctx = FacesContext.getCurrentInstance();  
@@ -165,22 +153,6 @@ public class CadastroClienteMB {
 		return tipo;
 	}
 	
-	public String getCpf() {
-		return cpf;
-	}
-
-	public void setCpf(String cpf) {
-		this.cpf = cpf;
-	}
-
-	public String getCnpj() {
-		return cnpj;
-	}
-
-	public void setCnpj(String cnpj) {
-		this.cnpj = cnpj;
-	}
-
 	public boolean isRenderCPF() {
 		return renderCPF;
 	}

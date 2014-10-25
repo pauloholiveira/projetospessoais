@@ -23,10 +23,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "item_compras")
 @NamedQueries({
-    @NamedQuery(name = "ItemCompras.findAll", query = "SELECT i FROM ItemCompras i"),
-    @NamedQuery(name = "ItemCompras.findById", query = "SELECT i FROM ItemCompras i WHERE i.id = :id"),
-    @NamedQuery(name = "ItemCompras.findByQtdProduto", query = "SELECT i FROM ItemCompras i WHERE i.qtdProduto = :qtdProduto"),
-    @NamedQuery(name = "ItemCompras.findByTotalItem", query = "SELECT i FROM ItemCompras i WHERE i.totalItem = :totalItem")})
+    @NamedQuery(name = "ItemCompras.findAll", query = "SELECT i FROM ItemCompras i")})
 public class ItemCompras implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -37,12 +34,12 @@ public class ItemCompras implements Serializable {
     private Integer qtdProduto;
     @Column(name = "total_item")
     private Long totalItem;
-    @JoinColumn(name = "id_compra", referencedColumnName = "ID")
-    @ManyToOne(optional = false)
-    private Compra compra;
     @JoinColumn(name = "id_produto", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Produto produto;
+    @JoinColumn(name = "id_compra", referencedColumnName = "ID")
+    @ManyToOne(optional = false)
+    private Compra compra;
 
     public ItemCompras() {
     }
@@ -75,20 +72,20 @@ public class ItemCompras implements Serializable {
         this.totalItem = totalItem;
     }
 
-    public Compra getCompra() {
-        return compra;
-    }
-
-    public void setCompra(Compra compra) {
-        this.compra = compra;
-    }
-
     public Produto getProduto() {
         return produto;
     }
 
     public void setProduto(Produto produto) {
         this.produto = produto;
+    }
+
+    public Compra getCompra() {
+        return compra;
+    }
+
+    public void setCompra(Compra compra) {
+        this.compra = compra;
     }
 
     @Override

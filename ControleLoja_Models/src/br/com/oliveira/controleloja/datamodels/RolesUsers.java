@@ -21,9 +21,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "roles_users")
 @NamedQueries({
-    @NamedQuery(name = "RolesUsers.findAll", query = "SELECT r FROM RolesUsers r"),
-    @NamedQuery(name = "RolesUsers.findByUsername", query = "SELECT r FROM RolesUsers r WHERE r.rolesUsersPK.username = :username"),
-    @NamedQuery(name = "RolesUsers.findByRole", query = "SELECT r FROM RolesUsers r WHERE r.rolesUsersPK.role = :role")})
+    @NamedQuery(name = "RolesUsers.findAll", query = "SELECT r FROM RolesUsers r")})
 public class RolesUsers implements Serializable {
     private static final long serialVersionUID = 1L;
     @EmbeddedId

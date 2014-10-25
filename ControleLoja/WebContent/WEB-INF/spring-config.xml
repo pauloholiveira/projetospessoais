@@ -62,11 +62,6 @@
         <property name="sessionFactory" ref="sessionFactory" />
     </bean>
     
-    <bean id="HibernateDocumentoDAO"
-		class="br.com.oliveira.controleloja.DAO.impl.HibernateDocumentoDAO">
-        <property name="sessionFactory" ref="sessionFactory" />
-    </bean>
-    
     <bean id="HibernateEstadoDAO"
 		class="br.com.oliveira.controleloja.DAO.impl.HibernateEstadoDAO">
         <property name="sessionFactory" ref="sessionFactory" />
@@ -110,12 +105,7 @@
     <bean id="HibernateProdutosCategoriaDAO"
 		class="br.com.oliveira.controleloja.DAO.impl.HibernateProdutosCategoriaDAO">
         <property name="sessionFactory" ref="sessionFactory" />
-    </bean>
-    
-    <bean id="HibernateProdutosSubcategoriaDAO"
-		class="br.com.oliveira.controleloja.DAO.impl.HibernateProdutosSubcategoriaDAO">
-        <property name="sessionFactory" ref="sessionFactory" />
-    </bean>    
+    </bean> 
     
     <bean id="HibernateProdutoStatusDAO"
 		class="br.com.oliveira.controleloja.DAO.impl.HibernateProdutoStatusDAO">

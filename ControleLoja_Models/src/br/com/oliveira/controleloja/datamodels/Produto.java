@@ -8,7 +8,6 @@ package br.com.oliveira.controleloja.datamodels;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
-
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -16,8 +15,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
@@ -25,6 +22,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -36,15 +34,7 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name = "produto")
 @NamedQueries({
-    @NamedQuery(name = "Produto.findAll", query = "SELECT p FROM Produto p"),
-    @NamedQuery(name = "Produto.findById", query = "SELECT p FROM Produto p WHERE p.id = :id"),
-    @NamedQuery(name = "Produto.findByDescricao", query = "SELECT p FROM Produto p WHERE p.descricao = :descricao"),
-    @NamedQuery(name = "Produto.findByDataCadastro", query = "SELECT p FROM Produto p WHERE p.dataCadastro = :dataCadastro"),
-    @NamedQuery(name = "Produto.findByObservacoes", query = "SELECT p FROM Produto p WHERE p.observacoes = :observacoes"),
-    @NamedQuery(name = "Produto.findByCodigoBarras", query = "SELECT p FROM Produto p WHERE p.codigoBarras = :codigoBarras"),
-    @NamedQuery(name = "Produto.findByPreco", query = "SELECT p FROM Produto p WHERE p.preco = :preco"),
-    @NamedQuery(name = "Produto.findByDescricaoDetalhes", query = "SELECT p FROM Produto p WHERE p.descricaoDetalhes = :descricaoDetalhes")})
-@Inheritance(strategy=InheritanceType.JOINED)
+    @NamedQuery(name = "Produto.findAll", query = "SELECT p FROM Produto p")})
 public class Produto implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -53,53 +43,61 @@ public class Produto implements Serializable {
     @Column(name = "id")
     private Integer id;
     @Basic(optional = false)
-    @Column(name = "descricao")
-    private String descricao;
-    @Basic(optional = false)
     @Column(name = "data_cadastro")
     @Temporal(TemporalType.TIMESTAMP)
     private Date dataCadastro;
-    @Column(name = "observacoes")
-    private String observacoes;
-    @Column(name = "codigo_barras")
-    private String codigoBarras;
     @Basic(optional = false)
-    @Column(name = "preco")
-    private long preco;
+    @Column(name = "preco_compra")
+    private long precoCompra;
+    @Column(name = "preco_venda")
+    private Long precoVenda;
+    @Column(name = "id_marca")
+    private Integer idMarca;
+    @Basic(optional = false)
+    @Column(name = "descricao")
+    private String descricao;
     @Column(name = "descricao_detalhes")
     private String descricaoDetalhes;
-    @JoinTable(name = "produtos_cores", joinColumns = {
-        @JoinColumn(name = "id_produto", referencedColumnName = "id")}, inverseJoinColumns = {
-        @JoinColumn(name = "id_cor", referencedColumnName = "id")})
-    @ManyToMany
-    private List<Cores> coresList;
-    @JoinTable(name = "produtos_formas_pagamentos", joinColumns = {
-        @JoinColumn(name = "id_produto", referencedColumnName = "id")}, inverseJoinColumns = {
-        @JoinColumn(name = "id_forma_pagamento", referencedColumnName = "ID")})
-    @ManyToMany
-    private List<FormasPagamento> formasPagamentoList;
+    @Basic(optional = false)
+    @Column(name = "id_genero")
+    private int idGenero;
+    @Column(name = "codigo_barras")
+    private String codigoBarras;
+    @Column(name = "observacoes")
+    private String observacoes;
     @ManyToMany(mappedBy = "produtoList")
-    private List<Tamanhos> tamanhosList;
-    @JoinTable(name = "produtos_tecidos", joinColumns = {
+    private List<Cores> coresList;
+    @ManyToMany(mappedBy = "produtoList")
+    private List<FormasPagamento> formasPagamentoList;
+    @JoinTable(name = "produtos_tamanhos", joinColumns = {
         @JoinColumn(name = "id_produto", referencedColumnName = "id")}, inverseJoinColumns = {
-        @JoinColumn(name = "id_tecidos", referencedColumnName = "id")})
+        @JoinColumn(name = "id_tamanho", referencedColumnName = "id")})
     @ManyToMany
-    private List<Tecidos> tecidosList;
-    @JoinColumn(name = "id_subcategoria", referencedColumnName = "ID")
-    @ManyToOne(optional = false)
-    private ProdutosSubcategoria produtosSubcategoria;
+    private List<Tamanhos> tamanhosList;
+    @ManyToMany(mappedBy = "produtoList")
+    private List<Material> materialList;
     @JoinColumn(name = "id_status", referencedColumnName = "ID")
     @ManyToOne(optional = false)
     private ProdutoStatus produtoStatus;
     @JoinColumn(name = "id_categoria", referencedColumnName = "ID")
     @ManyToOne(optional = false)
-    private ProdutosCategorias produtosCategorias;
+    private ProdutoCategorias produtoCategorias;
+    @OneToMany(mappedBy = "produto")
+    private List<Imagens> imagensList;
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "produto")
+    private ProdutoRoupasSuperiores produtoRoupasSuperiores;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "produto")
     private List<ItemCompras> itemComprasList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "produto")
     private List<EstoqueOperacao> estoqueOperacaoList;
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "produto")
+    private ProdutoAcessorios produtoAcessorios;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "produto")
     private List<ItemVendas> itemVendasList;
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "produto")
+    private ProdutoCalcados produtoCalcados;
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "produto")
+    private ProdutoRoupasInferiores produtoRoupasInferiores;
 
     public Produto() {
     }
@@ -108,11 +106,12 @@ public class Produto implements Serializable {
         this.id = id;
     }
 
-    public Produto(Integer id, String descricao, Date dataCadastro, long preco) {
+    public Produto(Integer id, Date dataCadastro, long precoCompra, String descricao, int idGenero) {
         this.id = id;
-        this.descricao = descricao;
         this.dataCadastro = dataCadastro;
-        this.preco = preco;
+        this.precoCompra = precoCompra;
+        this.descricao = descricao;
+        this.idGenero = idGenero;
     }
 
     public Integer getId() {
@@ -123,14 +122,6 @@ public class Produto implements Serializable {
         this.id = id;
     }
 
-    public String getDescricao() {
-        return descricao;
-    }
-
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
-    }
-
     public Date getDataCadastro() {
         return dataCadastro;
     }
@@ -139,12 +130,52 @@ public class Produto implements Serializable {
         this.dataCadastro = dataCadastro;
     }
 
-    public String getObservacoes() {
-        return observacoes;
+    public long getPrecoCompra() {
+        return precoCompra;
     }
 
-    public void setObservacoes(String observacoes) {
-        this.observacoes = observacoes;
+    public void setPrecoCompra(long precoCompra) {
+        this.precoCompra = precoCompra;
+    }
+
+    public Long getPrecoVenda() {
+        return precoVenda;
+    }
+
+    public void setPrecoVenda(Long precoVenda) {
+        this.precoVenda = precoVenda;
+    }
+
+    public Integer getIdMarca() {
+        return idMarca;
+    }
+
+    public void setIdMarca(Integer idMarca) {
+        this.idMarca = idMarca;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+
+    public String getDescricaoDetalhes() {
+        return descricaoDetalhes;
+    }
+
+    public void setDescricaoDetalhes(String descricaoDetalhes) {
+        this.descricaoDetalhes = descricaoDetalhes;
+    }
+
+    public int getIdGenero() {
+        return idGenero;
+    }
+
+    public void setIdGenero(int idGenero) {
+        this.idGenero = idGenero;
     }
 
     public String getCodigoBarras() {
@@ -155,20 +186,12 @@ public class Produto implements Serializable {
         this.codigoBarras = codigoBarras;
     }
 
-    public long getPreco() {
-        return preco;
+    public String getObservacoes() {
+        return observacoes;
     }
 
-    public void setPreco(long preco) {
-        this.preco = preco;
-    }
-
-    public String getDescricaoDetalhes() {
-        return descricaoDetalhes;
-    }
-
-    public void setDescricaoDetalhes(String descricaoDetalhes) {
-        this.descricaoDetalhes = descricaoDetalhes;
+    public void setObservacoes(String observacoes) {
+        this.observacoes = observacoes;
     }
 
     public List<Cores> getCoresList() {
@@ -195,20 +218,12 @@ public class Produto implements Serializable {
         this.tamanhosList = tamanhosList;
     }
 
-    public List<Tecidos> getTecidosList() {
-        return tecidosList;
+    public List<Material> getMaterialList() {
+        return materialList;
     }
 
-    public void setTecidosList(List<Tecidos> tecidosList) {
-        this.tecidosList = tecidosList;
-    }
-
-    public ProdutosSubcategoria getProdutosSubcategoria() {
-        return produtosSubcategoria;
-    }
-
-    public void setProdutosSubcategoria(ProdutosSubcategoria produtosSubcategoria) {
-        this.produtosSubcategoria = produtosSubcategoria;
+    public void setMaterialList(List<Material> materialList) {
+        this.materialList = materialList;
     }
 
     public ProdutoStatus getProdutoStatus() {
@@ -219,12 +234,28 @@ public class Produto implements Serializable {
         this.produtoStatus = produtoStatus;
     }
 
-    public ProdutosCategorias getProdutosCategorias() {
-        return produtosCategorias;
+    public ProdutoCategorias getProdutoCategorias() {
+        return produtoCategorias;
     }
 
-    public void setProdutosCategorias(ProdutosCategorias produtosCategorias) {
-        this.produtosCategorias = produtosCategorias;
+    public void setProdutoCategorias(ProdutoCategorias produtoCategorias) {
+        this.produtoCategorias = produtoCategorias;
+    }
+
+    public List<Imagens> getImagensList() {
+        return imagensList;
+    }
+
+    public void setImagensList(List<Imagens> imagensList) {
+        this.imagensList = imagensList;
+    }
+
+    public ProdutoRoupasSuperiores getProdutoRoupasSuperiores() {
+        return produtoRoupasSuperiores;
+    }
+
+    public void setProdutoRoupasSuperiores(ProdutoRoupasSuperiores produtoRoupasSuperiores) {
+        this.produtoRoupasSuperiores = produtoRoupasSuperiores;
     }
 
     public List<ItemCompras> getItemComprasList() {
@@ -243,12 +274,36 @@ public class Produto implements Serializable {
         this.estoqueOperacaoList = estoqueOperacaoList;
     }
 
+    public ProdutoAcessorios getProdutoAcessorios() {
+        return produtoAcessorios;
+    }
+
+    public void setProdutoAcessorios(ProdutoAcessorios produtoAcessorios) {
+        this.produtoAcessorios = produtoAcessorios;
+    }
+
     public List<ItemVendas> getItemVendasList() {
         return itemVendasList;
     }
 
     public void setItemVendasList(List<ItemVendas> itemVendasList) {
         this.itemVendasList = itemVendasList;
+    }
+
+    public ProdutoCalcados getProdutoCalcados() {
+        return produtoCalcados;
+    }
+
+    public void setProdutoCalcados(ProdutoCalcados produtoCalcados) {
+        this.produtoCalcados = produtoCalcados;
+    }
+
+    public ProdutoRoupasInferiores getProdutoRoupasInferiores() {
+        return produtoRoupasInferiores;
+    }
+
+    public void setProdutoRoupasInferiores(ProdutoRoupasInferiores produtoRoupasInferiores) {
+        this.produtoRoupasInferiores = produtoRoupasInferiores;
     }
 
     @Override

@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import br.com.oliveira.controleloja.componentes.VendasCNTE;
-import br.com.oliveira.controleloja.datamodels.VendaStatus;
+import br.com.oliveira.controleloja.datamodels.VendasStatus;
 
 @Controller("VendasMB")
 @Scope("request")
@@ -18,8 +18,8 @@ public class VendasMB {
 	@Resource
 	private VendasCNTE vendasCNTE;
 	
-	List<VendaStatus> teste = new ArrayList<VendaStatus>();
-	VendaStatus selectedStatusVendas;
+	List<VendasStatus> teste = new ArrayList<VendasStatus>();
+	VendasStatus selectedStatusVendas;
 	
 	public VendasMB() {
 	}
@@ -28,15 +28,15 @@ public class VendasMB {
 		return vendasCNTE;
 	}
 
-	public VendaStatus getSelectedStatusVendas() {
+	public VendasStatus getSelectedStatusVendas() {
 		return selectedStatusVendas;
 	}
 
-	public void setSelectedStatusVendas(VendaStatus selectedStatusVendas) {
+	public void setSelectedStatusVendas(VendasStatus selectedStatusVendas) {
 		this.selectedStatusVendas = selectedStatusVendas;
 	}
 
-	public void setTeste(List<VendaStatus> teste) {
+	public void setTeste(List<VendasStatus> teste) {
 		this.teste = teste;
 	}
 
@@ -44,12 +44,12 @@ public class VendasMB {
 		this.vendasCNTE = vendasCNTE;
 	}
 	
-	public List<VendaStatus> getTeste() {
+	public List<VendasStatus> getTeste() {
 		teste = vendasCNTE.obterStatus();
 		return teste;
 	}
 
-	public void setTeste(ArrayList<VendaStatus> teste) {
+	public void setTeste(ArrayList<VendasStatus> teste) {
 		this.teste = teste;
 	}
 }

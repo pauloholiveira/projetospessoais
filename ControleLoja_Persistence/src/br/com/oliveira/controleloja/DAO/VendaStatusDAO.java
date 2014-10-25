@@ -1,7 +1,7 @@
 package br.com.oliveira.controleloja.DAO;
 
-import br.com.oliveira.controleloja.datamodels.VendaStatus;
+import br.com.oliveira.controleloja.datamodels.VendasStatus;
 
-public interface VendaStatusDAO extends DAOService<VendaStatus, Integer> {
-	public VendaStatus obterVendaStatusPorDescricao(String descricao);
+public interface VendaStatusDAO extends DAOService<VendasStatus, Integer> {
+	public VendasStatus obterVendaStatusPorDescricao(String descricao);
 }

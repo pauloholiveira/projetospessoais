@@ -29,10 +29,8 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "estado")
 @NamedQueries({
-    @NamedQuery(name = "Estado.findAll", query = "SELECT e FROM Estado e"),
-    @NamedQuery(name = "Estado.findById", query = "SELECT e FROM Estado e WHERE e.id = :id"),
-    @NamedQuery(name = "Estado.findByDescricao", query = "SELECT e FROM Estado e WHERE e.descricao = :descricao")})
-public class Estado implements Serializable, EntityGenerica {
+    @NamedQuery(name = "Estado.findAll", query = "SELECT e FROM Estado e")})
+public class Estado implements EntityGenerica, Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

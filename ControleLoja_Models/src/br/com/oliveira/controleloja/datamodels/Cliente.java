@@ -1,9 +1,13 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
 package br.com.oliveira.controleloja.datamodels;
 
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
-
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -16,7 +20,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -28,20 +31,7 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name = "cliente")
 @NamedQueries({
-    @NamedQuery(name = "Cliente.findAll", query = "SELECT c FROM Cliente c"),
-    @NamedQuery(name = "Cliente.findById", query = "SELECT c FROM Cliente c WHERE c.id = :id"),
-    @NamedQuery(name = "Cliente.findByDataCadastro", query = "SELECT c FROM Cliente c WHERE c.dataCadastro = :dataCadastro"),
-    @NamedQuery(name = "Cliente.findByNome", query = "SELECT c FROM Cliente c WHERE c.nome = :nome"),
-    @NamedQuery(name = "Cliente.findByApelido", query = "SELECT c FROM Cliente c WHERE c.apelido = :apelido"),
-    @NamedQuery(name = "Cliente.findByEmail", query = "SELECT c FROM Cliente c WHERE c.email = :email"),
-    @NamedQuery(name = "Cliente.findByLogradouro", query = "SELECT c FROM Cliente c WHERE c.logradouro = :logradouro"),
-    @NamedQuery(name = "Cliente.findByCep", query = "SELECT c FROM Cliente c WHERE c.cep = :cep"),
-    @NamedQuery(name = "Cliente.findByBairro", query = "SELECT c FROM Cliente c WHERE c.bairro = :bairro"),
-    @NamedQuery(name = "Cliente.findByTelefoneFixo", query = "SELECT c FROM Cliente c WHERE c.telefoneFixo = :telefoneFixo"),
-    @NamedQuery(name = "Cliente.findByTelefoneCelular", query = "SELECT c FROM Cliente c WHERE c.telefoneCelular = :telefoneCelular"),
-    @NamedQuery(name = "Cliente.findByTelefoneComercial", query = "SELECT c FROM Cliente c WHERE c.telefoneComercial = :telefoneComercial"),
-    @NamedQuery(name = "Cliente.findByRg", query = "SELECT c FROM Cliente c WHERE c.rg = :rg"),
-    @NamedQuery(name = "Cliente.findByDataNascimento", query = "SELECT c FROM Cliente c WHERE c.dataNascimento = :dataNascimento")})
+    @NamedQuery(name = "Cliente.findAll", query = "SELECT c FROM Cliente c")})
 public class Cliente implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -55,6 +45,11 @@ public class Cliente implements Serializable {
     @Basic(optional = false)
     @Column(name = "nome")
     private String nome;
+    @Basic(optional = false)
+    @Column(name = "documento")
+    private String documento;
+    @Column(name = "tipo_documento")
+    private String tipoDocumento;
     @Column(name = "apelido")
     private String apelido;
     @Column(name = "email")
@@ -85,9 +80,6 @@ public class Cliente implements Serializable {
     @JoinColumn(name = "status_id", referencedColumnName = "ID")
     @ManyToOne(optional = false)
     private ClienteStatus clienteStatus;
-	//bi-directional many-to-one association to Documento
-	@OneToOne(cascade = CascadeType.ALL)
-	private Documentos documento;
     @JoinColumn(name = "cidade_id", referencedColumnName = "ID")
     @ManyToOne(optional = false)
     private Cidade cidade;
@@ -130,6 +122,22 @@ public class Cliente implements Serializable {
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    public String getDocumento() {
+        return documento;
+    }
+
+    public void setDocumento(String documento) {
+        this.documento = documento;
+    }
+
+    public String getTipoDocumento() {
+        return tipoDocumento;
+    }
+
+    public void setTipoDocumento(String tipoDocumento) {
+        this.tipoDocumento = tipoDocumento;
     }
 
     public String getApelido() {
@@ -226,14 +234,6 @@ public class Cliente implements Serializable {
 
     public void setClienteStatus(ClienteStatus clienteStatus) {
         this.clienteStatus = clienteStatus;
-    }
-
-    public Documentos getDocumentos() {
-        return this.documento;
-    }
-
-    public void setDocumentos(Documentos documentos) {
-        this.documento = documentos;
     }
 
     public Cidade getCidade() {

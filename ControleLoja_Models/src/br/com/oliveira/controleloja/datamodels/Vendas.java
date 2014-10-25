@@ -31,11 +31,7 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name = "vendas")
 @NamedQueries({
-    @NamedQuery(name = "Vendas.findAll", query = "SELECT v FROM Vendas v"),
-    @NamedQuery(name = "Vendas.findById", query = "SELECT v FROM Vendas v WHERE v.id = :id"),
-    @NamedQuery(name = "Vendas.findByDataVenda", query = "SELECT v FROM Vendas v WHERE v.dataVenda = :dataVenda"),
-    @NamedQuery(name = "Vendas.findByValor", query = "SELECT v FROM Vendas v WHERE v.valor = :valor"),
-    @NamedQuery(name = "Vendas.findByQtdParcelas", query = "SELECT v FROM Vendas v WHERE v.qtdParcelas = :qtdParcelas")})
+    @NamedQuery(name = "Vendas.findAll", query = "SELECT v FROM Vendas v")})
 public class Vendas implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -55,15 +51,15 @@ public class Vendas implements Serializable {
     private int qtdParcelas;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "vendas")
     private List<Parcelas> parcelasList;
-    @JoinColumn(name = "status_id", referencedColumnName = "ID")
-    @ManyToOne(optional = false)
-    private VendaStatus vendaStatus;
-    @JoinColumn(name = "cliente_id", referencedColumnName = "ID")
-    @ManyToOne(optional = false)
-    private Cliente cliente;
     @JoinColumn(name = "forma_id", referencedColumnName = "ID")
     @ManyToOne(optional = false)
     private FormasPagamento formasPagamento;
+    @JoinColumn(name = "status_id", referencedColumnName = "ID")
+    @ManyToOne(optional = false)
+    private VendasStatus vendasStatus;
+    @JoinColumn(name = "cliente_id", referencedColumnName = "ID")
+    @ManyToOne(optional = false)
+    private Cliente cliente;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "vendas")
     private List<ItemVendas> itemVendasList;
 
@@ -121,12 +117,20 @@ public class Vendas implements Serializable {
         this.parcelasList = parcelasList;
     }
 
-    public VendaStatus getVendaStatus() {
-        return vendaStatus;
+    public FormasPagamento getFormasPagamento() {
+        return formasPagamento;
     }
 
-    public void setVendaStatus(VendaStatus vendaStatus) {
-        this.vendaStatus = vendaStatus;
+    public void setFormasPagamento(FormasPagamento formasPagamento) {
+        this.formasPagamento = formasPagamento;
+    }
+
+    public VendasStatus getVendasStatus() {
+        return vendasStatus;
+    }
+
+    public void setVendasStatus(VendasStatus vendasStatus) {
+        this.vendasStatus = vendasStatus;
     }
 
     public Cliente getCliente() {
@@ -135,14 +139,6 @@ public class Vendas implements Serializable {
 
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
-    }
-
-    public FormasPagamento getFormasPagamento() {
-        return formasPagamento;
-    }
-
-    public void setFormasPagamento(FormasPagamento formasPagamento) {
-        this.formasPagamento = formasPagamento;
     }
 
     public List<ItemVendas> getItemVendasList() {

@@ -9,7 +9,6 @@ import org.springframework.transaction.annotation.Transactional;
 import br.com.oliveira.controleloja.DAO.CidadeDAO;
 import br.com.oliveira.controleloja.DAO.ClienteDAO;
 import br.com.oliveira.controleloja.DAO.ClienteStatusDAO;
-import br.com.oliveira.controleloja.DAO.DocumentoDAO;
 import br.com.oliveira.controleloja.DAO.EstadoDAO;
 import br.com.oliveira.controleloja.datamodels.Cidade;
 import br.com.oliveira.controleloja.datamodels.Cliente;
@@ -22,10 +21,7 @@ public class CadastroClientesCNTE {
 
 	@Autowired
 	private ClienteDAO clienteDAO;
-	
-	@Autowired
-	private DocumentoDAO documentoDAO;
-	
+		
 	@Autowired
 	private ClienteStatusDAO clienteStatusDAO;
 	
@@ -80,14 +76,6 @@ public class CadastroClientesCNTE {
 	
 	public List<Estado> obterListaEstados() {	
 		return estadoDAO.loadAll();
-	}
-	
-	public DocumentoDAO getDocumentoDAO(){
-		return documentoDAO;
-	}
-	
-	public void setDocumentoDAO(DocumentoDAO documentoDAO){
-		this.documentoDAO = documentoDAO;
 	}
 	
 	public void inserirCliente(Cliente cl) throws Exception{

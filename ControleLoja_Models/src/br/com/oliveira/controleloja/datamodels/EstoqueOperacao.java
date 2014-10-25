@@ -28,10 +28,7 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name = "estoque_operacao")
 @NamedQueries({
-    @NamedQuery(name = "EstoqueOperacao.findAll", query = "SELECT e FROM EstoqueOperacao e"),
-    @NamedQuery(name = "EstoqueOperacao.findById", query = "SELECT e FROM EstoqueOperacao e WHERE e.id = :id"),
-    @NamedQuery(name = "EstoqueOperacao.findByQtdProdutos", query = "SELECT e FROM EstoqueOperacao e WHERE e.qtdProdutos = :qtdProdutos"),
-    @NamedQuery(name = "EstoqueOperacao.findByDataOperacao", query = "SELECT e FROM EstoqueOperacao e WHERE e.dataOperacao = :dataOperacao")})
+    @NamedQuery(name = "EstoqueOperacao.findAll", query = "SELECT e FROM EstoqueOperacao e")})
 public class EstoqueOperacao implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -45,12 +42,12 @@ public class EstoqueOperacao implements Serializable {
     @Column(name = "data_operacao")
     @Temporal(TemporalType.TIMESTAMP)
     private Date dataOperacao;
-    @JoinColumn(name = "fluxo_id", referencedColumnName = "ID")
-    @ManyToOne(optional = false)
-    private EstoqueFluxo estoqueFluxo;
     @JoinColumn(name = "id_produto", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Produto produto;
+    @JoinColumn(name = "fluxo_id", referencedColumnName = "ID")
+    @ManyToOne(optional = false)
+    private EstoqueFluxo estoqueFluxo;
 
     public EstoqueOperacao() {
     }
@@ -88,20 +85,20 @@ public class EstoqueOperacao implements Serializable {
         this.dataOperacao = dataOperacao;
     }
 
-    public EstoqueFluxo getEstoqueFluxo() {
-        return estoqueFluxo;
-    }
-
-    public void setEstoqueFluxo(EstoqueFluxo estoqueFluxo) {
-        this.estoqueFluxo = estoqueFluxo;
-    }
-
     public Produto getProduto() {
         return produto;
     }
 
     public void setProduto(Produto produto) {
         this.produto = produto;
+    }
+
+    public EstoqueFluxo getEstoqueFluxo() {
+        return estoqueFluxo;
+    }
+
+    public void setEstoqueFluxo(EstoqueFluxo estoqueFluxo) {
+        this.estoqueFluxo = estoqueFluxo;
     }
 
     @Override

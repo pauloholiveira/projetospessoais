@@ -1,6 +1,6 @@
 package br.com.oliveira.controleloja.DAO;
 
-import br.com.oliveira.controleloja.datamodels.ProdutosCategorias;
+import br.com.oliveira.controleloja.datamodels.ProdutoCategorias;
 
-public interface ProdutosCategoriaDAO extends DAOService<ProdutosCategorias, Integer> {
+public interface ProdutosCategoriaDAO extends DAOService<ProdutoCategorias, Integer> {
 }

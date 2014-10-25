@@ -23,10 +23,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "item_vendas")
 @NamedQueries({
-    @NamedQuery(name = "ItemVendas.findAll", query = "SELECT i FROM ItemVendas i"),
-    @NamedQuery(name = "ItemVendas.findById", query = "SELECT i FROM ItemVendas i WHERE i.id = :id"),
-    @NamedQuery(name = "ItemVendas.findByQtdProduto", query = "SELECT i FROM ItemVendas i WHERE i.qtdProduto = :qtdProduto"),
-    @NamedQuery(name = "ItemVendas.findByTotalItem", query = "SELECT i FROM ItemVendas i WHERE i.totalItem = :totalItem")})
+    @NamedQuery(name = "ItemVendas.findAll", query = "SELECT i FROM ItemVendas i")})
 public class ItemVendas implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id

@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.com.oliveira.controleloja.DAO.VendaStatusDAO;
-import br.com.oliveira.controleloja.datamodels.VendaStatus;
+import br.com.oliveira.controleloja.datamodels.VendasStatus;
 
 @Component("VendasCNTE")
 @Transactional
@@ -21,11 +21,11 @@ public class VendasCNTE {
 	public VendasCNTE() {
 	}
 	
-	public VendaStatus obterStatusPorDescricao(String descricao) {
+	public VendasStatus obterStatusPorDescricao(String descricao) {
 		return vendaStatusDAO.obterVendaStatusPorDescricao(descricao);
 	}
 	
-	public List<VendaStatus> obterStatus() {	
+	public List<VendasStatus> obterStatus() {	
 		return vendaStatusDAO.loadAll();
 	}
 	

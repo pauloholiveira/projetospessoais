@@ -14,7 +14,6 @@ import org.springframework.stereotype.Component;
 
 import br.com.oliveira.controleloja.componentes.CadastroFornecedoresCNTE;
 import br.com.oliveira.controleloja.datamodels.Cidade;
-import br.com.oliveira.controleloja.datamodels.Documentos;
 import br.com.oliveira.controleloja.datamodels.Estado;
 import br.com.oliveira.controleloja.datamodels.Fornecedor;
 import br.com.oliveira.controleloja.datamodels.FornecedorStatus;
@@ -35,8 +34,6 @@ public class CadastroFornecedorMB {
 	private Estado selectedestado;
 	
 	private String tipo;
-	private String cpf;
-	private String cnpj;
 	
 	private boolean renderCPF;
 	private boolean renderCNPJ;
@@ -112,17 +109,8 @@ public class CadastroFornecedorMB {
 		status.setId(1); //Gerar arquivo de constantes
 		fornecedor.setFornecedorStatus(status);
 		
-		Documentos documento= new Documentos();
+		fornecedor.setTipoDocumento(tipo.replace(":", ""));
 		
-		documento.setTipo(tipo.replace(":", ""));
-		
-		if(tipo.replace(":", "").equals("CPF")){
-			documento.setValor(this.cpf);		
-		} else{
-			documento.setValor(this.cnpj);
-		}
-		
-		fornecedor.setDocumentos(documento);
 		try{
 			cadastroFornecedoresCNTE.inserirFornecedor(fornecedor);
 			FacesContext ctx = FacesContext.getCurrentInstance();  
@@ -164,23 +152,7 @@ public class CadastroFornecedorMB {
 		
 		return tipo;
 	}
-	
-	public String getCpf() {
-		return cpf;
-	}
-
-	public void setCpf(String cpf) {
-		this.cpf = cpf;
-	}
-
-	public String getCnpj() {
-		return cnpj;
-	}
-
-	public void setCnpj(String cnpj) {
-		this.cnpj = cnpj;
-	}
-
+		
 	public boolean isRenderCPF() {
 		return renderCPF;
 	}

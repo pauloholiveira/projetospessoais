@@ -7,7 +7,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.com.oliveira.controleloja.DAO.CidadeDAO;
-import br.com.oliveira.controleloja.DAO.DocumentoDAO;
 import br.com.oliveira.controleloja.DAO.EstadoDAO;
 import br.com.oliveira.controleloja.DAO.FornecedorDAO;
 import br.com.oliveira.controleloja.DAO.FornecedorStatusDAO;
@@ -22,9 +21,6 @@ public class CadastroFornecedoresCNTE {
 
 	@Autowired
 	private FornecedorDAO fornecedorDAO;
-	
-	@Autowired
-	private DocumentoDAO documentoDAO;
 	
 	@Autowired
 	private FornecedorStatusDAO fornecedorStatusDAO;
@@ -80,14 +76,6 @@ public class CadastroFornecedoresCNTE {
 	
 	public List<Estado> obterListaEstados() {	
 		return estadoDAO.loadAll();
-	}
-	
-	public DocumentoDAO getDocumentoDAO(){
-		return documentoDAO;
-	}
-	
-	public void setDocumentoDAO(DocumentoDAO documentoDAO){
-		this.documentoDAO = documentoDAO;
 	}
 	
 	public void inserirFornecedor(Fornecedor fo) throws Exception{
