@@ -34,12 +34,12 @@ public class ProdutoAcessorios implements Serializable {
     @JoinColumn(name = "id_tipo_acessorio", referencedColumnName = "ID")
     @ManyToOne
     private AcessoriosTipos acessoriosTipos;
-    @JoinColumn(name = "id_colecao", referencedColumnName = "ID")
-    @ManyToOne
-    private Colecoes colecoes;
     @JoinColumn(name = "ID", referencedColumnName = "id", insertable = false, updatable = false)
     @OneToOne(optional = false)
     private Produto produto;
+    @JoinColumn(name = "id_colecao", referencedColumnName = "ID")
+    @ManyToOne
+    private Colecoes colecoes;
 
     public ProdutoAcessorios() {
     }
@@ -64,20 +64,20 @@ public class ProdutoAcessorios implements Serializable {
         this.acessoriosTipos = acessoriosTipos;
     }
 
-    public Colecoes getColecoes() {
-        return colecoes;
-    }
-
-    public void setColecoes(Colecoes colecoes) {
-        this.colecoes = colecoes;
-    }
-
     public Produto getProduto() {
         return produto;
     }
 
     public void setProduto(Produto produto) {
         this.produto = produto;
+    }
+
+    public Colecoes getColecoes() {
+        return colecoes;
+    }
+
+    public void setColecoes(Colecoes colecoes) {
+        this.colecoes = colecoes;
     }
 
     @Override

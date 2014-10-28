@@ -14,8 +14,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -39,11 +38,10 @@ public class Colecoes implements Serializable {
     @Basic(optional = false)
     @Column(name = "descricao")
     private String descricao;
+    @ManyToMany(mappedBy = "colecoesList")
+    private List<ProdutoCategorias> produtoCategoriasList;
     @OneToMany(mappedBy = "colecoes")
     private List<ProdutoRoupasSuperiores> produtoRoupasSuperioresList;
-    @JoinColumn(name = "id_categoria", referencedColumnName = "ID")
-    @ManyToOne(optional = false)
-    private ProdutoCategorias produtoCategorias;
     @OneToMany(mappedBy = "colecoes")
     private List<ProdutoAcessorios> produtoAcessoriosList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "colecoes")
@@ -77,20 +75,20 @@ public class Colecoes implements Serializable {
         this.descricao = descricao;
     }
 
+    public List<ProdutoCategorias> getProdutoCategoriasList() {
+        return produtoCategoriasList;
+    }
+
+    public void setProdutoCategoriasList(List<ProdutoCategorias> produtoCategoriasList) {
+        this.produtoCategoriasList = produtoCategoriasList;
+    }
+
     public List<ProdutoRoupasSuperiores> getProdutoRoupasSuperioresList() {
         return produtoRoupasSuperioresList;
     }
 
     public void setProdutoRoupasSuperioresList(List<ProdutoRoupasSuperiores> produtoRoupasSuperioresList) {
         this.produtoRoupasSuperioresList = produtoRoupasSuperioresList;
-    }
-
-    public ProdutoCategorias getProdutoCategorias() {
-        return produtoCategorias;
-    }
-
-    public void setProdutoCategorias(ProdutoCategorias produtoCategorias) {
-        this.produtoCategorias = produtoCategorias;
     }
 
     public List<ProdutoAcessorios> getProdutoAcessoriosList() {
