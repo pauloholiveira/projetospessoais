@@ -34,6 +34,9 @@ public class ProdutoRoupasSuperiores implements Serializable {
     @JoinColumn(name = "id_tamanhos", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Tamanhos tamanhos;
+    @JoinColumn(name = "ID", referencedColumnName = "id", insertable = false, updatable = false)
+    @OneToOne(optional = false)
+    private Produto produto;
     @JoinColumn(name = "id_manga", referencedColumnName = "ID")
     @ManyToOne(optional = false)
     private Mangas mangas;
@@ -43,9 +46,6 @@ public class ProdutoRoupasSuperiores implements Serializable {
     @JoinColumn(name = "id_colecao", referencedColumnName = "ID")
     @ManyToOne
     private Colecoes colecoes;
-    @JoinColumn(name = "ID", referencedColumnName = "id", insertable = false, updatable = false)
-    @OneToOne(optional = false)
-    private Produto produto;
 
     public ProdutoRoupasSuperiores() {
     }
@@ -70,6 +70,14 @@ public class ProdutoRoupasSuperiores implements Serializable {
         this.tamanhos = tamanhos;
     }
 
+    public Produto getProduto() {
+        return produto;
+    }
+
+    public void setProduto(Produto produto) {
+        this.produto = produto;
+    }
+
     public Mangas getMangas() {
         return mangas;
     }
@@ -92,14 +100,6 @@ public class ProdutoRoupasSuperiores implements Serializable {
 
     public void setColecoes(Colecoes colecoes) {
         this.colecoes = colecoes;
-    }
-
-    public Produto getProduto() {
-        return produto;
-    }
-
-    public void setProduto(Produto produto) {
-        this.produto = produto;
     }
 
     @Override

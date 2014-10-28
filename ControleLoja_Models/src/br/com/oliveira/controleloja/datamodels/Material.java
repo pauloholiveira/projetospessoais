@@ -16,7 +16,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -39,14 +38,13 @@ public class Material implements Serializable {
     @Basic(optional = false)
     @Column(name = "descricao")
     private String descricao;
+    @ManyToMany(mappedBy = "materialList")
+    private List<ProdutoCategorias> produtoCategoriasList;
     @JoinTable(name = "produtos_materiais", joinColumns = {
         @JoinColumn(name = "id_material", referencedColumnName = "ID")}, inverseJoinColumns = {
         @JoinColumn(name = "id_produto", referencedColumnName = "id")})
     @ManyToMany
     private List<Produto> produtoList;
-    @JoinColumn(name = "id_categoria", referencedColumnName = "ID")
-    @ManyToOne
-    private ProdutoCategorias produtoCategorias;
 
     public Material() {
     }
@@ -76,20 +74,20 @@ public class Material implements Serializable {
         this.descricao = descricao;
     }
 
+    public List<ProdutoCategorias> getProdutoCategoriasList() {
+        return produtoCategoriasList;
+    }
+
+    public void setProdutoCategoriasList(List<ProdutoCategorias> produtoCategoriasList) {
+        this.produtoCategoriasList = produtoCategoriasList;
+    }
+
     public List<Produto> getProdutoList() {
         return produtoList;
     }
 
     public void setProdutoList(List<Produto> produtoList) {
         this.produtoList = produtoList;
-    }
-
-    public ProdutoCategorias getProdutoCategorias() {
-        return produtoCategorias;
-    }
-
-    public void setProdutoCategorias(ProdutoCategorias produtoCategorias) {
-        this.produtoCategorias = produtoCategorias;
     }
 
     @Override

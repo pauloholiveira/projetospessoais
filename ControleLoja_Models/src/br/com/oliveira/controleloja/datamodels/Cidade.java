@@ -29,7 +29,7 @@ import javax.persistence.Table;
 @Table(name = "cidade")
 @NamedQueries({
     @NamedQuery(name = "Cidade.findAll", query = "SELECT c FROM Cidade c")})
-public class Cidade implements EntityGenerica, Serializable {
+public class Cidade implements Serializable, EntityGenerica {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

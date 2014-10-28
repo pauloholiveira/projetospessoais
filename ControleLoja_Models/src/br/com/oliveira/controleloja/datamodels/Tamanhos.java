@@ -14,9 +14,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -41,12 +39,11 @@ public class Tamanhos implements Serializable {
     @Column(name = "descricao")
     private String descricao;
     @ManyToMany(mappedBy = "tamanhosList")
+    private List<ProdutoCategorias> produtoCategoriasList;
+    @ManyToMany(mappedBy = "tamanhosList")
     private List<Produto> produtoList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "tamanhos")
     private List<ProdutoRoupasSuperiores> produtoRoupasSuperioresList;
-    @JoinColumn(name = "id_categoria", referencedColumnName = "ID")
-    @ManyToOne(optional = false)
-    private ProdutoCategorias produtoCategorias;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "tamanhos")
     private List<ProdutoCalcados> produtoCalcadosList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "tamanhos")
@@ -80,6 +77,14 @@ public class Tamanhos implements Serializable {
         this.descricao = descricao;
     }
 
+    public List<ProdutoCategorias> getProdutoCategoriasList() {
+        return produtoCategoriasList;
+    }
+
+    public void setProdutoCategoriasList(List<ProdutoCategorias> produtoCategoriasList) {
+        this.produtoCategoriasList = produtoCategoriasList;
+    }
+
     public List<Produto> getProdutoList() {
         return produtoList;
     }
@@ -94,14 +99,6 @@ public class Tamanhos implements Serializable {
 
     public void setProdutoRoupasSuperioresList(List<ProdutoRoupasSuperiores> produtoRoupasSuperioresList) {
         this.produtoRoupasSuperioresList = produtoRoupasSuperioresList;
-    }
-
-    public ProdutoCategorias getProdutoCategorias() {
-        return produtoCategorias;
-    }
-
-    public void setProdutoCategorias(ProdutoCategorias produtoCategorias) {
-        this.produtoCategorias = produtoCategorias;
     }
 
     public List<ProdutoCalcados> getProdutoCalcadosList() {

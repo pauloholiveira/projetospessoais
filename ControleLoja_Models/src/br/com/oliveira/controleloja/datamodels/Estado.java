@@ -7,7 +7,6 @@ package br.com.oliveira.controleloja.datamodels;
 
 import java.io.Serializable;
 import java.util.List;
-
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -30,7 +29,7 @@ import javax.persistence.Table;
 @Table(name = "estado")
 @NamedQueries({
     @NamedQuery(name = "Estado.findAll", query = "SELECT e FROM Estado e")})
-public class Estado implements EntityGenerica, Serializable {
+public class Estado implements Serializable, EntityGenerica  {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

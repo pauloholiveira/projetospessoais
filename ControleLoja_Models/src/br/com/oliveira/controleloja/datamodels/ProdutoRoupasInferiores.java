@@ -31,15 +31,15 @@ public class ProdutoRoupasInferiores implements Serializable {
     @Basic(optional = false)
     @Column(name = "ID")
     private Integer id;
+    @JoinColumn(name = "ID", referencedColumnName = "id", insertable = false, updatable = false)
+    @OneToOne(optional = false)
+    private Produto produto;
     @JoinColumn(name = "id_tamanho", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Tamanhos tamanhos;
     @JoinColumn(name = "id_colecao", referencedColumnName = "ID")
     @ManyToOne(optional = false)
     private Colecoes colecoes;
-    @JoinColumn(name = "ID", referencedColumnName = "id", insertable = false, updatable = false)
-    @OneToOne(optional = false)
-    private Produto produto;
 
     public ProdutoRoupasInferiores() {
     }
@@ -56,6 +56,14 @@ public class ProdutoRoupasInferiores implements Serializable {
         this.id = id;
     }
 
+    public Produto getProduto() {
+        return produto;
+    }
+
+    public void setProduto(Produto produto) {
+        this.produto = produto;
+    }
+
     public Tamanhos getTamanhos() {
         return tamanhos;
     }
@@ -70,14 +78,6 @@ public class ProdutoRoupasInferiores implements Serializable {
 
     public void setColecoes(Colecoes colecoes) {
         this.colecoes = colecoes;
-    }
-
-    public Produto getProduto() {
-        return produto;
-    }
-
-    public void setProduto(Produto produto) {
-        this.produto = produto;
     }
 
     @Override

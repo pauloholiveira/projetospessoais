@@ -14,6 +14,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -27,7 +30,7 @@ import javax.persistence.Table;
 @Table(name = "produto_categorias")
 @NamedQueries({
     @NamedQuery(name = "ProdutoCategorias.findAll", query = "SELECT p FROM ProdutoCategorias p")})
-public class ProdutoCategorias implements EntityGenerica, Serializable {
+public class ProdutoCategorias implements Serializable, EntityGenerica {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,18 +43,33 @@ public class ProdutoCategorias implements EntityGenerica, Serializable {
     @Basic(optional = false)
     @Column(name = "id_pai")
     private int idPai;
+    @JoinTable(name = "material_categoria", joinColumns = {
+        @JoinColumn(name = "id_categoria", referencedColumnName = "ID")}, inverseJoinColumns = {
+        @JoinColumn(name = "id_material", referencedColumnName = "ID")})
+    @ManyToMany
+    private List<Material> materialList;
+    @JoinTable(name = "cor_categoria", joinColumns = {
+        @JoinColumn(name = "id_categoria", referencedColumnName = "ID")}, inverseJoinColumns = {
+        @JoinColumn(name = "id_cor", referencedColumnName = "id")})
+    @ManyToMany
+    private List<Cores> coresList;
+    @JoinTable(name = "tamanho_categoria", joinColumns = {
+        @JoinColumn(name = "id_categoria", referencedColumnName = "ID")}, inverseJoinColumns = {
+        @JoinColumn(name = "id_tamanho", referencedColumnName = "id")})
+    @ManyToMany
+    private List<Tamanhos> tamanhosList;
+    @JoinTable(name = "marca_categoria", joinColumns = {
+        @JoinColumn(name = "id_categoria", referencedColumnName = "ID")}, inverseJoinColumns = {
+        @JoinColumn(name = "id_marca", referencedColumnName = "ID")})
+    @ManyToMany
+    private List<Marcas> marcasList;
+    @JoinTable(name = "colecao_categoria", joinColumns = {
+        @JoinColumn(name = "id_categoria", referencedColumnName = "ID")}, inverseJoinColumns = {
+        @JoinColumn(name = "id_colecao", referencedColumnName = "ID")})
+    @ManyToMany
+    private List<Colecoes> colecoesList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "produtoCategorias")
     private List<Produto> produtoList;
-    @OneToMany(mappedBy = "produtoCategorias")
-    private List<Cores> coresList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "produtoCategorias")
-    private List<Colecoes> colecoesList;
-    @OneToMany(mappedBy = "produtoCategorias")
-    private List<Marcas> marcasList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "produtoCategorias")
-    private List<Tamanhos> tamanhosList;
-    @OneToMany(mappedBy = "produtoCategorias")
-    private List<Material> materialList;
 
     public ProdutoCategorias() {
     }
@@ -90,12 +108,12 @@ public class ProdutoCategorias implements EntityGenerica, Serializable {
         this.idPai = idPai;
     }
 
-    public List<Produto> getProdutoList() {
-        return produtoList;
+    public List<Material> getMaterialList() {
+        return materialList;
     }
 
-    public void setProdutoList(List<Produto> produtoList) {
-        this.produtoList = produtoList;
+    public void setMaterialList(List<Material> materialList) {
+        this.materialList = materialList;
     }
 
     public List<Cores> getCoresList() {
@@ -106,12 +124,12 @@ public class ProdutoCategorias implements EntityGenerica, Serializable {
         this.coresList = coresList;
     }
 
-    public List<Colecoes> getColecoesList() {
-        return colecoesList;
+    public List<Tamanhos> getTamanhosList() {
+        return tamanhosList;
     }
 
-    public void setColecoesList(List<Colecoes> colecoesList) {
-        this.colecoesList = colecoesList;
+    public void setTamanhosList(List<Tamanhos> tamanhosList) {
+        this.tamanhosList = tamanhosList;
     }
 
     public List<Marcas> getMarcasList() {
@@ -122,20 +140,20 @@ public class ProdutoCategorias implements EntityGenerica, Serializable {
         this.marcasList = marcasList;
     }
 
-    public List<Tamanhos> getTamanhosList() {
-        return tamanhosList;
+    public List<Colecoes> getColecoesList() {
+        return colecoesList;
     }
 
-    public void setTamanhosList(List<Tamanhos> tamanhosList) {
-        this.tamanhosList = tamanhosList;
+    public void setColecoesList(List<Colecoes> colecoesList) {
+        this.colecoesList = colecoesList;
     }
 
-    public List<Material> getMaterialList() {
-        return materialList;
+    public List<Produto> getProdutoList() {
+        return produtoList;
     }
 
-    public void setMaterialList(List<Material> materialList) {
-        this.materialList = materialList;
+    public void setProdutoList(List<Produto> produtoList) {
+        this.produtoList = produtoList;
     }
 
     @Override

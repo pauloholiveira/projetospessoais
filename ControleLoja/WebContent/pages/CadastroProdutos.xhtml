@@ -32,19 +32,10 @@
 						
 						<h:outputLabel for="list_categoria">Categoria: </h:outputLabel>
 						<h:panelGroup layout="block">
-							<h:selectOneListbox id="list_categoria" size="1" valueChangeListener="#{CadastroProdutosMB.prencherLista_SubCategorias}" value="#{CadastroProdutosMB.selectedcategoria}" converter="simpleIndexConverter" required="true" requiredMessage="Selecione uma Categoria">
+							<h:selectOneListbox id="list_categoria" size="1" value="#{CadastroProdutosMB.selectedcategoria}" converter="simpleIndexConverter" required="true" requiredMessage="Selecione uma Categoria">
 								<f:selectItem itemLabel="" noSelectionOption="true" />
 								<f:selectItems value="#{CadastroProdutosMB.lista_categorias}" var="categoria" itemValue="#{categoria}" itemLabel="#{categoria.descricao}"/>
-								<f:ajax event="change" render="list_subcategorias"/>
 							</h:selectOneListbox>
-						</h:panelGroup>
-						
-						<h:outputLabel for="list_subcategorias">Sub-categoria: </h:outputLabel>
-						<h:panelGroup layout="block">
-							<rich:select enableManualInput="true" id="list_subcategorias" size="1" value="#{CadastroProdutosMB.produto.produtosSubcategoria}" converter="simpleIndexConverter">
-								<f:selectItems value="#{CadastroProdutosMB.lista_subcategorias}" var="subcategoria" itemValue="#{subcategoria}" itemLabel="#{subcategoria.descricao}"/>
-							</rich:select>
-							<rich:message for="list_categoria"/>
 						</h:panelGroup>
 						
 						<h:outputLabel for="txt_observacoes">Observações: </h:outputLabel>
@@ -57,13 +48,22 @@
 							<h:inputText id="txt_codigo_barras" value="#{CadastroProdutosMB.produto.codigoBarras}"></h:inputText>
 						</h:panelGroup>
 						
-						<h:outputLabel for="txt_preço">Preço: </h:outputLabel>
+						<h:outputLabel for="txt_preço_compra">Preço Compra: </h:outputLabel>
 						<h:panelGroup layout="block">
-							<h:inputText id="txt_preço" value="#{CadastroProdutosMB.produto.preco}">
+							<h:inputText id="txt_preço_compra" value="#{CadastroProdutosMB.produto.precoCompra}">
 		                    </h:inputText>
 		                    <h:outputLabel value="R$"/>
-		                    <rich:jQuery selector="#txt_preço" query="mask('9,99')" timing="domready" />
-							<rich:message for="txt_preço"/>
+		                    <rich:jQuery selector="#txt_preço_compra" query="mask('9,99')" timing="domready" />
+							<rich:message for="txt_preço_compra"/>
+						</h:panelGroup>
+						
+						<h:outputLabel for="txt_preço_venda">Preço Venda: </h:outputLabel>
+						<h:panelGroup layout="block">
+							<h:inputText id="txt_preço_venda" value="#{CadastroProdutosMB.produto.precoVenda}">
+		                    </h:inputText>
+		                    <h:outputLabel value="R$"/>
+		                    <rich:jQuery selector="#txt_preço_compra" query="mask('9,99')" timing="domready" />
+							<rich:message for="txt_preço_compra"/>
 						</h:panelGroup>
 						
 						<h:outputLabel for="txt_desc_detalhada">Descricao Detalhada: </h:outputLabel>

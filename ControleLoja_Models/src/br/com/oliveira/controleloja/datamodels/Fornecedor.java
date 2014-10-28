@@ -79,9 +79,10 @@ public class Fornecedor implements Serializable {
         this.id = id;
     }
 
-    public Fornecedor(Integer id, String nome) {
+    public Fornecedor(Integer id, String nome, String documento) {
         this.id = id;
         this.nome = nome;
+        this.documento = documento;
     }
 
     public Integer getId() {
