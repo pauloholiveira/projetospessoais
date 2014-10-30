@@ -44,7 +44,6 @@ public class Fornecedor implements Serializable {
     @Basic(optional = false)
     @Column(name = "nome")
     private String nome;
-    @Basic(optional = false)
     @Column(name = "documento")
     private String documento;
     @Column(name = "tipo_documento")
@@ -79,10 +78,9 @@ public class Fornecedor implements Serializable {
         this.id = id;
     }
 
-    public Fornecedor(Integer id, String nome, String documento) {
+    public Fornecedor(Integer id, String nome) {
         this.id = id;
         this.nome = nome;
-        this.documento = documento;
     }
 
     public Integer getId() {

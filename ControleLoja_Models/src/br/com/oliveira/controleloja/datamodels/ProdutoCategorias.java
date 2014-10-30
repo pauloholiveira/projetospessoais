@@ -48,6 +48,11 @@ public class ProdutoCategorias implements Serializable, EntityGenerica {
         @JoinColumn(name = "id_material", referencedColumnName = "ID")})
     @ManyToMany
     private List<Material> materialList;
+    @JoinTable(name = "colecao_categoria", joinColumns = {
+        @JoinColumn(name = "id_categoria", referencedColumnName = "ID")}, inverseJoinColumns = {
+        @JoinColumn(name = "id_colecao", referencedColumnName = "ID")})
+    @ManyToMany
+    private List<Colecoes> colecoesList;
     @JoinTable(name = "cor_categoria", joinColumns = {
         @JoinColumn(name = "id_categoria", referencedColumnName = "ID")}, inverseJoinColumns = {
         @JoinColumn(name = "id_cor", referencedColumnName = "id")})
@@ -63,11 +68,6 @@ public class ProdutoCategorias implements Serializable, EntityGenerica {
         @JoinColumn(name = "id_marca", referencedColumnName = "ID")})
     @ManyToMany
     private List<Marcas> marcasList;
-    @JoinTable(name = "colecao_categoria", joinColumns = {
-        @JoinColumn(name = "id_categoria", referencedColumnName = "ID")}, inverseJoinColumns = {
-        @JoinColumn(name = "id_colecao", referencedColumnName = "ID")})
-    @ManyToMany
-    private List<Colecoes> colecoesList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "produtoCategorias")
     private List<Produto> produtoList;
 
@@ -116,6 +116,14 @@ public class ProdutoCategorias implements Serializable, EntityGenerica {
         this.materialList = materialList;
     }
 
+    public List<Colecoes> getColecoesList() {
+        return colecoesList;
+    }
+
+    public void setColecoesList(List<Colecoes> colecoesList) {
+        this.colecoesList = colecoesList;
+    }
+
     public List<Cores> getCoresList() {
         return coresList;
     }
@@ -138,14 +146,6 @@ public class ProdutoCategorias implements Serializable, EntityGenerica {
 
     public void setMarcasList(List<Marcas> marcasList) {
         this.marcasList = marcasList;
-    }
-
-    public List<Colecoes> getColecoesList() {
-        return colecoesList;
-    }
-
-    public void setColecoesList(List<Colecoes> colecoesList) {
-        this.colecoesList = colecoesList;
     }
 
     public List<Produto> getProdutoList() {

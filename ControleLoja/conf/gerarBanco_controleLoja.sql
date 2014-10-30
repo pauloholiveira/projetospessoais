@@ -98,7 +98,7 @@ CREATE TABLE `cliente` (
   KEY `FK_cidade_idx` (`cidade_id`),
   CONSTRAINT `FK_cidade` FOREIGN KEY (`cidade_id`) REFERENCES `cidade` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `FK_status` FOREIGN KEY (`status_id`) REFERENCES `cliente_status` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -319,31 +319,6 @@ INSERT INTO `cores` VALUES (1,'Preta'),(2,'Preta e Branco'),(3,'Azul'),(4,'Verde
 UNLOCK TABLES;
 
 --
--- Table structure for table `documentos`
---
-
-DROP TABLE IF EXISTS `documentos`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `documentos` (
-  `ID` int(11) NOT NULL AUTO_INCREMENT,
-  `tipo` varchar(4) NOT NULL,
-  `valor` varchar(20) NOT NULL,
-  PRIMARY KEY (`ID`),
-  UNIQUE KEY `valor_UNIQUE` (`valor`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `documentos`
---
-
-LOCK TABLES `documentos` WRITE;
-/*!40000 ALTER TABLE `documentos` DISABLE KEYS */;
-/*!40000 ALTER TABLE `documentos` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `estado`
 --
 
@@ -475,7 +450,7 @@ CREATE TABLE `fornecedor` (
   KEY `FK_status3_idx` (`status_id`),
   CONSTRAINT `FK_cidade2` FOREIGN KEY (`cidade_id`) REFERENCES `cidade` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `FK_status3` FOREIGN KEY (`status_id`) REFERENCES `fornecedor_status` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -509,6 +484,29 @@ LOCK TABLES `fornecedor_status` WRITE;
 /*!40000 ALTER TABLE `fornecedor_status` DISABLE KEYS */;
 INSERT INTO `fornecedor_status` VALUES (1,'ATIVO'),(2,'INATIVO');
 /*!40000 ALTER TABLE `fornecedor_status` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `generos`
+--
+
+DROP TABLE IF EXISTS `generos`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `generos` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `descricao` varchar(45) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `generos`
+--
+
+LOCK TABLES `generos` WRITE;
+/*!40000 ALTER TABLE `generos` DISABLE KEYS */;
+/*!40000 ALTER TABLE `generos` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -802,21 +800,25 @@ DROP TABLE IF EXISTS `produto`;
 CREATE TABLE `produto` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `descricao` varchar(250) NOT NULL,
+  `descricao_detalhes` varchar(500) DEFAULT NULL,
   `data_cadastro` datetime NOT NULL,
+  `id_marca` int(11) NOT NULL,
   `id_status` int(11) NOT NULL,
   `id_categoria` int(11) NOT NULL,
-  `id_subcategoria` int(11) NOT NULL,
+  `id_genero` int(11) NOT NULL,
+  `preco_compra` decimal(10,0) NOT NULL,
+  `preco_venda` decimal(10,0) NOT NULL,
   `observacoes` varchar(500) DEFAULT NULL,
   `codigo_barras` varchar(100) DEFAULT NULL,
-  `preco` decimal(10,0) NOT NULL,
-  `descricao_detalhes` varchar(500) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `FK_status2_idx` (`id_status`),
   KEY `FK_categoria2_idx` (`id_categoria`),
-  KEY `FK_subcategoria_idx` (`id_subcategoria`),
-  CONSTRAINT `FK_categoria2` FOREIGN KEY (`id_categoria`) REFERENCES `produtos_categorias` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `FK_status2` FOREIGN KEY (`id_status`) REFERENCES `produto_status` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `FK_subcategoria` FOREIGN KEY (`id_subcategoria`) REFERENCES `produtos_subcategoria` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  KEY `FK_prod_genero_idx` (`id_genero`),
+  KEY `FK_prod_marcas_idx` (`id_marca`),
+  CONSTRAINT `FK_categoria2` FOREIGN KEY (`id_categoria`) REFERENCES `produto_categorias` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `FK_prod_genero` FOREIGN KEY (`id_genero`) REFERENCES `generos` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `FK_prod_marcas` FOREIGN KEY (`id_marca`) REFERENCES `marcas` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `FK_status2` FOREIGN KEY (`id_status`) REFERENCES `produto_status` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -957,8 +959,8 @@ CREATE TABLE `produto_roupas_superiores` (
   KEY `FK_tronco_gola_idx` (`id_gola`),
   KEY `FK_tronco_colecao_idx` (`id_colecao`),
   CONSTRAINT `FK_tronco_colecao` FOREIGN KEY (`id_colecao`) REFERENCES `colecoes` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `FK_tronco_gola` FOREIGN KEY (`id_gola`) REFERENCES `golas` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `FK_tronco_manga` FOREIGN KEY (`id_manga`) REFERENCES `mangas` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `FK_tronco_gola` FOREIGN KEY (`id_gola`) REFERENCES `golas` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `FK_tronco_manga` FOREIGN KEY (`id_manga`) REFERENCES `mangas` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `FK_tronco_produto` FOREIGN KEY (`ID`) REFERENCES `produto` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
   CONSTRAINT `FK_tronco_tamanho` FOREIGN KEY (`id_tamanhos`) REFERENCES `tamanhos` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -995,30 +997,6 @@ LOCK TABLES `produto_status` WRITE;
 /*!40000 ALTER TABLE `produto_status` DISABLE KEYS */;
 INSERT INTO `produto_status` VALUES (1,'DISPONIVEL'),(2,'INDISPONIVEL');
 /*!40000 ALTER TABLE `produto_status` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `produtos_categorias`
---
-
-DROP TABLE IF EXISTS `produtos_categorias`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `produtos_categorias` (
-  `ID` int(11) NOT NULL AUTO_INCREMENT,
-  `descricao` varchar(100) NOT NULL,
-  PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `produtos_categorias`
---
-
-LOCK TABLES `produtos_categorias` WRITE;
-/*!40000 ALTER TABLE `produtos_categorias` DISABLE KEYS */;
-INSERT INTO `produtos_categorias` VALUES (1,'Calçados'),(2,'Camisetas'),(3,'Vestidos'),(4,'Bermudas'),(5,'Casacos'),(6,'Calças');
-/*!40000 ALTER TABLE `produtos_categorias` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -1100,33 +1078,6 @@ LOCK TABLES `produtos_materiais` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `produtos_subcategoria`
---
-
-DROP TABLE IF EXISTS `produtos_subcategoria`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `produtos_subcategoria` (
-  `ID` int(11) NOT NULL AUTO_INCREMENT,
-  `descricao` varchar(100) NOT NULL,
-  `categoria_ID` int(11) NOT NULL,
-  PRIMARY KEY (`ID`),
-  KEY `FK_categoria_idx` (`categoria_ID`),
-  CONSTRAINT `FK_categoria` FOREIGN KEY (`categoria_ID`) REFERENCES `produtos_categorias` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `produtos_subcategoria`
---
-
-LOCK TABLES `produtos_subcategoria` WRITE;
-/*!40000 ALTER TABLE `produtos_subcategoria` DISABLE KEYS */;
-INSERT INTO `produtos_subcategoria` VALUES (1,'Rasteirinhas',1),(2,'Sapato Social',1),(3,'Regatas',2);
-/*!40000 ALTER TABLE `produtos_subcategoria` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `produtos_tamanhos`
 --
 
@@ -1150,32 +1101,6 @@ CREATE TABLE `produtos_tamanhos` (
 LOCK TABLES `produtos_tamanhos` WRITE;
 /*!40000 ALTER TABLE `produtos_tamanhos` DISABLE KEYS */;
 /*!40000 ALTER TABLE `produtos_tamanhos` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `produtos_tecidos`
---
-
-DROP TABLE IF EXISTS `produtos_tecidos`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `produtos_tecidos` (
-  `id_tecidos` int(11) NOT NULL,
-  `id_produto` int(11) NOT NULL,
-  PRIMARY KEY (`id_tecidos`,`id_produto`),
-  KEY `FK_tecido_prod_prod_idx` (`id_produto`),
-  CONSTRAINT `FK_tecido_prod_prod` FOREIGN KEY (`id_produto`) REFERENCES `produto` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `FK_tecido_prod_tec` FOREIGN KEY (`id_tecidos`) REFERENCES `tecidos` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `produtos_tecidos`
---
-
-LOCK TABLES `produtos_tecidos` WRITE;
-/*!40000 ALTER TABLE `produtos_tecidos` DISABLE KEYS */;
-/*!40000 ALTER TABLE `produtos_tecidos` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -1251,30 +1176,6 @@ LOCK TABLES `tamanhos` WRITE;
 /*!40000 ALTER TABLE `tamanhos` DISABLE KEYS */;
 INSERT INTO `tamanhos` VALUES (1,'P'),(2,'PP'),(3,'M'),(4,'G'),(5,'GG'),(6,'EGG');
 /*!40000 ALTER TABLE `tamanhos` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `tecidos`
---
-
-DROP TABLE IF EXISTS `tecidos`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `tecidos` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `descricao` varchar(45) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `tecidos`
---
-
-LOCK TABLES `tecidos` WRITE;
-/*!40000 ALTER TABLE `tecidos` DISABLE KEYS */;
-INSERT INTO `tecidos` VALUES (1,'Lã'),(2,'Seda'),(3,'Algodão'),(4,'Micro-Fibra'),(5,'Nylon'),(6,'Tactel');
-/*!40000 ALTER TABLE `tecidos` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -1446,4 +1347,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-10-28  0:19:53
+-- Dump completed on 2014-10-29 23:47:39

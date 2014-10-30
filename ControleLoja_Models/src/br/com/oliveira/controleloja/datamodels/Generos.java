@@ -24,10 +24,10 @@ import javax.persistence.Table;
  * @author paulo.oliveira
  */
 @Entity
-@Table(name = "golas")
+@Table(name = "generos")
 @NamedQueries({
-    @NamedQuery(name = "Golas.findAll", query = "SELECT g FROM Golas g")})
-public class Golas implements Serializable {
+    @NamedQuery(name = "Generos.findAll", query = "SELECT g FROM Generos g")})
+public class Generos implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,17 +37,17 @@ public class Golas implements Serializable {
     @Basic(optional = false)
     @Column(name = "descricao")
     private String descricao;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "golas")
-    private List<ProdutoRoupasSuperiores> produtoRoupasSuperioresList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "generos")
+    private List<Produto> produtoList;
 
-    public Golas() {
+    public Generos() {
     }
 
-    public Golas(Integer id) {
+    public Generos(Integer id) {
         this.id = id;
     }
 
-    public Golas(Integer id, String descricao) {
+    public Generos(Integer id, String descricao) {
         this.id = id;
         this.descricao = descricao;
     }
@@ -68,12 +68,12 @@ public class Golas implements Serializable {
         this.descricao = descricao;
     }
 
-    public List<ProdutoRoupasSuperiores> getProdutoRoupasSuperioresList() {
-        return produtoRoupasSuperioresList;
+    public List<Produto> getProdutoList() {
+        return produtoList;
     }
 
-    public void setProdutoRoupasSuperioresList(List<ProdutoRoupasSuperiores> produtoRoupasSuperioresList) {
-        this.produtoRoupasSuperioresList = produtoRoupasSuperioresList;
+    public void setProdutoList(List<Produto> produtoList) {
+        this.produtoList = produtoList;
     }
 
     @Override
@@ -86,10 +86,10 @@ public class Golas implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Golas)) {
+        if (!(object instanceof Generos)) {
             return false;
         }
-        Golas other = (Golas) object;
+        Generos other = (Generos) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -98,7 +98,7 @@ public class Golas implements Serializable {
 
     @Override
     public String toString() {
-        return "br.com.oliveira.controleloja.datamodels.Golas[id=" + id + "]";
+        return "br.com.oliveira.controleloja.datamodels.Generos[id=" + id + "]";
     }
 
 }

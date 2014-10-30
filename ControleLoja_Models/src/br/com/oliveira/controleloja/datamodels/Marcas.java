@@ -8,6 +8,7 @@ package br.com.oliveira.controleloja.datamodels;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,6 +17,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -38,6 +40,8 @@ public class Marcas implements Serializable {
     private String descricao;
     @ManyToMany(mappedBy = "marcasList")
     private List<ProdutoCategorias> produtoCategoriasList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "marcas")
+    private List<Produto> produtoList;
 
     public Marcas() {
     }
@@ -73,6 +77,14 @@ public class Marcas implements Serializable {
 
     public void setProdutoCategoriasList(List<ProdutoCategorias> produtoCategoriasList) {
         this.produtoCategoriasList = produtoCategoriasList;
+    }
+
+    public List<Produto> getProdutoList() {
+        return produtoList;
+    }
+
+    public void setProdutoList(List<Produto> produtoList) {
+        this.produtoList = produtoList;
     }
 
     @Override

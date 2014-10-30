@@ -17,6 +17,7 @@
 	<mapping class="br.com.oliveira.controleloja.datamodels.FormasPagamento"/>
 	<mapping class="br.com.oliveira.controleloja.datamodels.Fornecedor"/>
 	<mapping class="br.com.oliveira.controleloja.datamodels.FornecedorStatus"/>
+	<mapping class="br.com.oliveira.controleloja.datamodels.Generos"/>
 	<mapping class="br.com.oliveira.controleloja.datamodels.Golas"/>
 	<mapping class="br.com.oliveira.controleloja.datamodels.Imagens"/>
 	<mapping class="br.com.oliveira.controleloja.datamodels.ItemCompras"/>

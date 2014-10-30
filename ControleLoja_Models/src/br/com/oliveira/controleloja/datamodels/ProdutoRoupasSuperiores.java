@@ -37,10 +37,10 @@ public class ProdutoRoupasSuperiores implements Serializable {
     @JoinColumn(name = "ID", referencedColumnName = "id", insertable = false, updatable = false)
     @OneToOne(optional = false)
     private Produto produto;
-    @JoinColumn(name = "id_manga", referencedColumnName = "ID")
+    @JoinColumn(name = "id_manga", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Mangas mangas;
-    @JoinColumn(name = "id_gola", referencedColumnName = "ID")
+    @JoinColumn(name = "id_gola", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Golas golas;
     @JoinColumn(name = "id_colecao", referencedColumnName = "ID")

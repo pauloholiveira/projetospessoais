@@ -43,28 +43,24 @@ public class Produto implements Serializable {
     @Column(name = "id")
     private Integer id;
     @Basic(optional = false)
+    @Column(name = "descricao")
+    private String descricao;
+    @Column(name = "descricao_detalhes")
+    private String descricaoDetalhes;
+    @Basic(optional = false)
     @Column(name = "data_cadastro")
     @Temporal(TemporalType.TIMESTAMP)
     private Date dataCadastro;
     @Basic(optional = false)
     @Column(name = "preco_compra")
     private long precoCompra;
+    @Basic(optional = false)
     @Column(name = "preco_venda")
-    private Long precoVenda;
-    @Column(name = "id_marca")
-    private Integer idMarca;
-    @Basic(optional = false)
-    @Column(name = "descricao")
-    private String descricao;
-    @Column(name = "descricao_detalhes")
-    private String descricaoDetalhes;
-    @Basic(optional = false)
-    @Column(name = "id_genero")
-    private int idGenero;
-    @Column(name = "codigo_barras")
-    private String codigoBarras;
+    private long precoVenda;
     @Column(name = "observacoes")
     private String observacoes;
+    @Column(name = "codigo_barras")
+    private String codigoBarras;
     @ManyToMany(mappedBy = "produtoList")
     private List<Cores> coresList;
     @ManyToMany(mappedBy = "produtoList")
@@ -79,6 +75,12 @@ public class Produto implements Serializable {
     @JoinColumn(name = "id_status", referencedColumnName = "ID")
     @ManyToOne(optional = false)
     private ProdutoStatus produtoStatus;
+    @JoinColumn(name = "id_marca", referencedColumnName = "ID")
+    @ManyToOne(optional = false)
+    private Marcas marcas;
+    @JoinColumn(name = "id_genero", referencedColumnName = "id")
+    @ManyToOne(optional = false)
+    private Generos generos;
     @JoinColumn(name = "id_categoria", referencedColumnName = "ID")
     @ManyToOne(optional = false)
     private ProdutoCategorias produtoCategorias;
@@ -106,12 +108,12 @@ public class Produto implements Serializable {
         this.id = id;
     }
 
-    public Produto(Integer id, Date dataCadastro, long precoCompra, String descricao, int idGenero) {
+    public Produto(Integer id, String descricao, Date dataCadastro, long precoCompra, long precoVenda) {
         this.id = id;
+        this.descricao = descricao;
         this.dataCadastro = dataCadastro;
         this.precoCompra = precoCompra;
-        this.descricao = descricao;
-        this.idGenero = idGenero;
+        this.precoVenda = precoVenda;
     }
 
     public Integer getId() {
@@ -120,38 +122,6 @@ public class Produto implements Serializable {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public Date getDataCadastro() {
-        return dataCadastro;
-    }
-
-    public void setDataCadastro(Date dataCadastro) {
-        this.dataCadastro = dataCadastro;
-    }
-
-    public long getPrecoCompra() {
-        return precoCompra;
-    }
-
-    public void setPrecoCompra(long precoCompra) {
-        this.precoCompra = precoCompra;
-    }
-
-    public Long getPrecoVenda() {
-        return precoVenda;
-    }
-
-    public void setPrecoVenda(Long precoVenda) {
-        this.precoVenda = precoVenda;
-    }
-
-    public Integer getIdMarca() {
-        return idMarca;
-    }
-
-    public void setIdMarca(Integer idMarca) {
-        this.idMarca = idMarca;
     }
 
     public String getDescricao() {
@@ -170,20 +140,28 @@ public class Produto implements Serializable {
         this.descricaoDetalhes = descricaoDetalhes;
     }
 
-    public int getIdGenero() {
-        return idGenero;
+    public Date getDataCadastro() {
+        return dataCadastro;
     }
 
-    public void setIdGenero(int idGenero) {
-        this.idGenero = idGenero;
+    public void setDataCadastro(Date dataCadastro) {
+        this.dataCadastro = dataCadastro;
     }
 
-    public String getCodigoBarras() {
-        return codigoBarras;
+    public long getPrecoCompra() {
+        return precoCompra;
     }
 
-    public void setCodigoBarras(String codigoBarras) {
-        this.codigoBarras = codigoBarras;
+    public void setPrecoCompra(long precoCompra) {
+        this.precoCompra = precoCompra;
+    }
+
+    public long getPrecoVenda() {
+        return precoVenda;
+    }
+
+    public void setPrecoVenda(long precoVenda) {
+        this.precoVenda = precoVenda;
     }
 
     public String getObservacoes() {
@@ -192,6 +170,14 @@ public class Produto implements Serializable {
 
     public void setObservacoes(String observacoes) {
         this.observacoes = observacoes;
+    }
+
+    public String getCodigoBarras() {
+        return codigoBarras;
+    }
+
+    public void setCodigoBarras(String codigoBarras) {
+        this.codigoBarras = codigoBarras;
     }
 
     public List<Cores> getCoresList() {
@@ -232,6 +218,22 @@ public class Produto implements Serializable {
 
     public void setProdutoStatus(ProdutoStatus produtoStatus) {
         this.produtoStatus = produtoStatus;
+    }
+
+    public Marcas getMarcas() {
+        return marcas;
+    }
+
+    public void setMarcas(Marcas marcas) {
+        this.marcas = marcas;
+    }
+
+    public Generos getGeneros() {
+        return generos;
+    }
+
+    public void setGeneros(Generos generos) {
+        this.generos = generos;
     }
 
     public ProdutoCategorias getProdutoCategorias() {

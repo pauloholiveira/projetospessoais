@@ -16,7 +16,11 @@ import javax.persistence.Embeddable;
  */
 @Embeddable
 public class RolesUsersPK implements Serializable {
-    @Basic(optional = false)
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	@Basic(optional = false)
     @Column(name = "username")
     private String username;
     @Basic(optional = false)
