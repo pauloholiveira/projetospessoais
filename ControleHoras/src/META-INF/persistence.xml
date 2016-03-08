@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
-	<persistence-unit name="ControleHoras" transaction-type="RESOURCE_LOCAL">
+	<!-- <persistence-unit name="ControleHoras" transaction-type="RESOURCE_LOCAL"> -->
+	<persistence-unit name="ControleHoras" transaction-type="JTA">
+		<jta-data-source>java:jboss/datasources/controleHoras</jta-data-source>
 		<!-- <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider> -->
 		<class>br.com.paulo.model.Users</class>
 		<class>br.com.paulo.model.UserRoles</class>
@@ -23,7 +25,7 @@
 			<property name="log4j.logger.org.hibernate.tool.hbm2ddl" value="error"/> --> 
 			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/controle_horas"/>
 			<property name="javax.persistence.jdbc.user" value="root"/>
-			<!-- <property name="javax.persistence.jdbc.password" value="parimo69"/> -->
+			<property name="javax.persistence.jdbc.password" value="parimo69"/>
 			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
 			
 		</properties>
