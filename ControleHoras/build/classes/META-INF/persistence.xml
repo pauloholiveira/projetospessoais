@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
+	<persistence-unit name="ControleHoras" transaction-type="RESOURCE_LOCAL">
+		<!-- <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider> -->
+		<class>br.com.paulo.model.Users</class>
+		<class>br.com.paulo.model.UserRoles</class>
+		<class>br.com.paulo.model.Usuario</class>
+		<class>br.com.paulo.model.UsuarioPK</class>
+		<class>br.com.paulo.model.Expediente</class>
+		<class>br.com.paulo.model.Operacao</class>
+		<class>br.com.paulo.model.OperacaoPK</class>
+		<class>br.com.paulo.model.TipoOperacao</class>
+		<exclude-unlisted-classes>true</exclude-unlisted-classes>
+		<properties>
+			<property name="hibernate.show_sql" value="false" />
+			<property name="hibernate.format_sql" value="false" />
+			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQLInnoDBDialect"/>
+			<property name="hibernate.hbm2ddl.auto" value="validate" />
+			
+			<!-- <property name="log4j.category.org.hibernate" value="ON"/>
+			<property name="log4j.logger.org.hibernate.type" value="error"/>
+			<property name="log4j.logger.org.hibernate" value="error"/>
+			<property name="log4j.logger.org.hibernate.tool.hbm2ddl" value="error"/> --> 
+			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/controle_horas"/>
+			<property name="javax.persistence.jdbc.user" value="root"/>
+			<!-- <property name="javax.persistence.jdbc.password" value="parimo69"/> -->
+			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
+			
+		</properties>
+	</persistence-unit>
+</persistence>
+
