@@ -15,17 +15,10 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-//@IdClass(UsuarioPK.class)
 @Table(name = "usuario", catalog = "controle_horas", schema = "")
 public class Usuario  implements Serializable{
 	private static final long serialVersionUID = -2613068058510158130L;
 	
-	/*@Id
-	private String cpf;
-	
-	@Id
-	@Temporal(TemporalType.TIMESTAMP)	
-	private Date data_nascimento;*/
 	@EmbeddedId
     protected UsuarioPK usuarioPK;
 	
@@ -52,31 +45,9 @@ public class Usuario  implements Serializable{
         this.nome = nome;
     }
     
-	/*public Usuario(String cpf, Date data_nascimento, String nome, Users user) {
-		this.cpf = cpf;
-		this.data_nascimento = data_nascimento;
-		this.nome = nome;
-		this.user = user;
-	}*/
     public Usuario(String cpf, Date data_nascimento) {
     	this.usuarioPK = new UsuarioPK(cpf, data_nascimento);
 	}
-
-	/*public String getCpf() {
-		return cpf;
-	}
-
-	public void setCpf(String cpf) {
-		this.cpf = cpf;
-	}
-
-	public Date getData_nascimento() {
-		return data_nascimento;
-	}
-
-	public void setData_nascimento(Date data_nascimento) {
-		this.data_nascimento = data_nascimento;
-	}*/
 
 	public UsuarioPK getUsuarioPK() {
 		return usuarioPK;
@@ -114,7 +85,6 @@ public class Usuario  implements Serializable{
 
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
         if (!(object instanceof Usuario)) {
             return false;
         }
