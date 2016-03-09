@@ -1,7 +1,14 @@
 package br.com.paulo.dao.impl;
 
-import br.com.paulo.dao.UserRolesDAO;
+import javax.persistence.EntityManager;
 
-public class UserRolesDAOJPAImpl implements UserRolesDAO {
+import br.com.paulo.dao.UserRolesDAO;
+import br.com.paulo.model.UserRoles;
+
+public class UserRolesDAOJPAImpl extends GenericJPADAOImpl<String, UserRoles> implements UserRolesDAO {
+
+	public UserRolesDAOJPAImpl(EntityManager entityManager) {
+		super(entityManager);
+	}
 
 }
