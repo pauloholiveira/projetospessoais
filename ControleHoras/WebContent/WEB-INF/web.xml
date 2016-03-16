@@ -3,5 +3,28 @@
   <display-name>ControleHoras</display-name>
   <welcome-file-list>
     <welcome-file>index.jsp</welcome-file>
-   </welcome-file-list>
+  </welcome-file-list>
+  <jsp-config>
+	<jsp-property-group>
+	<url-pattern>/**</url-pattern>
+	<el-ignored>false</el-ignored>
+	</jsp-property-group>
+  </jsp-config>
+  
+  <servlet>
+	<servlet-name>SpringServlet</servlet-name>
+	<servlet-class>
+	org.springframework.web.servlet.DispatcherServlet
+	</servlet-class>
+	<init-param>
+	 <param-name>contextConfigLocation</param-name>
+	 <param-value>/WEB-INF/spring/spring-servlet.xml</param-value>
+	</init-param>
+	<load-on-startup>1</load-on-startup>
+  </servlet>
+  
+  <servlet-mapping>
+	<servlet-name>SpringServlet</servlet-name>
+	<url-pattern>/</url-pattern>
+	</servlet-mapping>
 </web-app>
