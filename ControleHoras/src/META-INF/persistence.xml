@@ -4,14 +4,14 @@
 	<persistence-unit name="ControleHoras" transaction-type="JTA">
 		<jta-data-source>java:jboss/datasources/controleHoras</jta-data-source>
 		<!-- <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider> -->
-		<class>br.com.paulo.model.Users</class>
-		<class>br.com.paulo.model.UserRoles</class>
-		<class>br.com.paulo.model.Usuario</class>
-		<class>br.com.paulo.model.UsuarioPK</class>
-		<class>br.com.paulo.model.Expediente</class>
-		<class>br.com.paulo.model.Operacao</class>
-		<class>br.com.paulo.model.OperacaoPK</class>
-		<class>br.com.paulo.model.TipoOperacao</class>
+		<class>br.com.paulo.controlehoras.model.Users</class>
+		<class>br.com.paulo.controlehoras.model.UserRoles</class>
+		<class>br.com.paulo.controlehoras.model.Usuario</class>
+		<class>br.com.paulo.controlehoras.model.UsuarioPK</class>
+		<class>br.com.paulo.controlehoras.model.Expediente</class>
+		<class>br.com.paulo.controlehoras.model.Operacao</class>
+		<class>br.com.paulo.controlehoras.model.OperacaoPK</class>
+		<class>br.com.paulo.controlehoras.model.TipoOperacao</class>
 		<exclude-unlisted-classes>true</exclude-unlisted-classes>
 		<properties>
 			<property name="hibernate.show_sql" value="false" />
