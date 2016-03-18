@@ -4,18 +4,21 @@ import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import br.com.paulo.controlehoras.dao.GenericJPADAO;
 
 @SuppressWarnings("unchecked")
+@Repository
+@Transactional
 public class GenericJPADAOImpl<PK, T> implements GenericJPADAO<PK,T> {
-
-	private EntityManager entityManager;
 	
+	@PersistenceContext
+	protected EntityManager entityManager;
 	
-    public GenericJPADAOImpl(EntityManager entityManager) {
-        this.entityManager = entityManager;
-    }
     
 	public T getById(PK pk) {
         return (T) entityManager.find(getTypeClass(), pk);
@@ -41,5 +44,13 @@ public class GenericJPADAOImpl<PK, T> implements GenericJPADAO<PK,T> {
         Class<?> clazz = (Class<?>) ((ParameterizedType) this.getClass().getGenericSuperclass()).getActualTypeArguments()[1];
         return clazz;
     }
+
+	public EntityManager getEntityManager() {
+		return entityManager;
+	}
+
+	public void setEntityManager(EntityManager entityManager) {
+		this.entityManager = entityManager;
+	}
     
 }

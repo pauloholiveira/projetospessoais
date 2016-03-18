@@ -18,15 +18,12 @@
 			<property name="hibernate.format_sql" value="false" />
 			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQLInnoDBDialect"/>
 			<property name="hibernate.hbm2ddl.auto" value="validate" />
-			
-			<!-- <property name="log4j.category.org.hibernate" value="ON"/>
-			<property name="log4j.logger.org.hibernate.type" value="error"/>
-			<property name="log4j.logger.org.hibernate" value="error"/>
-			<property name="log4j.logger.org.hibernate.tool.hbm2ddl" value="error"/> --> 
-			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/controle_horas"/>
+      		<property name="hibernate.transaction.jta.platform" value="org.hibernate.service.jta.platform.internal.JBossAppServerJtaPlatform"/>
+    
+			<!-- <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/controle_horas"/>
 			<property name="javax.persistence.jdbc.user" value="root"/>
-			<!-- <property name="javax.persistence.jdbc.password" value="parimo69"/> -->
-			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
+			<property name="javax.persistence.jdbc.password" value="parimo69"/>
+			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/> -->
 			
 		</properties>
 	</persistence-unit>
