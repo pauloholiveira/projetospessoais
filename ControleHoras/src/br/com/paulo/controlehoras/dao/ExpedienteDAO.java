@@ -1,5 +1,7 @@
 package br.com.paulo.controlehoras.dao;
 
-public interface ExpedienteDAO {
+import br.com.paulo.controlehoras.model.Expediente;
+
+public interface ExpedienteDAO extends GenericJPADAO<Integer, Expediente>{
 
 }

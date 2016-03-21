@@ -1,5 +1,8 @@
 package br.com.paulo.controlehoras.dao;
 
-public interface UsuarioDAO {
+import br.com.paulo.controlehoras.model.Usuario;
+import br.com.paulo.controlehoras.model.UsuarioPK;
+
+public interface UsuarioDAO extends GenericJPADAO<UsuarioPK, Usuario>{
 
 }

@@ -1,5 +1,7 @@
 package br.com.paulo.controlehoras.dao;
 
-public interface TipoOperacaoDAO {
+import br.com.paulo.controlehoras.model.TipoOperacao;
+
+public interface TipoOperacaoDAO extends GenericJPADAO<Integer, TipoOperacao> {
 
 }

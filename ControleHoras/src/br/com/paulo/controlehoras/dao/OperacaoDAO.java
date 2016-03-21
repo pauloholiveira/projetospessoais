@@ -1,5 +1,8 @@
 package br.com.paulo.controlehoras.dao;
 
-public interface OperacaoDAO {
+import br.com.paulo.controlehoras.model.Operacao;
+import br.com.paulo.controlehoras.model.OperacaoPK;
+
+public interface OperacaoDAO extends GenericJPADAO<OperacaoPK, Operacao>{
 
 }

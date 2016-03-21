@@ -1,5 +1,7 @@
 package br.com.paulo.controlehoras.dao;
 
-public interface UserRolesDAO {
+import br.com.paulo.controlehoras.model.UserRoles;
+
+public interface UserRolesDAO extends GenericJPADAO<String, UserRoles>{
 
 }
