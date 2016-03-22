@@ -2,18 +2,13 @@
 <tiles-definitions>
 	<!-- Definição básica -->
 	<definition name="main" template="/views/templates/main.jsp">
-		<put-attribute name="titulo" value="Controle Horas" />
-		<put-attribute name="cabecalho" value="/views/templates/cabecalho.jsp" />
-		<put-attribute name="rodape" value="/views/templates/rodape.jsp" />
+		<put-attribute name="titulo" value="Controle Horas"/>
+		<put-attribute name="cabecalho" value="/views/templates/cabecalho.jsp"/>
+		<put-attribute name="rodape" value="/views/templates/rodape.jsp"/>
 	</definition>
 	
 	<definition name="index" extends="main">
 		<put-attribute name="conteudo" value="/views/index.jsp" />
 	</definition>
-	
-	<!-- <definition name="signup" extends="main">
-		<put-attribute name="conteudo" value="/views/signup.jsp" />
-		<put-attribute name="titulo" value="Bem vindo(a)!" />
-	</definition> -->
 	
 </tiles-definitions>
