@@ -39,51 +39,27 @@
 	
 	<tx:annotation-driven transaction-manager="transactionManager"/>
 	
-	<bean id="transactionManager" class="org.springframework.transaction.jta.JtaTransactionManager" />
-	
-	<bean class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor" />
-	
+	<bean id="transactionManager" class="org.springframework.transaction.jta.JtaTransactionManager" />	
+	<bean class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor" />	
 	<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
 	    <property name="jtaDataSource" ref="controleHoras" />
 	    <property name="jpaVendorAdapter">
 			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter" />
 		</property>
+	</bean>	
+	<bean  id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
+		<property name="definitions">
+			<list>
+				<value>/WEB-INF/tiles-config.xml</value>
+			</list>
+		</property>
 	</bean>
-	
 	<bean id="tilesViewResolver" class="org.springframework.web.servlet.view.UrlBasedViewResolver">
 		<property name="viewClass" value="org.springframework.web.servlet.view.tiles3.TilesView"/>
 	</bean>
 	
-	<bean  id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
-		<property name="definitions">
-			<list>
-				<value>/tiles/tiles-config.xml</value>
-			</list>
-		</property>
-	</bean>
-
 	<jee:jndi-lookup id="controleHoras" jndi-name="java:jboss/datasources/controleHoras" />
 		
-	
-	<!-- <bean id="ExpedienteDAO"
-		class="br.com.paulo.controlehoras.dao.impl.ExpedienteDAOJPAImpl">
-    </bean> -->
-    <!-- <bean id="OperacaoDAO"
-		class="br.com.paulo.controlehoras.dao.impl.OperacaoDAOJPAImpl">
-    </bean>
-    <bean id="TipoOperacaoDAO"
-		class="br.com.paulo.controlehoras.dao.impl.TipoOperacaoDAOJPAImpl">
-    </bean>
-    <bean id="UserRolesDAO"
-		class="br.com.paulo.controlehoras.dao.impl.UserRolesDAOJPAImpl">
-    </bean>
-    <bean id="UsersDAO"
-		class="br.com.paulo.controlehoras.dao.impl.UsersDAOJPAImpl">
-    </bean>
-    <bean id="UsuarioDAO"
-		class="br.com.paulo.controlehoras.dao.impl.UsuarioDAOJPAImpl">
-    </bean> -->
-    
     <!--
 		Não é preciso definir um nome para este bean, pois
 		o Spring MVC busca beans do tipo ViewResolver pelo tipo
