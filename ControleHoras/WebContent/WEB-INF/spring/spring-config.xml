@@ -32,7 +32,7 @@
 		http://www.springframework.org/schema/websocket http://www.springframework.org/schema/websocket/spring-websocket-4.1.xsd">
 
 	<mvc:annotation-driven />
-	<mvc:resources mapping="/recursos/**" location="/recursos/" cache-period="120"/>
+	<mvc:resources mapping="/resources/**" location="/resources/" />
 	
 	<context:annotation-config />
 	<context:component-scan base-package="br.com.paulo.controlehoras"/>
@@ -50,7 +50,7 @@
 	<bean  id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
 		<property name="definitions">
 			<list>
-				<value>/WEB-INF/tiles-config.xml</value>
+				<value>/WEB-INF/tiles/tiles-config.xml</value>
 			</list>
 		</property>
 	</bean>
@@ -64,10 +64,10 @@
 		Não é preciso definir um nome para este bean, pois
 		o Spring MVC busca beans do tipo ViewResolver pelo tipo
 	-->
-	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+	<!-- <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
 		<property name="prefix" value="/views"/>
 		<property name="suffix" value=".jsp"/>
-	</bean>
+	</bean> -->
     
 </beans>

@@ -34,11 +34,13 @@ public class ExpedienteControler {
 		this.opDAO = expDAO;
 	}
 	
-	@RequestMapping("/")
-	public String index(Map<String, Object> model) {
-		model.put("expedientes", getExpDAO().findAll());
-		model.put("operacoes", getOpDAO().findAll());
-		
+	@RequestMapping(value="index")
+	public String index() {
 		return "index";
+	}
+	
+	@RequestMapping(value="relatorios")
+	public String relatorios() {
+		return "relatorios";
 	}
 }
