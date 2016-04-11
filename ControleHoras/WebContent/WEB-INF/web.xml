@@ -5,7 +5,7 @@
 	id="WebApp_ID" version="3.0">
 	<display-name>ControleHoras</display-name>
 	<welcome-file-list>
-		<welcome-file>/WEB-INF/views/templates/SiteTemplate.jsp</welcome-file>
+		<welcome-file>/index</welcome-file>
 	</welcome-file-list>
 
 	<!-- ############# Configuração do Spring ############# -->

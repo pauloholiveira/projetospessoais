@@ -5,26 +5,28 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<title>Spring MVC - Tiles Integration tutorial</title>
+	<title>Spring MVC - Tiles Integration tutorial</title><!-- 
 	<link rel="stylesheet" href="resources/css/screen.css" type="text/css" media="screen, projection"></link>
-	<link rel="stylesheet" href="resources/css/print.css" type="text/css" media="print"></link>
+	<link rel="stylesheet" href="resources/css/print.css" type="text/css" media="print"></link> -->
 	<!--[if IE]>
 	<link rel="stylesheet" href="resources/css/ie.css" type="text/css" media="screen, projection">
 	<![endif]-->
+	
 <style>
-body{ margin-top:20px; margin-bottom:20px; background-color:#DFDFDF;}
+	*{padding: 0; margin: 0;}
+	body{ margin-top:10px; margin-bottom:10px; background-color:#DFDFDF;}
 </style>
 </head>
 <body>
-	<div class="container" style="border: #C1C1C1 solid 1px; border-radius:10px;">
+	<div style="border: #C1C1C1 solid 1px; border-radius:10px; width: 99.90%;">
 		<!-- Header -->
 		<tiles:insertAttribute name="header" />
 		<!-- Menu Page -->
-		<div class="span-5  border" style="height:400px;background-color:#FCFCFC;">
+		<div style="height:20px; width: 100%;">
 			<tiles:insertAttribute name="menu" />
 		</div>
 		<!-- Body Page -->
-		<div class="span-19 last">
+		<div>
 			<tiles:insertAttribute name="body" />
 		</div>
 		<!-- Footer Page -->
