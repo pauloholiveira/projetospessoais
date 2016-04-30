@@ -18,6 +18,7 @@ public class RelatorioControler {
 	@RequestMapping(method=RequestMethod.GET)
 	public String testes(Model model) {
 		model.addAttribute("listaTipos", tipoDAO.findAll());
+		
 		return "relatorios";
 	}
 }

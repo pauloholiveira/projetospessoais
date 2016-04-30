@@ -19,6 +19,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+
 @Entity
 @Table(name="expediente", catalog="controle_horas", schema="")
 public class Expediente implements Serializable{
@@ -83,6 +84,7 @@ public class Expediente implements Serializable{
 	public void setObservacoes(String observacoes) {
 		this.observacoes = observacoes;
 	}
+	
 	public List<Operacao> getOperacoes() {
 		return operacoes;
 	}
