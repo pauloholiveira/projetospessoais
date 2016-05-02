@@ -48,10 +48,10 @@
 	<div style="margin:5px;background-color:white;">
 		<table>
 			<thead>
-				<th>
+				<tr>
 					<td>Tipo</td>
 					<td>Hora</td>
-				</th>
+				</tr>
 			</thead>
 			<tbody>
 				<c:forEach items="${lista_operacoes}" var="operacao" >

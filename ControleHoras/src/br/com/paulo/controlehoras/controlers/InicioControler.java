@@ -27,7 +27,7 @@ import br.com.paulo.controlehoras.model.UsuarioPK;
 import br.com.paulo.controlehoras.utils.Constantes;
 
 @Controller
-public class ExpedienteControler {
+public class InicioControler {
 
 	@Autowired
 	private ExpedienteDAO expDAO;
