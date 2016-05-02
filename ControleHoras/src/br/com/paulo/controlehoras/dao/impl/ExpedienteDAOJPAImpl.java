@@ -19,7 +19,7 @@ public class ExpedienteDAOJPAImpl extends
 	@SuppressWarnings("rawtypes")
 	@Override
 	public Expediente getLastExpedienteByUsuario(Usuario usuario) {
-		String expediente_query = "select exp from Expediente exp where exp.cpf_usuario= :cpf order by exp.id DESC";
+		String expediente_query = "SELECT exp FROM Expediente exp JOIN FETCH exp.operacoes WHERE exp.cpf_usuario = (:cpf) order by exp.id DESC limit 1";
 		
 		Query query = entityManager.createQuery(expediente_query);
 		query.setParameter("cpf", usuario);
@@ -31,6 +31,20 @@ public class ExpedienteDAOJPAImpl extends
 				expediente = (Expediente)exp_list.get(0);
 			}
 		}
+		
+		
+		return expediente;
+	}
+	
+	@Override
+	public Expediente getExpedienteByID(Integer id) {
+		String expediente_query = "SELECT exp FROM Expediente exp JOIN FETCH exp.operacoes WHERE exp.id = (:id)";
+		
+		Query query = entityManager.createQuery(expediente_query);
+		query.setParameter("id", id);
+		
+		Expediente expediente = (Expediente)query.getSingleResult();
+		
 		
 		return expediente;
 	}

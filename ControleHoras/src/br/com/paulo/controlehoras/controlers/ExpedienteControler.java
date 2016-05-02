@@ -25,7 +25,6 @@ import br.com.paulo.controlehoras.model.TipoOperacao;
 import br.com.paulo.controlehoras.model.Usuario;
 import br.com.paulo.controlehoras.model.UsuarioPK;
 import br.com.paulo.controlehoras.utils.Constantes;
-import br.com.paulo.controlehoras.utils.Constantes.TIPOS_OPERACOES;
 
 @Controller
 public class ExpedienteControler {
@@ -74,15 +73,11 @@ public class ExpedienteControler {
 		
 		Expediente expediente = expDAO.getLastExpedienteByUsuario(usuario);
 		
-		if(!model.containsAttribute("expediente")){
+		if(!model.containsAttribute("id_expediente")){
 			if(expediente != null){
 				model.addAttribute("id_expediente", expediente.getId());
 				
 				List<Operacao> operacoes = expediente.getOperacoes();
-/*				for(Operacao teste: operacoes){
-					System.out.println("teste: " + teste.getData_hora());
-					System.out.println("teste: " + teste.getTipoOperacao());
-				}*/
 				model.addAttribute("lista_operacoes", operacoes);
 			} else{
 				model.addAttribute("id_expediente", 0);
@@ -119,18 +114,17 @@ public class ExpedienteControler {
 			id_expediente = expediente.getId();
 		} 
 		
-		expediente = expDAO.getById(id_expediente);
-		TIPOS_OPERACOES tipo = Constantes.TIPOS_OPERACOES.getByDescricao(tipoOperacao.getDescricao());
-		Operacao operacao = new Operacao(new OperacaoPK(tipo.tipo(), expediente.getId()));
+		Operacao operacao = new Operacao(new OperacaoPK(tipoOperacao.getId(), id_expediente));
 		operacao.setData_hora(new Date());
-		
 		opDAO.save(operacao);
 		
-		//Deve retornar para a view o id do expediente.
-		model.addAttribute("id_expediente", id_expediente);
+		expediente = expDAO.getExpedienteByID(id_expediente);
 		
 		List<Operacao> operacoes = expediente.getOperacoes();
 		model.addAttribute("lista_operacoes", operacoes);
+		
+		//Deve retornar para a view o id do expediente.
+		model.addAttribute("id_expediente", id_expediente);
 		
 		return "index";
 	}
