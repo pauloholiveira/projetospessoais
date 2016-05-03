@@ -19,7 +19,8 @@ public class ExpedienteDAOJPAImpl extends
 	@SuppressWarnings("rawtypes")
 	@Override
 	public Expediente getLastExpedienteByUsuario(Usuario usuario) {
-		String expediente_query = "SELECT exp FROM Expediente exp JOIN FETCH exp.operacoes WHERE exp.cpf_usuario = (:cpf) order by exp.id DESC limit 1";
+		//String expediente_query = "SELECT exp FROM Expediente exp JOIN FETCH exp.operacoes WHERE exp.cpf_usuario = (:cpf) order by exp.id DESC limit 1";
+		String expediente_query = "SELECT exp FROM Expediente exp WHERE exp.cpf_usuario = (:cpf) order by exp.id DESC limit 1";
 		
 		Query query = entityManager.createQuery(expediente_query);
 		query.setParameter("cpf", usuario);
