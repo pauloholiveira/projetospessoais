@@ -39,7 +39,7 @@ public class ExpedienteDAOJPAImpl extends
 	
 	@Override
 	public Expediente getExpedienteByID(Integer id) {
-		String expediente_query = "SELECT exp FROM Expediente exp JOIN FETCH exp.operacoes WHERE exp.id = (:id)";
+		String expediente_query = "SELECT exp FROM Expediente exp WHERE exp.id = (:id)";
 		
 		Query query = entityManager.createQuery(expediente_query);
 		query.setParameter("id", id);

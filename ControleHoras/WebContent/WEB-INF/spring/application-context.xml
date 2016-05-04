@@ -31,13 +31,13 @@
 		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.1.xsd
 		http://www.springframework.org/schema/websocket http://www.springframework.org/schema/websocket/spring-websocket-4.1.xsd">
 
+	<context:annotation-config />
+	<context:component-scan base-package="br.com.paulo.controlehoras"/>
+	
 	<mvc:annotation-driven />
 	<mvc:resources mapping="/resources/**" location="/resources/" />
 	
 	<mvc:view-controller path="/" view-name="index"/>
-	
-	<context:annotation-config />
-	<context:component-scan base-package="br.com.paulo.controlehoras"/> 
 	
 	<bean  id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
 		<property name="definitions">
@@ -51,7 +51,9 @@
 		<property name="viewClass" value="org.springframework.web.servlet.view.tiles3.TilesView"/>
 	</bean>
 	
-	 <!--
+	<tx:annotation-driven transaction-manager="transactionManager"/>
+	
+	<!--
 		Não é preciso definir um nome para este bean, pois
 		o Spring MVC busca beans do tipo ViewResolver pelo tipo
 	-->

@@ -97,14 +97,13 @@ public class InicioControler {
 	public String processRegistration(Model model, TipoOperacao tipoOperacao, @RequestParam("id_expediente") int id_expediente) {
 		Expediente expediente = null;
 		if(tipoOperacao.getDescricao().equals(Constantes.TIPOS_OPERACOES.INICIO_EXPEDIENTE.descricao())){
-			Usuario usuario = null;
+			
 			expediente = new Expediente();
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 			try {
-				usuario = usuarioDAO.getById(new UsuarioPK("31973777886", sdf.parse("1984-04-18")));
-				
+				Usuario usuario = new Usuario("31973777886", sdf.parse("1984-04-18"));
+			
 				expediente.setCpf_usuario(usuario);
-				expediente.setDataNascimento(sdf.parse("1984-04-18"));
 			} catch (ParseException e) {
 				e.printStackTrace();
 			}
@@ -118,14 +117,6 @@ public class InicioControler {
 		operacao.setData_hora(new Date());
 		opDAO.save(operacao);
 		
-		expediente = expDAO.getExpedienteByID(id_expediente);
-		
-		List<Operacao> operacoes = expediente.getOperacoes();
-		model.addAttribute("lista_operacoes", operacoes);
-		
-		//Deve retornar para a view o id do expediente.
-		model.addAttribute("id_expediente", id_expediente);
-		
-		return "index";
+		return "redirect:/index";
 	}
 }
