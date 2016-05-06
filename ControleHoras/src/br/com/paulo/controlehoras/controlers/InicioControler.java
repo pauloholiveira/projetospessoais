@@ -61,7 +61,7 @@ public class InicioControler {
 		this.opDAO = expDAO;
 	}
 	
-	@RequestMapping(value={"/", "/index"}, method=RequestMethod.GET)
+	@RequestMapping(value="/index", method=RequestMethod.GET)
 	public String index(Model model) {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		Usuario usuario = null;

@@ -15,5 +15,22 @@
 	<definition name="relatorios" extends="DefaultTemplate">
 	    <put-attribute name="body"	value="/WEB-INF/views/relatorios.jsp" />
 	</definition>
+	
+	<definition name="login" extends="DefaultTemplate">
+	    <put-attribute name="body"	value="/WEB-INF/views/login_form.jsp" />
+	</definition>
+	
+	
+	<definition name="DefaultTemplateWithoutMenu" template="/WEB-INF/views/templates/SiteTemplate_without_menu.jsp">
+		<put-attribute name="title" 	value="Home" />
+		<put-attribute name="header" 	value="/WEB-INF/views/templates/cabecalho.jsp" />
+		<put-attribute name="body" 		value="" />
+		<put-attribute name="footer" 	value="/WEB-INF/views/templates/rodape.jsp" />
+	</definition>
+	
+	
+	<definition name="welcome" extends="DefaultTemplateWithoutMenu">
+	    <put-attribute name="body"	value="/WEB-INF/views/welcome.jsp" />
+	</definition>
 
 </tiles-definitions>

@@ -6,15 +6,27 @@
 	http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-4.1.xsd">
 
 	<security:http auto-config="true"  >
-		<security:intercept-url pattern="/**" access="hasAnyRole('ROLE_Administrador')" />
-		<security:http-basic></security:http-basic>
+	<security:csrf disabled="true"/>
+		<security:intercept-url pattern="/" access="permitAll" />
+		<security:intercept-url pattern="/login" access="permitAll" />
+		<security:intercept-url pattern="/welcome" access="permitAll" />
+		<security:intercept-url pattern="/index" access="hasAnyRole('ROLE_Administrador')" />
+		<security:intercept-url pattern="/relatorios" access="hasAnyRole('ROLE_Administrador')" />
+		
+		<security:form-login 
+		    login-page="/login"
+		    default-target-url="/index" 
+			authentication-failure-url="/login?error" 
+			username-parameter="username"
+			password-parameter="password" />
+		<security:logout logout-success-url="/login?logout" />
 	</security:http> 
 
 	<security:authentication-manager>
 	  <security:authentication-provider>
 	    <security:jdbc-user-service data-source-ref="controleHoras"
 			users-by-username-query="select user as username, password, 1 as enable from users where user=?"
-			authorities-by-username-query="select user as username, userRole as authority from userroles where user =?" />
+			authorities-by-username-query="select usr.user as username, CONCAT('ROLE_',usr.userRole) as authority from userroles usr where usr.user = ?" />
 	  </security:authentication-provider>
 	</security:authentication-manager>
 </beans:beans>
