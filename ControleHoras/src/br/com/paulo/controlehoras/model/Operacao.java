@@ -1,7 +1,7 @@
 package br.com.paulo.controlehoras.model;
 
 import java.io.Serializable;
-import java.util.Date;
+//import java.util.Date;
 
 import javax.persistence.CascadeType;
 import javax.persistence.EmbeddedId;
@@ -9,8 +9,8 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+//import javax.persistence.Temporal;
+//import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "operacao")
@@ -19,9 +19,6 @@ public class Operacao implements Serializable {
 
 	@EmbeddedId
 	private OperacaoPK operacaoPK;
-
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date data_hora;
 
 	@ManyToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="tipo", referencedColumnName="id", insertable=false, updatable=false)
@@ -38,11 +35,6 @@ public class Operacao implements Serializable {
 		this.operacaoPK = operacaoPK;
 	}
 
-	public Operacao(OperacaoPK operacaoPK, Date data_hora) {
-		this.operacaoPK = operacaoPK;
-		this.data_hora = data_hora;
-	}
-
 	public Operacao(int tipo, int idExpediente) {
 		this.operacaoPK = new OperacaoPK(tipo, idExpediente);
 	}
@@ -53,14 +45,6 @@ public class Operacao implements Serializable {
 
 	public void setOperacaoPK(OperacaoPK operacaoPK) {
 		this.operacaoPK = operacaoPK;
-	}
-
-	public Date getData_hora() {
-		return data_hora;
-	}
-
-	public void setData_hora(Date data_hora) {
-		this.data_hora = data_hora;
 	}
 
 	public TipoOperacao getTipoOperacao() {

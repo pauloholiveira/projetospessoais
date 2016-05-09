@@ -112,7 +112,7 @@ public class TesteConsultasJPA {
 			
 			List<Operacao> operacoes = expediente.getOperacoes();
 			for(Operacao op : operacoes){
-				System.out.println("EXPEDIENTE OPERACOES DATA HORA: " + op.getData_hora());
+				System.out.println("EXPEDIENTE OPERACOES DATA HORA: " + op.getOperacaoPK().getData_hora());
 				TipoOperacao tipo_op = op.getTipoOperacao();
 				System.out.println("EXPEDIENTE OPERACOES TIPOOPERACAO ID: " + tipo_op.getId());
 				System.out.println("EXPEDIENTE OPERACOES TIPOOPERACAO DESCRICAO: " + tipo_op.getDescricao());
@@ -132,7 +132,7 @@ public class TesteConsultasJPA {
 			System.out.println("Tipo Operacao Descricao: " + tipoOperacao.getDescricao());
 			System.out.println("Tipo Operacao ID: " + tipoOperacao.getId());
 			
-			System.out.println(operacao.getData_hora());
+			System.out.println(operacao.getOperacaoPK().getData_hora());
 			
 			Expediente expediente = operacao.getExpediente();
 			System.out.println("Expediente ID: " + expediente.getId());
@@ -165,7 +165,7 @@ public class TesteConsultasJPA {
 			List<Operacao> operacoess = teste.getOperacoes();
 			
 			for(Operacao op : operacoess){
-				System.out.println("Operacao: Data Hora: " + op.getData_hora());
+				System.out.println("Operacao: Data Hora: " + op.getOperacaoPK().getData_hora());
 				System.out.println("OPeracao: Data Nascimento: " + op.getExpediente().getCpf_usuario().getUsuarioPK().getData_nascimento());
 				System.out.println("OPeracao: Usuario Nome: " + op.getExpediente().getCpf_usuario().getNome());
 				System.out.println("User: " + op.getExpediente().getCpf_usuario().getUser().getUser());

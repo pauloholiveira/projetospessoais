@@ -11,7 +11,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class WelcomeControler {
@@ -22,14 +21,14 @@ public class WelcomeControler {
 	
 	
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
-	public ModelAndView login(
-		@RequestParam(value = "error", required = false) String error,
-		@RequestParam(value = "logout", required = false) String logout) {
-
-		ModelAndView model = new ModelAndView();
+	public Model login(Model model, @RequestParam(name="logout", required=false) String logout , @RequestParam(name="error", required=false) String error) {
+		if(logout!= null){
+			model.addAttribute("msg", "Log Out realizado com Sucesso.");
+		}
 		
-		model.setViewName("login");
-
+		if(error!= null){
+			model.addAttribute("msg", "Não foi possível realizar login Usuario e/ou senha inválidos.");
+		}
 		return model;
 
 	}

@@ -1,7 +1,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <div style="margin: 0 auto; background-color: white;">
-	<form name='loginForm'
-		action="<c:url value='login' />" method='POST'>
+	<c:if test="${msg != null}" >
+		<c:out value="${msg}"/>
+	</c:if>
+	<form name='loginForm' action="<c:url value='login' />" method='POST'>
 
 		<table>
 			<tr>

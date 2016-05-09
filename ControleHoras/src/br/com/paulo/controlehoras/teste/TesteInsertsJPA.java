@@ -152,8 +152,8 @@ public class TesteInsertsJPA {
 			e.printStackTrace();
 		}
 		
-		OperacaoPK pk = new OperacaoPK(tipo.getId(), expediente.getId());
-		Operacao operacao = new Operacao(pk, tes);
+		OperacaoPK pk = new OperacaoPK(tipo.getId(), expediente.getId(), tes);
+		Operacao operacao = new Operacao(pk);
 		persistAny(operacao);
 		
 		return operacao;

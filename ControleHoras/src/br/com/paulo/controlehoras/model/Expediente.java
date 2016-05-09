@@ -49,6 +49,7 @@ public class Expediente implements Serializable{
 	@OneToMany(cascade = CascadeType.ALL, mappedBy="expediente")
 	private List<Operacao> operacoes;
 		
+	private Integer status;
 	
 	public Expediente() { }
 	
@@ -99,5 +100,13 @@ public class Expediente implements Serializable{
 
 	public void setDataNascimento(Date dataNascimento) {
 		this.dataNascimento = dataNascimento;
+	}
+	
+	public Integer getStatus() {
+		return status;
+	}
+
+	public void setStatus(Integer status) {
+		this.status = status;
 	}
 }

@@ -44,4 +44,13 @@ public class Constantes{
 			}
 		}
 	}
+	
+	public interface STATUS_EXPEDIENTE 
+	{
+		public static final int EM_EXPEDIENTE = 1;
+		public static final int EM_ALMOCO = 2;
+		public static final int EM_INTERVALO = 3;
+		public static final int EM_DESCANSO = 0;
+		
+	}
 }
