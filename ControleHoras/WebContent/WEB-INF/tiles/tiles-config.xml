@@ -32,5 +32,9 @@
 	<definition name="welcome" extends="DefaultTemplateWithoutMenu">
 	    <put-attribute name="body"	value="/WEB-INF/views/welcome.jsp" />
 	</definition>
+	
+	<definition name="cadastroUsuarios" extends="DefaultTemplateWithoutMenu">
+	    <put-attribute name="body"	value="/WEB-INF/views/cadastroUsuarios.jsp" />
+	</definition>
 
 </tiles-definitions>

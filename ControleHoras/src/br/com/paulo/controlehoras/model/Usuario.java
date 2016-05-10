@@ -30,6 +30,10 @@ public class Usuario  implements Serializable{
     @OneToOne(optional = false)
     private Users user;
 	
+	@Basic(optional = false)
+    @Column(name = "email")
+	private String email;
+
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "cpf_usuario")
     private List<Expediente> expedientes;
 	
@@ -68,6 +72,13 @@ public class Usuario  implements Serializable{
 	}
 	public void setUser(Users user) {
 		this.user = user;
+	}
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 	public List<Expediente> getExpedientes() {
 		return expedientes;

@@ -61,6 +61,30 @@ public class InicioControler {
 		return "index";
 	}
 	
+	@RequestMapping(value="/novaOperacao", method=RequestMethod.POST)
+	public String processRegistration(Model model, TipoOperacao tipoOperacao, @RequestParam("id_expediente") int id_expediente) {
+		Expediente expediente = null;
+		if(tipoOperacao.getDescricao().equals(Constantes.TIPOS_OPERACOES.INICIO_EXPEDIENTE.descricao())){
+			Usuario usuario = obterUsuarioLogado();
+			
+			expediente = new Expediente();
+			expediente.setCpf_usuario(usuario);
+			expediente.setStatus(tipoOperacao.getId());
+			expDAO.save(expediente);
+			
+			id_expediente = expediente.getId();
+		} 
+		
+		Operacao operacao = new Operacao(new OperacaoPK(tipoOperacao.getId(), id_expediente));
+		opDAO.save(operacao);
+		
+		expediente = expDAO.getById(id_expediente);
+		expediente.setStatus(getStatusByTipoOperacao(tipoOperacao));
+		expDAO.update(expediente);
+		
+		return "redirect:/index";
+	}
+	
 	private Map<String, String> obterStatusBotoes(int status_expediente){
 		Map<String, String> statusBotoes = new HashMap<String, String>();
 		
@@ -118,30 +142,6 @@ public class InicioControler {
 		Usuario usuario = user.getUsuario();
 		
 		return usuario;
-	}
-	
-	@RequestMapping(value="/novaOperacao", method=RequestMethod.POST)
-	public String processRegistration(Model model, TipoOperacao tipoOperacao, @RequestParam("id_expediente") int id_expediente) {
-		Expediente expediente = null;
-		if(tipoOperacao.getDescricao().equals(Constantes.TIPOS_OPERACOES.INICIO_EXPEDIENTE.descricao())){
-			Usuario usuario = obterUsuarioLogado();
-			
-			expediente = new Expediente();
-			expediente.setCpf_usuario(usuario);
-			expediente.setStatus(tipoOperacao.getId());
-			expDAO.save(expediente);
-			
-			id_expediente = expediente.getId();
-		} 
-		
-		Operacao operacao = new Operacao(new OperacaoPK(tipoOperacao.getId(), id_expediente));
-		opDAO.save(operacao);
-		
-		expediente = expDAO.getById(id_expediente);
-		expediente.setStatus(getStatusByTipoOperacao(tipoOperacao));
-		expDAO.update(expediente);
-		
-		return "redirect:/index";
 	}
 	
 	private int getStatusByTipoOperacao(TipoOperacao tipo){
