@@ -5,23 +5,21 @@
 	http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-4.1.xsd">
 
 	<security:http auto-config="true">
-		<!-- <security:csrf disabled="true" /> -->
 		<security:csrf/>
 		<security:intercept-url pattern="/" access="permitAll" />
-		<security:intercept-url pattern="/login"
-			access="permitAll" />
-		<security:intercept-url pattern="/cadastroUsuarios"
-			access="permitAll" />
-		<security:intercept-url pattern="/welcome"
-			access="permitAll" />
-		<security:intercept-url pattern="/index"
-			access="hasAnyRole('ROLE_Administrador', 'ROLE_Usuario')" />
-		<security:intercept-url pattern="/relatorios"
-			access="hasAnyRole('ROLE_Administrador')" />
+		<security:intercept-url pattern="/login" access="permitAll" />
+		<security:intercept-url pattern="/cadastroUsuarios"	access="permitAll" />
+		<security:intercept-url pattern="/welcome" access="permitAll" />
+		<security:intercept-url pattern="/index" access="hasAnyRole('ROLE_Administrador', 'ROLE_Usuario')" />
+		<security:intercept-url pattern="/relatorios" access="hasAnyRole('ROLE_Administrador')" />
 
-		<security:form-login login-page="/login"
-			default-target-url="/index" authentication-failure-url="/login?error"
-			username-parameter="username" password-parameter="password" />
+		<security:form-login login-page="/login" 
+				default-target-url="/index" 
+				authentication-failure-url="/login?error"
+				username-parameter="username"
+				password-parameter="password"
+		/>
+		
 		<security:logout logout-success-url="/login?logout" />
 	</security:http>
 
@@ -35,18 +33,8 @@
 		</security:authentication-provider>
 	</security:authentication-manager>
 
-	<beans:bean id="encoder"
-		class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder">
+	<beans:bean id="encoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder">
 		<beans:constructor-arg name="strength" value="11" />
 	</beans:bean>
-
-	<!-- <bean id="authProvider"	class="org.springframework.security.authentication.dao.DaoAuthenticationProvider">
-		<property name="userDetailsService" ref="customUserService" />
-		<property name="passwordEncoder" ref="encoder" />
-	</bean> -->
-
-	<!-- <bean id="encoder"
-		class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" /> -->
-
-
+	
 </beans:beans>

@@ -9,13 +9,6 @@
 		<sf:label path="" for="username">UserName: <sf:input id="username" path="user.user"/></sf:label><br>
 		<sf:label path="" for="password">Senha: <sf:input id="password" path="user.password"/></sf:label><br>
 		
-		<!-- <label for="nome">Nome: <input type="text" id="nome" name="nome_usuario"></label><br>
-		<label for="cpf">CPF: <input type="text" id="cpf" name="cpf_usuario"></label><br>
-		<label for="nascimento_usuario"> Data Nascimento:<input type="text" id="nascimento" name="nome_usuario"></label><br>
-		<label for="email_usuario">Email:  <input type="text" id="email" name="email_usuario"></label><br>
-		<label for="username_usuario"> Username: <input type="text" id="username" name="username_usuario"></label><br>
-		<label for="password_usuario"> Senha: <input type="text" id="password" name="password_usuario"></label><br> -->
-		
 		<input type="button" value="Limpar"/>
 		<input type="submit" value="Cadastrar" />
 	</sf:form>

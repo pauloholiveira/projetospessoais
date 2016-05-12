@@ -44,23 +44,4 @@
 			<input <c:out value="${status_botoes.get('fim_expediente')}"/> type="submit" name="descricao" value="Fim Expediente"/>
 		</sf:form>
 	</div>
-	
-	<%-- <div style="margin:5px;background-color:white;">
-		<table>
-			<thead>
-				<tr>
-					<td>Tipo</td>
-					<td>Hora</td>
-				</tr>
-			</thead>
-			<tbody>
-				<c:forEach items="${lista_operacoes}" var="operacao" >
-					<tr>
-						<td><c:out value="${operacao.tipoOperacao.id}" /></td>
-						<td><c:out value="${operacao.tipoOperacao.descricao}" /></td>
-					</tr>
-				</c:forEach>
-			</tbody>
-		</table>
-	</div> --%>
 </div>
