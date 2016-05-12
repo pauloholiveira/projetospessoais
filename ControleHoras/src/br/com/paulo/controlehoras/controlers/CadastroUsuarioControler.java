@@ -54,9 +54,7 @@ public class CadastroUsuarioControler {
 		
 		
 		usersDAO.save(users);
-		
 		userRolesDAO.save(roles);
-		
 		usuarioDAO.save(usuario);
 		
 		return "redirect:/cadastroUsuarios";

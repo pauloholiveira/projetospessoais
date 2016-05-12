@@ -10,6 +10,7 @@
 		<sf:label path="" for="password">Senha: <sf:input id="password" path="user.password"/></sf:label><br>
 		
 		<input type="button" value="Limpar"/>
+		
 		<input type="submit" value="Cadastrar" />
 	</sf:form>
 </div>
