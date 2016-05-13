@@ -47,6 +47,7 @@ public class CadastroUsuarioControler {
 		String password = users.getPassword();
 		password = passwordEncoder.encode(password);
 		users.setPassword(password);
+		users.setEnabled(true);
 		
 		UserRoles roles = new UserRoles();
 		roles.setUser(users.getUser());

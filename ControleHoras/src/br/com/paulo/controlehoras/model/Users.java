@@ -34,6 +34,10 @@ public class Users implements Serializable {
     @Column(name = "password")
 	private String password;
 	
+	@Basic(optional = false)
+    @Column(nullable = false, name="enabled", columnDefinition="TINYINT(1)")
+	private boolean enabled;
+	
 	@OneToOne(cascade = CascadeType.ALL, mappedBy = "users")
     private UserRoles userRoles;
 	
@@ -51,6 +55,11 @@ public class Users implements Serializable {
 		this.password = password;
 	}
 	
+	public Users(String user, String password, boolean enabled) {
+		this(user,password);
+		this.enabled = enabled;
+	}
+	
 	public String getUser() {
 		return user;
 	}
@@ -63,6 +72,15 @@ public class Users implements Serializable {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	
+	public boolean getEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
+	}
+	
 	public Usuario getUsuario() {
 		return usuario;
 	}
