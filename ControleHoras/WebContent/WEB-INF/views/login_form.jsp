@@ -16,7 +16,7 @@
 			</tr>
 			<tr>
 				<td colspan="2">
-					<label for="remember-me">Remember me</label>	
+					<label for="remember-me">Lembrar meus Dados</label>	
 					<input id="remember-me" name="remember-me" type="checkbox"/>
 				</td>
 			</tr>

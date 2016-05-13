@@ -38,6 +38,10 @@ public class Users implements Serializable {
     @Column(nullable = false, name="enabled", columnDefinition="TINYINT(1)")
 	private boolean enabled;
 	
+	@Basic(optional = false)
+    @Column(name = "validation")
+	private String validation;
+
 	@OneToOne(cascade = CascadeType.ALL, mappedBy = "users")
     private UserRoles userRoles;
 	
@@ -63,17 +67,20 @@ public class Users implements Serializable {
 	public String getUser() {
 		return user;
 	}
+	
 	public void setUser(String user) {
 		this.user = user;
 	}
+	
 	public String getPassword() {
 		return password;
 	}
+	
 	public void setPassword(String password) {
 		this.password = password;
 	}
 	
-	public boolean getEnabled() {
+	public boolean isEnabled() {
 		return enabled;
 	}
 
@@ -81,9 +88,18 @@ public class Users implements Serializable {
 		this.enabled = enabled;
 	}
 	
+	public String getValidation() {
+		return validation;
+	}
+
+	public void setValidation(String validation) {
+		this.validation = validation;
+	}
+	
 	public Usuario getUsuario() {
 		return usuario;
 	}
+	
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
@@ -91,6 +107,7 @@ public class Users implements Serializable {
 	public UserRoles getUserRoles() {
 		return userRoles;
 	}
+	
 	public void setUserRoles(UserRoles userRoles) {
 		this.userRoles = userRoles;
 	}

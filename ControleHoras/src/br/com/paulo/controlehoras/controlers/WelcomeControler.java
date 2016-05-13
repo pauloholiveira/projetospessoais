@@ -24,7 +24,9 @@ public class WelcomeControler {
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public Model login(Model model,
 			@RequestParam(name = "logout", required = false) String logout,
-			@RequestParam(name = "error", required = false) String error) {
+			@RequestParam(name = "error", required = false) String error,
+			@RequestParam(name = "activated", required = false) String activated,
+			@RequestParam(name = "invalid", required = false) String invalid) {
 		
 		if (logout != null) {
 			model.addAttribute("msg", "Log Out realizado com Sucesso.");
@@ -33,6 +35,14 @@ public class WelcomeControler {
 		if (error != null) {
 			model.addAttribute("msg",
 					"Não foi possível realizar login Usuario e/ou senha inválidos.");
+		}
+		if (activated != null) {
+			model.addAttribute("msg",
+					"Seu Usuário foi Ativado com Sucesso. você já pode efetuar login.");
+		}
+		if (invalid != null) {
+			model.addAttribute("msg",
+					"Esta Url é Inválida.");
 		}
 		
 		return model;
@@ -49,7 +59,6 @@ public class WelcomeControler {
 			try {
 				request.logout();
 			} catch (ServletException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}

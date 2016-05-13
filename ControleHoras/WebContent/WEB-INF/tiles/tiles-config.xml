@@ -34,5 +34,9 @@
 	<definition name="cadastroUsuarios" extends="DefaultTemplateWithoutMenu">
 	    <put-attribute name="body"	value="/WEB-INF/views/cadastroUsuarios.jsp" />
 	</definition>
+	
+	<definition name="activate" extends="DefaultTemplateWithoutMenu">
+	    <put-attribute name="body"	value="/WEB-INF/views/activate.jsp" />
+	</definition>
 
 </tiles-definitions>

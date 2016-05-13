@@ -1,0 +1,10 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<title>Confirmação de Cadastro</title>
+</head>
+<body>
+   <h3>Olá ${usuario.nome},você se registrou no ControleHoras.com</h3>
+   <a href="${context}activate?key=${usuario.user.validation}">Clique aqui para validar seu cadastro</a>.
+</body>
+</html>

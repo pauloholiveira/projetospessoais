@@ -1,6 +1,9 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="sf" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <div style="margin: 0 auto; background-color: white;">
+	<c:if test="${msg != null}" >
+		<c:out value="${msg}"/>
+	</c:if>
 	<sf:form modelAttribute="usuario" action="realizarCadastro" method="POST">
 		<sf:label path="" for="nome">Nome: <sf:input id="nome" path="nome"/></sf:label><br>
 		<sf:label path="" for="cpf">CPF: <sf:input id="cpf" path="usuarioPK.cpf"/></sf:label><br>
