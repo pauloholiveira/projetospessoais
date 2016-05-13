@@ -20,14 +20,16 @@
 				password-parameter="password"
 		/>
 		
-		<security:logout logout-success-url="/login?logout" />
+		<security:remember-me token-validity-seconds="2419200" key="remember-me"/>
+		
+		<security:logout logout-success-url="/login?logout" delete-cookies="remember-me" invalidate-session="true"/>
 	</security:http>
 
 	<security:authentication-manager>
 		<security:authentication-provider>
 			<security:jdbc-user-service
 				data-source-ref="controleHoras"
-				users-by-username-query="select user as username, password, 1 as enable from users where user=?"
+				users-by-username-query="select user as username, password, enabled as enabled from users where user=?"
 				authorities-by-username-query="select usr.user as username, CONCAT('ROLE_',usr.userRole) as authority from userroles usr where usr.user = ?" />
 			<password-encoder hash="bcrypt" />
 		</security:authentication-provider>
