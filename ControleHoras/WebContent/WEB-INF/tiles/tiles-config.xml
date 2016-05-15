@@ -35,7 +35,11 @@
 	    <put-attribute name="body"	value="/WEB-INF/views/cadastroUsuarios.jsp" />
 	</definition>
 	
-	<definition name="activate" extends="DefaultTemplateWithoutMenu">
+	<definition name="sucessoCadastro" extends="DefaultTemplateWithoutMenu">
+	    <put-attribute name="body"	value="/WEB-INF/views/sucessoCadastroUsuario.jsp" />
+	</definition>
+	
+	<definition name="contaAtivada" extends="DefaultTemplateWithoutMenu">
 	    <put-attribute name="body"	value="/WEB-INF/views/activate.jsp" />
 	</definition>
 

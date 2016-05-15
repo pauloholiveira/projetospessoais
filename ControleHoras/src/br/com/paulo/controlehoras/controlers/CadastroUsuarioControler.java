@@ -83,7 +83,13 @@ public class CadastroUsuarioControler {
 		userRolesDAO.save(roles);
 		usuarioDAO.save(usuario);
 		
-		return "redirect:/cadastroUsuarios?sucesso";
+		return "redirect:/sucessoCadastro";
+	}
+	
+	@RequestMapping(value="/sucessoCadastro", method = RequestMethod.GET)
+	public String sucessoCadastro(Model model) {
+		
+		return "sucessoCadastro";
 	}
 	
 	@RequestMapping(value="/activate", method = RequestMethod.GET)
@@ -102,6 +108,12 @@ public class CadastroUsuarioControler {
 			return "redirect:/login?invalid";
 		}
 		
-		return "redirect:/login?activated";
+		return "redirect:/contaAtivada";
+	}
+	
+	@RequestMapping(value="/contaAtivada", method = RequestMethod.GET)
+	public String ativada(Model model) {
+		
+		return "contaAtivada";
 	}
 }
