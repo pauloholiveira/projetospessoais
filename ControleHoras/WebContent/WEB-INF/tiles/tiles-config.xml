@@ -20,6 +20,8 @@
 	    <put-attribute name="body"	value="/WEB-INF/views/login_form.jsp" />
 	</definition>
 	
+	
+	
 	<definition name="DefaultTemplateWithoutMenu" template="/WEB-INF/views/templates/SiteTemplate_without_menu.jsp">
 		<put-attribute name="title" 	value="Home" />
 		<put-attribute name="header" 	value="/WEB-INF/views/templates/cabecalho.jsp" />
@@ -35,12 +37,19 @@
 	    <put-attribute name="body"	value="/WEB-INF/views/cadastroUsuarios.jsp" />
 	</definition>
 	
-	<definition name="sucessoCadastro" extends="DefaultTemplateWithoutMenu">
+	
+	
+	<definition name="SimpleMessageView" template="/WEB-INF/views/templates/SimpleMessageView.jsp">
+		<put-attribute name="meta"		value="" />
+		<put-attribute name="body" 		value="" />
+	</definition>
+
+	<definition name="sucessoCadastro" extends="SimpleMessageView">
 	    <put-attribute name="body"	value="/WEB-INF/views/sucessoCadastroUsuario.jsp" />
 	</definition>
 	
-	<definition name="contaAtivada" extends="DefaultTemplateWithoutMenu">
+	<definition name="contaAtivada" extends="SimpleMessageView">
+		<put-attribute name="meta"	value="/WEB-INF/views/templates/redirect.jsp" />
 	    <put-attribute name="body"	value="/WEB-INF/views/activate.jsp" />
 	</definition>
-
 </tiles-definitions>
