@@ -20,6 +20,10 @@
 	    <put-attribute name="body"	value="/WEB-INF/views/login_form.jsp" />
 	</definition>
 	
+	<definition name="edicaoConta" extends="DefaultTemplate">
+	    <put-attribute name="body"	value="/WEB-INF/views/editarConta.jsp" />
+	</definition>
+	
 	
 	
 	<definition name="DefaultTemplateWithoutMenu" template="/WEB-INF/views/templates/SiteTemplate_without_menu.jsp">
@@ -51,5 +55,10 @@
 	<definition name="contaAtivada" extends="SimpleMessageView">
 		<put-attribute name="meta"	value="/WEB-INF/views/templates/redirect.jsp" />
 	    <put-attribute name="body"	value="/WEB-INF/views/activate.jsp" />
+	</definition>
+	
+	<definition name="usuarioAlteradoSucesso" extends="SimpleMessageView">
+		<put-attribute name="meta"	value="/WEB-INF/views/templates/redirect.jsp" />
+	    <put-attribute name="body"	value="/WEB-INF/views/usuarioAlteradoSucesso.jsp" />
 	</definition>
 </tiles-definitions>

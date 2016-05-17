@@ -3,6 +3,6 @@
 	<h1>Controle Horas</h1>
 	
 	<c:if test="${usuarioLogado != null}">
-		Seja Bem vindo <c:out value="${usuarioLogado}"></c:out> | <a href="logout">LogOut</a>
+		Seja Bem vindo <c:out value="${usuarioLogado}"></c:out> | <a href="logout">LogOut</a> | <a href="edicaoConta">Minha Conta</a>
 	</c:if>
 </div>

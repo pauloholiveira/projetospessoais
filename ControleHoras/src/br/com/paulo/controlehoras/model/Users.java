@@ -6,6 +6,7 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -35,17 +36,17 @@ public class Users implements Serializable {
 	private String password;
 	
 	@Basic(optional = false)
-    @Column(nullable = false, name="enabled", columnDefinition="TINYINT(1)")
+    @Column(name="enabled", columnDefinition="TINYINT(1)")
 	private boolean enabled;
 	
 	@Basic(optional = false)
     @Column(name = "validation")
 	private String validation;
 
-	@OneToOne(cascade = CascadeType.ALL, mappedBy = "users")
+	@OneToOne(cascade = CascadeType.ALL, mappedBy = "users", fetch = FetchType.EAGER)
     private UserRoles userRoles;
 	
-	@OneToOne(cascade = CascadeType.ALL, mappedBy = "user")
+	@OneToOne(mappedBy = "user")
 	private Usuario usuario;
 	
 	public Users() { }

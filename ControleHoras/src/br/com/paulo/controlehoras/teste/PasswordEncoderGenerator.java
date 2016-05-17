@@ -8,7 +8,7 @@ public class PasswordEncoderGenerator {
 
 		int i = 0;
 		while (i < 10) {
-			String password = "teste2";
+			String password = "parimo69";
 			BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 			String hashedPassword = passwordEncoder.encode(password);
 

@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,9 +19,9 @@ import br.com.paulo.controlehoras.model.Expediente;
 import br.com.paulo.controlehoras.model.Operacao;
 import br.com.paulo.controlehoras.model.OperacaoPK;
 import br.com.paulo.controlehoras.model.TipoOperacao;
-import br.com.paulo.controlehoras.model.Users;
 import br.com.paulo.controlehoras.model.Usuario;
 import br.com.paulo.controlehoras.utils.Constantes;
+import br.com.paulo.controlehoras.utils.LoginUtils;
 
 @Controller
 public class InicioControler {
@@ -39,7 +38,7 @@ public class InicioControler {
 	@RequestMapping(value="/index", method=RequestMethod.GET)
 	public String index(Model model) {
 		
-		Usuario usuario = obterUsuarioLogado();
+		Usuario usuario = LoginUtils.obterUsuarioLogado(usersDAO, SecurityContextHolder.getContext());
 		
 		Expediente expediente = expDAO.getLastExpedienteByUsuario(usuario);
 				
@@ -65,7 +64,7 @@ public class InicioControler {
 	public String processRegistration(Model model, TipoOperacao tipoOperacao, @RequestParam("id_expediente") int id_expediente) {
 		Expediente expediente = null;
 		if(tipoOperacao.getDescricao().equals(Constantes.TIPOS_OPERACOES.INICIO_EXPEDIENTE.descricao())){
-			Usuario usuario = obterUsuarioLogado();
+			Usuario usuario = LoginUtils.obterUsuarioLogado(usersDAO, SecurityContextHolder.getContext());
 			
 			expediente = new Expediente();
 			expediente.setCpf_usuario(usuario);
@@ -133,15 +132,6 @@ public class InicioControler {
 		
 		return statusBotoes;
 		
-	}
-	
-	private Usuario obterUsuarioLogado(){
-		Authentication authentication = (Authentication) SecurityContextHolder.getContext().getAuthentication();
-		String login = authentication.getName();
-		Users user = usersDAO.getById(login);
-		Usuario usuario = user.getUsuario();
-		
-		return usuario;
 	}
 	
 	private int getStatusByTipoOperacao(TipoOperacao tipo){

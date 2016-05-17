@@ -7,11 +7,12 @@
 	<security:http auto-config="true">
 		<security:csrf/>
 		<security:intercept-url pattern="/" access="permitAll" />
-		<security:intercept-url pattern="/login" access="permitAll" />
+		<security:intercept-url pattern="/login" access="permitAll"/>
 		<security:intercept-url pattern="/cadastroUsuarios"	access="permitAll" />
 		<security:intercept-url pattern="/welcome" access="permitAll" />
-		<security:intercept-url pattern="/index" access="hasAnyRole('ROLE_Administrador', 'ROLE_Usuario')" />
-		<security:intercept-url pattern="/relatorios" access="hasAnyRole('ROLE_Administrador')" />
+		
+		<security:intercept-url pattern="/*" access="hasRole('ROLE_Usuario')" />
+		
 
 		<security:form-login login-page="/login" 
 				default-target-url="/index" 

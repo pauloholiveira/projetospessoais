@@ -9,6 +9,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -26,8 +27,8 @@ public class Usuario  implements Serializable{
     @Column(name = "nome")
 	private String nome;
 	
+	@OneToOne(cascade = CascadeType.ALL, optional = false, fetch = FetchType.EAGER)
 	@JoinColumn(name = "user", referencedColumnName = "user")
-    @OneToOne(optional = false)
     private Users user;
 	
 	@Basic(optional = false)
