@@ -56,4 +56,25 @@ public class SimpleRegistrationService {
 		
 		this.mailSender.send(preparator);
 	}
+	
+	
+	private void sendRedefinitionEmail(final String email, final String key, final Usuario usuario, final HttpServletRequest request) {
+		MimeMessagePreparator preparator = new MimeMessagePreparator() {
+			public void prepare(MimeMessage mimeMessage) throws Exception {
+				MimeMessageHelper message = new MimeMessageHelper(mimeMessage);
+				message.setTo(email);
+				message.setSubject("Redefinição de Senha - Controle Horas");
+				message.setFrom("redefinition@controlehoras.com.br");
+				Map<String, Object> model = new HashMap<String, Object>();
+				model.put("email", email);
+				model.put("usuario", usuario);
+				model.put("key", key);
+				model.put("context", Context.getContextPath(request));
+				String text = VelocityEngineUtils.mergeTemplateIntoString(velocityEngine, "template/password-redefinition.vm", "UTF-8", model);
+				message.setText(text, true);
+			}
+		};
+		
+		this.mailSender.send(preparator);
+	}
 }

@@ -16,10 +16,6 @@
 	    <put-attribute name="body"	value="/WEB-INF/views/relatorios.jsp" />
 	</definition>
 	
-	<definition name="login" extends="DefaultTemplate">
-	    <put-attribute name="body"	value="/WEB-INF/views/login_form.jsp" />
-	</definition>
-	
 	<definition name="edicaoConta" extends="DefaultTemplate">
 	    <put-attribute name="body"	value="/WEB-INF/views/editarConta.jsp" />
 	</definition>
@@ -33,12 +29,20 @@
 		<put-attribute name="footer" 	value="/WEB-INF/views/templates/rodape.jsp" />
 	</definition>
 	
+	<definition name="formLogin" extends="DefaultTemplateWithoutMenu">
+	    <put-attribute name="body"	value="/WEB-INF/views/login_form.jsp" />
+	</definition>
+	
 	<definition name="welcome" extends="DefaultTemplateWithoutMenu">
 	    <put-attribute name="body"	value="/WEB-INF/views/welcome.jsp" />
 	</definition>
 	
 	<definition name="cadastroUsuarios" extends="DefaultTemplateWithoutMenu">
 	    <put-attribute name="body"	value="/WEB-INF/views/cadastroUsuarios.jsp" />
+	</definition>
+	
+	<definition name="telaRedefinicaoSenha" extends="DefaultTemplateWithoutMenu">
+	    <put-attribute name="body"	value="/WEB-INF/views/redefinirSenha.jsp" />
 	</definition>
 	
 	

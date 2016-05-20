@@ -3,6 +3,7 @@
 	<c:if test="${msg != null}" >
 		<c:out value="${msg}"/>
 	</c:if>
+	
 	<form name='loginForm' action="<c:url value='login' />" method='POST'>
 
 		<table>
@@ -25,7 +26,11 @@
 				<td colspan='2'><input name="submit" type="submit" value="submit" /></td>
 			</tr>
 		</table>
-		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+		<a href="<c:url value='esqueciSenha' />">Esqueci Minha Senha</a>
 		
+		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 	</form>
+	
+	
+	
 </div>

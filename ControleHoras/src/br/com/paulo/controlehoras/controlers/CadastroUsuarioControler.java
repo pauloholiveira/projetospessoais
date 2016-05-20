@@ -16,6 +16,7 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import br.com.paulo.controlehoras.dao.UserRolesDAO;
 import br.com.paulo.controlehoras.dao.UsersDAO;
@@ -145,14 +146,14 @@ public class CadastroUsuarioControler {
 		
 		if(users!= null){
 			if(users.isEnabled()){
-				return "redirect:/login?invalid";
+				return "redirect:/formLogin?invalid";
 			} else{
 				users.setEnabled(true);
 				usersDAO.update(users);
 			}
 			
 		} else {
-			return "redirect:/login?invalid";
+			return "redirect:/formLogin?invalid";
 		}
 		
 		return "redirect:/contaAtivada";
@@ -161,7 +162,7 @@ public class CadastroUsuarioControler {
 	@RequestMapping(value="/contaAtivada", method = RequestMethod.GET)
 	public String ativada(Model model) {
 		model.addAttribute("time", 6);
-		model.addAttribute("caminho", "login");
+		model.addAttribute("caminho", "formLogin");
 		
 		return "contaAtivada";
 	}
@@ -172,4 +173,22 @@ public class CadastroUsuarioControler {
 		model.addAttribute("caminho", "index");		
 		return "usuarioAlteradoSucesso";
 	}
+	
+	@RequestMapping(value="/esqueciSenha", method = {RequestMethod.POST, RequestMethod.GET})
+	public String esqueciSenha(Model model) {
+		return "telaRedefinicaoSenha";
+	}
+	
+	@RequestMapping(value="/emailRedefinicao", method = {RequestMethod.POST, RequestMethod.GET})
+	public String redefineSenhaEmail(Model model, @RequestParam(value="email") String email) {
+		//Obter o usuário pelo e-mail.
+		//Se existir envia o e-mail para este usuário com o link de redefinição de senha.
+		//Deve-se gravar em algum lugar no banco esta chave de redefinição.
+		//deve-se criar a tela de digitação da senha nova.
+		//após a digitação da senha nova, apagar a chave de redefinição e gravar a nova senha no banco
+		
+		return "telaRedefinicaoSenha";
+	}
+	
+	
 }

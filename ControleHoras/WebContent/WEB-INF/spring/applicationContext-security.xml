@@ -7,23 +7,32 @@
 	<security:http auto-config="true">
 		<security:csrf/>
 		<security:intercept-url pattern="/" access="permitAll" />
-		<security:intercept-url pattern="/login" access="permitAll"/>
+		<security:intercept-url pattern="/formLogin" access="permitAll"/>
 		<security:intercept-url pattern="/cadastroUsuarios"	access="permitAll" />
 		<security:intercept-url pattern="/welcome" access="permitAll" />
+		<security:intercept-url pattern="/esqueciSenha" access="permitAll" />
+		<security:intercept-url pattern="/emailRedefinicao" access="permitAll" />
+		<security:intercept-url pattern="/telaRedefinicaoSenha" access="permitAll" />
+		<security:intercept-url pattern="/sucessoCadastro" access="permitAll" />
+		<security:intercept-url pattern="/contaAtivada" access="permitAll" />
+		<security:intercept-url pattern="/realizarCadastro" access="permitAll" />
+		<security:intercept-url pattern="/activate" access="permitAll" />
 		
-		<security:intercept-url pattern="/*" access="hasRole('ROLE_Usuario')" />
+		<!-- usuarioAlteradoSucesso -->
+		<!-- <security:intercept-url pattern="/*" access="hasRole('ROLE_Usuario')" /> -->
+		<security:intercept-url pattern="/index" access="hasRole('ROLE_Usuario')" />
 		
 
-		<security:form-login login-page="/login" 
-				default-target-url="/index" 
-				authentication-failure-url="/login?error"
+		<security:form-login login-page="/formLogin"
+				default-target-url="/index"
+				authentication-failure-url="/formLogin?error"
 				username-parameter="username"
 				password-parameter="password"
 		/>
 		
 		<security:remember-me token-validity-seconds="2419200" key="remember-me"/>
 		
-		<security:logout logout-success-url="/login?logout" delete-cookies="remember-me" invalidate-session="true"/>
+		<security:logout logout-success-url="/formLogin?logout" delete-cookies="remember-me" invalidate-session="true"/>
 	</security:http>
 
 	<security:authentication-manager>
