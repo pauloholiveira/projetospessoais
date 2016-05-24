@@ -4,16 +4,22 @@
 		<c:out value="${msg}"/>
 	</c:if>
 	
-	<form name='redefineForm' action="<c:url value='emailRedefinicao' />" method='POST'>
-		<p>Digite o e-mail cadastrado na sua conta:</p>
+	<form name='novaSenha' action="<c:url value='alterarSenha' />" method='POST'>
+		<input type="hidden" name="key" value="${param.key}" />
+		<p>Digite a sua nova Senha</p>
 		<table>
 			<tr>
-				<td>Email:</td>
-				<td><input type='text' name='email' value=''></td>
+				<td>Senha:</td>
+				<td><input type='password' name='senha' value=''></td>
+			</tr>
+			<tr>
+				<td>Confirmação Senha:</td>
+				<td><input type='password' name='senha_confirmacao' value=''></td>
 			</tr>
 			<tr>
 				<td colspan='2'><input name="submit" type="submit" value="Enviar" /></td>
 			</tr>
+			
 			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 		</table>
 	</form>

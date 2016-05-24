@@ -35,8 +35,11 @@ public class SimpleRegistrationService {
 	}
 
 	public void register(Usuario usuario, HttpServletRequest request) {
-
 		sendConfirmationEmail(usuario, request);
+	}
+	
+	public void registerRedefinitionMail(String email, String key, Usuario usuario, HttpServletRequest request) {
+		sendRedefinitionEmail(email, key, usuario, request);
 	}
 
 	private void sendConfirmationEmail(final Usuario usuario, final HttpServletRequest request) {

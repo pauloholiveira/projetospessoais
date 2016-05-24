@@ -42,6 +42,10 @@ public class Users implements Serializable {
 	@Basic(optional = false)
     @Column(name = "validation")
 	private String validation;
+	
+	@Basic(optional = false)
+    @Column(name = "pw_redef")
+	private String pw_redef;
 
 	@OneToOne(cascade = CascadeType.ALL, mappedBy = "users", fetch = FetchType.EAGER)
     private UserRoles userRoles;
@@ -95,6 +99,14 @@ public class Users implements Serializable {
 
 	public void setValidation(String validation) {
 		this.validation = validation;
+	}
+	
+	public String getPw_redef() {
+		return pw_redef;
+	}
+
+	public void setPw_redef(String pw_redef) {
+		this.pw_redef = pw_redef;
 	}
 	
 	public Usuario getUsuario() {

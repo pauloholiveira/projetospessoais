@@ -45,6 +45,9 @@
 	    <put-attribute name="body"	value="/WEB-INF/views/redefinirSenha.jsp" />
 	</definition>
 	
+	<definition name="novaSenha" extends="DefaultTemplateWithoutMenu">
+	    <put-attribute name="body"	value="/WEB-INF/views/novaSenha.jsp" />
+	</definition>
 	
 	
 	<definition name="SimpleMessageView" template="/WEB-INF/views/templates/SimpleMessageView.jsp">

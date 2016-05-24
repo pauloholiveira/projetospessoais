@@ -33,6 +33,23 @@ public class UsersDAOJPAImpl extends GenericJPADAOImpl<String, Users> implements
 		return users;
 	}
 
+	@Override
+	public Users getByKeyRedefinition(String pw_redef) {
+		String users_query = "SELECT user FROM Users user WHERE user.pw_redef = (:pw_redef)";
+		
+		Query query = entityManager.createQuery(users_query);
+		query.setParameter("pw_redef", pw_redef);
+		
+		List users_list = query.getResultList();
+		Users users = null;
+		if(users_list != null && users_list.size()> 0){
+			if(users_list.get(0) instanceof Users){
+				users = (Users)users_list.get(0);
+			}
+		}
+		
+		return users;
+	}
 	
 
 }

@@ -181,14 +181,51 @@ public class CadastroUsuarioControler {
 	
 	@RequestMapping(value="/emailRedefinicao", method = {RequestMethod.POST, RequestMethod.GET})
 	public String redefineSenhaEmail(Model model, @RequestParam(value="email") String email) {
-		//Obter o usuário pelo e-mail.
-		//Se existir envia o e-mail para este usuário com o link de redefinição de senha.
-		//Deve-se gravar em algum lugar no banco esta chave de redefinição.
-		//deve-se criar a tela de digitação da senha nova.
+		Usuario usuario = usuarioDAO.getByEmail(email);
+		
+		//é por que o email está certo.
+		if(usuario != null){
+			Users user = usuario.getUser();
+			String key = GenerateValidation.keyValidation();
+			//Deve-se gravar em algum lugar no banco esta chave de redefinição.
+			user.setPw_redef(key);
+			usersDAO.update(user);
+			
+			//Se existir envia o e-mail para este usuário com o link de redefinição de senha.
+			mail.registerRedefinitionMail(email, key, usuario, request);
+		} else{
+			model.addAttribute("msg", "Não foi encontrado nenhum usuário cadastrado com este e-mail.");
+		}
+		
 		//após a digitação da senha nova, apagar a chave de redefinição e gravar a nova senha no banco
 		
 		return "telaRedefinicaoSenha";
 	}
 	
+	@RequestMapping(value="/novaSenha", method = {RequestMethod.POST, RequestMethod.GET})
+	public String redefineSenhaEmail(Model model) {
+		
+		return "novaSenha";
+	}
 	
+	@RequestMapping(value="/alterarSenha", method = {RequestMethod.POST, RequestMethod.POST})
+	public String redefineSenhaEmail(Model model, 
+			@RequestParam(value="key") String key, 
+			@RequestParam(value="senha") String senha, 
+			@RequestParam(value="senha_confirmacao") String senha_confirmacao) {
+		
+		Users user = usersDAO.getByKeyRedefinition(key);
+		if(senha.equals(senha_confirmacao)){
+			BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+			senha = passwordEncoder.encode(senha);
+			user.setPassword(senha);
+			user.setPw_redef(null);
+			
+			usersDAO.update(user);
+		} else{
+			model.addAttribute("msg", "Senha e Confirmação não Conferem.");
+		}
+		
+		return "novaSenha";
+	}
 }
