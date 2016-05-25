@@ -79,8 +79,8 @@ public class CadastroUsuarioControler {
 		String password = users.getPassword();
 		password = passwordEncoder.encode(password);
 		users.setPassword(password);
-		users.setEnabled(false); 
-		users.setValidation(GenerateValidation.keyValidation());
+		users.setEnabled(false);
+		users.setValidation(GenerateValidation.keyValidation(users.toString()));
         
         mail.register(usuario, request);
 		
@@ -186,7 +186,9 @@ public class CadastroUsuarioControler {
 		//é por que o email está certo.
 		if(usuario != null){
 			Users user = usuario.getUser();
-			String key = GenerateValidation.keyValidation();
+			String base_key = usuario.toString() + String.valueOf((new Date()).getTime());
+			String key = GenerateValidation.keyValidation(base_key);
+			
 			//Deve-se gravar em algum lugar no banco esta chave de redefinição.
 			user.setPw_redef(key);
 			usersDAO.update(user);

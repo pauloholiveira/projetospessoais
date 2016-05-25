@@ -76,6 +76,12 @@ public class UsuarioPK implements Serializable {
 			return false;
 		return true;
 	}
+
+	@Override
+	public String toString() {
+		return "UsuarioPK [cpf=" + cpf + ", data_nascimento=" + data_nascimento
+				+ "]";
+	}
 	
 	
 }

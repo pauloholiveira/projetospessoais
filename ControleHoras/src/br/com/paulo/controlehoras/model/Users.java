@@ -144,8 +144,10 @@ public class Users implements Serializable {
         return true;
     }
 
-    @Override
-    public String toString() {
-        return "br.com.paulo.model.Users[ user=" + user + " ]";
-    }
+	@Override
+	public String toString() {
+		return "Users [user=" + user + ", password=" + password + ", enabled="
+				+ enabled + ", validation=" + validation + ", pw_redef="
+				+ pw_redef + "]";
+	}
 }

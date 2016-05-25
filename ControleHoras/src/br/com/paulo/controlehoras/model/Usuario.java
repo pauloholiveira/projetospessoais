@@ -107,8 +107,9 @@ public class Usuario  implements Serializable{
         return true;
     }
 
-    @Override
-    public String toString() {
-        return "br.com.paulo.model.Usuario[ usuarioPK=" + usuarioPK + " ]";
-    }
+	@Override
+	public String toString() {
+		return "Usuario [usuarioPK=" + usuarioPK + ", nome=" + nome + ", user="
+				+ user + ", email=" + email + "]";
+	}    
 }
