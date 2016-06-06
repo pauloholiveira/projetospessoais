@@ -3,7 +3,7 @@ package br.com.paulo.controlehoras.utils;
 import java.util.Date;
 import java.util.UUID;
  
-public class GenerateValidation {
+public class GenerateUUID {
  
     public static String keyValidation() {
  
@@ -13,8 +13,8 @@ public class GenerateValidation {
     }
     
     public static String keyValidation(String baseString) {
-    	 
         UUID uuid = UUID.fromString(baseString);
+        
         return uuid.toString().toUpperCase().replace('-', 'X');
     }
 }

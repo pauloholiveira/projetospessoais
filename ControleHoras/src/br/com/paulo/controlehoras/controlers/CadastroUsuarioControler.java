@@ -26,7 +26,7 @@ import br.com.paulo.controlehoras.model.Users;
 import br.com.paulo.controlehoras.model.Usuario;
 import br.com.paulo.controlehoras.model.UsuarioPK;
 import br.com.paulo.controlehoras.service.SimpleRegistrationService;
-import br.com.paulo.controlehoras.utils.GenerateValidation;
+import br.com.paulo.controlehoras.utils.GenerateUUID;
 import br.com.paulo.controlehoras.utils.LoginUtils;
 
 @Controller
@@ -80,7 +80,7 @@ public class CadastroUsuarioControler {
 		password = passwordEncoder.encode(password);
 		users.setPassword(password);
 		users.setEnabled(false);
-		users.setValidation(GenerateValidation.keyValidation(users.toString()));
+		users.setValidation(GenerateUUID.keyValidation());
         
         mail.register(usuario, request);
 		
@@ -186,8 +186,7 @@ public class CadastroUsuarioControler {
 		//é por que o email está certo.
 		if(usuario != null){
 			Users user = usuario.getUser();
-			String base_key = usuario.toString() + String.valueOf((new Date()).getTime());
-			String key = GenerateValidation.keyValidation(base_key);
+			String key = GenerateUUID.keyValidation();
 			
 			//Deve-se gravar em algum lugar no banco esta chave de redefinição.
 			user.setPw_redef(key);

@@ -146,8 +146,6 @@ public class Users implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Users [user=" + user + ", password=" + password + ", enabled="
-				+ enabled + ", validation=" + validation + ", pw_redef="
-				+ pw_redef + "]";
+		return user + validation;
 	}
 }
